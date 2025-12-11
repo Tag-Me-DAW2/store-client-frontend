@@ -1,0 +1,7 @@
+@use "../01_utilities/variables" as *;
+
+:root {
+  @each $name, $value in $fixed-widths {
+    --#{$name}: #{$value};
+  }
+}

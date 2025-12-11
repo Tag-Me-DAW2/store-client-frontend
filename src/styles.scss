@@ -1,1 +1,6 @@
-@use "src/app/scss/main" as *;
+@use "app/scss/main" as *;
+
+body {
+  min-height: 100vh;
+  background-color: var(--tgm-sys-color-white);
+}

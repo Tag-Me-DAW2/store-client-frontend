@@ -1,0 +1,72 @@
+:host {
+  // Header component variables
+  --header-height: var(--tgm-sys-height-header);
+  --header-background-color: var(--tgm-sys-color-secondary);
+  --header-color: var(--tgm-sys-color-white);
+  --header-font-family: var(--tgm-sys-font-family-primary);
+  --header-font-weight: var(--tgm-sys-font-weight-bold);
+  --header-font-size: var(--tgm-sys-font-size-medium);
+  --header-padding: 0 var(--tgm-sys-padding-xxlarge);
+
+  // Header logo variables
+  --header-logo-width: var(--tgm-sys-width-image-small);
+
+  // Header nav bar variables
+  --header-nav-bar-gap: var(--tgm-sys-gap-xxlarge);
+
+  // Header nav link variables
+  --header-nav-link-hover-color: var(--tgm-sys-color-primary);
+
+  // Header login button variables
+  --header-login-button-border-radius: var(--tgm-sys-border-radius-xlarge);
+  --header-login-button-padding: var(--tgm-sys-padding-small) var(--tgm-sys-padding-xlarge);
+}
+
+.header {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  background-color: var(--header-background-color);
+  color: var(--header-color);
+  font-family: var(--header-font-family);
+  font-weight: var(--header-font-weight);
+  font-size: var(--header-font-size);
+  padding: var(--header-padding);
+
+  &__logo {
+    width: var(--header-logo-width);
+  }
+
+  &__nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--header-nav-bar-gap);
+  }
+
+  &__nav-link {
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: var(--header-nav-link-hover-color);
+    }
+  }
+
+  &__login-button {
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: var(--header-login-button-border-radius);
+    color: var(--tgm-sys-color-secondary);
+    background-color: var(--tgm-sys-color-primary);
+    padding: var(--header-login-button-padding);
+    transition: all 0.3s ease;
+
+    &:hover {
+      border: 1px solid var(--tgm-sys-color-primary);
+      background-color: transparent;
+      color: var(--tgm-sys-color-primary);
+    }
+  }
+}

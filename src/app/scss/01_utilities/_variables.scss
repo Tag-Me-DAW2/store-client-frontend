@@ -1,0 +1,90 @@
+@use "sass:map";
+@use "sass:list";
+
+// Color Palette
+$colors: (
+  "tgm-sys-color-white": #FFFFFF,
+  "tgm-sys-color-black": #000000,
+  "tgm-sys-color-primary": #F3DE8A,
+  "tgm-sys-color-secondary": #272838,
+  "tgm-sys-color-accent": #FF5733,
+  "tgm-sys-color-background": #F9F8F8
+);
+// Font Families
+$font-families: (
+  "tgm-sys-font-family-primary": "Poppins, sans-serif",
+  "tgm-sys-font-family-secondary": "Montserrat, sans-serif"
+);
+// Font Sizes
+$font-sizes: (
+  "tgm-sys-font-size-small": 12px,
+  "tgm-sys-font-size-medium": 16px,
+  "tgm-sys-font-size-large": 20px,
+  "tgm-sys-font-size-xlarge": 24px
+);
+// Font Weights
+$font-weights: (
+  "tgm-sys-font-weight-light": 300,
+  "tgm-sys-font-weight-regular": 400,
+  "tgm-sys-font-weight-medium": 500,
+  "tgm-sys-font-weight-bold": 700,
+  "tgm-sys-font-weight-extra-bold": 800,
+  "tgm-sys-font-weight-black": 900
+);
+// Spacing
+$spacing: (
+  "tgm-sys-spacing-small": 8px,
+  "tgm-sys-spacing-medium": 16px,
+  "tgm-sys-spacing-large": 24px,
+  "tgm-sys-spacing-xlarge": 32px
+);
+// Border Radius
+$border-radius: (
+  "tgm-sys-border-radius-small": 4px,
+  "tgm-sys-border-radius-medium": 8px,
+  "tgm-sys-border-radius-large": 16px,
+  "tgm-sys-border-radius-xlarge": 32px
+);
+// Fixed Heights
+$fixed-heights: (
+  "tgm-sys-height-header": 100px,
+  "tgm-sys-height-footer": 80px
+);
+// Fixed widths
+$fixed-widths: (
+  "tgm-sys-width-image-small": 100px,
+  "tgm-sys-width-image-medium": 200px,
+  "tgm-sys-width-image-large": 400px,
+  "tgm-sys-width-sidebar": 250px,
+  "tgm-sys-width-content": 800px
+);
+// Percentages
+$percentages: (
+  "tgm-sys-percentage-25": 25%,
+  "tgm-sys-percentage-50": 50%,
+  "tgm-sys-percentage-75": 75%,
+  "tgm-sys-percentage-100": 100%
+);
+// Gaps
+$gaps: (
+  "tgm-sys-gap-small": 10px,
+  "tgm-sys-gap-medium": 20px,
+  "tgm-sys-gap-large": 30px,
+  "tgm-sys-gap-xlarge": 40px,
+  "tgm-sys-gap-xxlarge": 50px
+);
+// paddings
+$paddings: (
+  "tgm-sys-padding-small": 10px,
+  "tgm-sys-padding-medium": 20px,
+  "tgm-sys-padding-large": 30px,
+  "tgm-sys-padding-xlarge": 40px,
+  "tgm-sys-padding-xxlarge": 50px
+);
+// Margins
+$margins: (
+  "tgm-sys-margin-small": 10px,
+  "tgm-sys-margin-medium": 20px,
+  "tgm-sys-margin-large": 30px,
+  "tgm-sys-margin-xlarge": 40px
+);

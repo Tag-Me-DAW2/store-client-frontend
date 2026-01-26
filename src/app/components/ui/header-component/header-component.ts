@@ -2,8 +2,8 @@ import { Component, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter, Observable, Subscription } from 'rxjs';
 import { NgClass } from '@angular/common';
+import { UserResponse } from '../../../model/response/userResponse';
 import { AuthService } from '../../../services/auth-service';
-import { UserResponse } from '../../../model/userResponse';
 
 @Component({
   selector: 'header-component',
@@ -12,13 +12,13 @@ import { UserResponse } from '../../../model/userResponse';
   styleUrl: './header-component.scss',
 })
 export class HeaderComponent {
-  router = inject(Router);
   authService = inject(AuthService);
+  router = inject(Router);
   subscriptions: Subscription[] = [];
 
   isMenuOpen: boolean = false;
   isUserMenuOpen: boolean = false;
-  user: UserResponse = {} as UserResponse;
+  user = this.authService.user$;
   route: string = '';
 
   ngOnInit() {
@@ -42,15 +42,7 @@ export class HeaderComponent {
 
   // Function to get the user information
   loadUser() {
-    const subscription = this.authService.getUserByCurrentToken().subscribe({
-      next: (response) => {
-        this.user = response;
-      },
-      error: (error) => {
-        console.error('Error fetching user data:', error);
-      },
-    });
-    this.subscriptions.push(subscription);
+    this.authService.getUser();
   }
 
   // Function to toggle the menu visibility
@@ -64,6 +56,10 @@ export class HeaderComponent {
   }
 
   closeSession() {
+    this.authService.logout();
+  }
+
+  logout() {
     this.authService.logout();
   }
 }

@@ -13,6 +13,14 @@ export class CCoolCard {
   job!: string;
 
   ngOnInit() {
+    this.setUser();
+  }
+
+  ngOnChanges() {
+    this.setUser();
+  }
+
+  setUser() {
     this.name = this.name ?? 'Pepe';
     this.email = this.email ?? 'pepe@gmail.com';
     this.job = this.getTrabajoAleatorio();

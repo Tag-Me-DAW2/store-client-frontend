@@ -7,10 +7,7 @@ import { UserResponse } from '../../../model/userResponse';
 
 @Component({
   selector: 'header-component',
-  imports: [
-    RouterLink,
-    NgClass
-  ],
+  imports: [RouterLink, NgClass],
   templateUrl: './header-component.html',
   styleUrl: './header-component.scss',
 })
@@ -30,13 +27,13 @@ export class HeaderComponent {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   // Function to check the current route
   checkRoute() {
     const subscription = this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.route = event.urlAfterRedirects;
       });
@@ -51,7 +48,7 @@ export class HeaderComponent {
       },
       error: (error) => {
         console.error('Error fetching user data:', error);
-      }
+      },
     });
     this.subscriptions.push(subscription);
   }

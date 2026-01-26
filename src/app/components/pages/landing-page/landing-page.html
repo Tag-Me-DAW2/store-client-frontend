@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="landing__hero-right-side" motion [scale]="0.9" [opacity]="0" [delay]="100" [duration]="800">
-            <c-cool-card></c-cool-card>
+            <c-cool-card [name]="user()?.firstName" [email]="user()?.email"></c-cool-card>
         </div>
     </section>
     <section class="landing__info-container">

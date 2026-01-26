@@ -3,8 +3,8 @@
     <div class="cool-card__glowing-circle"></div>
     <div class="cool-card__info">
         <span>
-            <h3 class="cool-card__holder-name" motion [x]="-20" [opacity]="0" [delay]="500">Pepe</h3>
-            <p class="cool-card__holder-description" motion [x]="-20" [opacity]="0" [delay]="600">Mozo de almacén</p>
+            <h3 class="cool-card__holder-name" motion [x]="-20" [opacity]="0" [delay]="500">{{ name }}</h3>
+            <p class="cool-card__holder-description" motion [x]="-20" [opacity]="0" [delay]="600">{{ job }}</p>
         </span>
         <span>
             <div class="cool-card__holder-socials" motion [x]="-20" [opacity]="0" [delay]="700">
@@ -14,7 +14,7 @@
                     <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
                     <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                 </svg>
-                <span>pepe@gmail.com</span>
+                <span>{{ email }}</span>
             </div>
             <div class="cool-card__holder-socials" motion [x]="-20" [opacity]="0" [delay]="800">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -24,7 +24,7 @@
                     <rect width="4" height="12" x="2" y="9"></rect>
                     <circle cx="4" cy="4" r="2"></circle>
                 </svg>
-                <span>linkedin.com/in/pepe</span>
+                <span>linkedin.com/in/{{ name?.toLocaleLowerCase() }}</span>
             </div>
         </span>
         <div class="cool-card__pulsing-phone">

@@ -11,31 +11,32 @@
       <a class="header__nav-menu-item" routerLink="/contact" [ngClass]="route==='/contact' ? 'active' : ''">Contacto</a>
     </nav>
     <div class="header__user-options">
-      @if (user) {
+      @if (user()) {
       <div class="header__user-container">
         <a class="header__user-logo-container" (click)="toggleUserMenu()">
           <div class="header__user-image">
-            @if (user.profilePicture) {
-            <span>{{ user.profilePicture }}</span>
+            @if (!user()?.profilePicture?.includes('null')) {
+            <span>{{ user()?.profilePicture }}</span>
             } @else {
-            <span>{{ 'P' }}</span>
+            <span>{{user()?.username?.charAt(0)?.toUpperCase()}}</span>
             <!-- user.username.charAt(0).toUpperCase() -->
             }
           </div>
-          <span>{{ 'Pepe' }}</span>
+          <span>{{ user()?.username }}</span>
         </a>
-        <div class="header__user-menu" [ngClass]="{'header__user-menu--open': isUserMenuOpen, 'header__user-menu--closed': !isUserMenuOpen}">
+        <div class="header__user-menu"
+          [ngClass]="{'header__user-menu--open': isUserMenuOpen, 'header__user-menu--closed': !isUserMenuOpen}">
           <div class="header__user-menu-header">
             <div class="header__user-image  header__user-image--menu">
-              @if (user.profilePicture) {
-              <span>{{ user.profilePicture }}</span>
+              @if (!user()?.profilePicture?.includes('null')) {
+              <span>{{ user()?.profilePicture }}</span>
               } @else {
-              <span>{{ 'P' }}</span>
+              <span>{{ user()?.username?.charAt(0)?.toUpperCase() }}</span>
               <!-- user.username.charAt(0).toUpperCase() -->
               }
             </div>
             <div>
-              <p class="header__user-menu-username">{{ 'Pepe' }}</p>
+              <p class="header__user-menu-username">{{ user()?.username }}</p>
               <!-- {{ user.username }} -->
               <p class="header__user-menu-description">Cuenta activa</p>
             </div>
@@ -89,7 +90,7 @@
             </a>
           </div>
           <div class="header__user-menu-logout">
-            <a class="header__user-menu-item header__user-menu-item--logout" routerLink="/logout">
+            <button class="header__user-menu-item header__user-menu-item--logout" (click)="logout()">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="#d4183d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="lucide lucide-log-out h-4 w-4 text-destructive" aria-hidden="true">
@@ -98,12 +99,12 @@
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
               </svg>
               <span class="header__user-menu-logout-span">Cerrar sesión</span>
-            </a>
+            </button>
           </div>
         </div>
       </div>
       } @else {
-      <a class="header__user-options-item header__user-options-item--login" href="">
+      <a class="header__user-options-item header__user-options-item--login" routerLink="/login">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
           class="lucide lucide-log-in h-4 w-4 mr-2" aria-hidden="true">

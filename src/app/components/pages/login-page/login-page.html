@@ -1,0 +1,130 @@
+<div class="login">
+    <div class="login__container" motion [y]="20" [opacity]="0" [delay]="100" [duration]="800">
+        <div class="login__card">
+            <header class="login__card__header">
+                <div class="login__card__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="login__card__icon__svg" aria-hidden="true">
+                        <path
+                            d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
+                        </path>
+                    </svg>
+                </div>
+                <h2 class="login__card__title">
+                    {{createAccount ? "Crear Cuenta" : "Bienvenido"}}
+                </h2>
+                <p class="login__card__subtitle">
+                    {{createAccount ? "Únete a Tag-Me y empieza a compartir" : "Inicia sesión para continuar"}}
+                </p>
+            </header>
+            <section class="login__card__body">
+                <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+                    <div class="login__form__extra-fields" [class.open]="createAccount">
+                        <div>
+                            <div class="login__form-group">
+                                <label for="fullName" class="login__form-label">Nombre Completo</label>
+                                <div class="login__form-input">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="login__form-input__svg" aria-hidden="true">
+                                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    <input type="text" id="fullName" formControlName="fullName" placeholder="John Doe"
+                                        minlength="1" fieldError="El nombre completo es obligatorio"
+                                        [formSubmitted]="formSubmitted" />
+                                </div>
+                            </div>
+                            <div class="login__form-group">
+                                <label for="phone" class="login__form-label">Número de teléfono</label>
+                                <div class="login__form-input">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="login__form-input__svg" aria-hidden="true">
+                                        <path
+                                            d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384">
+                                        </path>
+                                    </svg>
+                                    <input type="text" id="phone" formControlName="phone" placeholder="+34 600 000 000"
+                                        fieldError="El número de teléfono es obligatorio"
+                                        [formSubmitted]="formSubmitted" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="login__form-group">
+                        <label for="email" class="login__form-label">Email</label>
+                        <div class="login__form-input">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="login__form-input__svg" aria-hidden="true">
+                                <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            </svg>
+                            <input type="email" id="email" formControlName="email" placeholder="tu@email.com"
+                                fieldError="El email es obligatorio" [formSubmitted]="formSubmitted" />
+                        </div>
+                    </div>
+                    <div class="login__form-group">
+                        <label for="password" class="login__form-label">Contraseña</label>
+                        <div class="login__form-input">
+                            <input type="password" id="password" formControlName="password" placeholder="********"
+                                fieldError="La contraseña es obligatoria" [formSubmitted]="formSubmitted" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="login__form-input__svg" aria-hidden="true">
+                                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            <button type="button" class="login__form-input__btn-eye"
+                                (click)="togglePasswordVisibility()">
+                                @if(eyeIcon) {
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="login__form-input__svg-eye" aria-hidden="true">
+                                    <path
+                                        d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49">
+                                    </path>
+                                    <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"></path>
+                                    <path
+                                        d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143">
+                                    </path>
+                                    <path d="m2 2 20 20"></path>
+                                </svg>
+                                } @else {
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="login__form-input__svg-eye" aria-hidden="true">
+                                    <path
+                                        d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0">
+                                    </path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                }
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="login__form-submit">
+                        {{ createAccount ? "Crear Cuenta" : "Iniciar Sesión" }}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="login__form-submit__svg" aria-hidden="true">
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </form>
+            </section>
+            <footer class="login__card__footer">
+                <p> {{createAccount ? "¿Ya tienes cuenta?" : "¿No tienes cuenta?"}}
+                    <button (click)="createAccountClick()">{{createAccount ? "Iniciar sesión" : "Crear
+                        Cuenta"}}</button>
+                </p>
+            </footer>
+        </div>
+        <p class="login__terms">
+            Al continuar, aceptas nuestros Términos y Privacidad.
+        </p>
+    </div>
+</div>

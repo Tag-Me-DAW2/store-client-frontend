@@ -1,0 +1,95 @@
+<div class="landing">
+    <section class="landing__hero">
+        <div class="landing__hero-left-side" motion [y]="20" [opacity]="0" [delay]="100" [duration]="800">
+            <div c-badge variant="primary" size="medium" class="landing__hero-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-sparkles h-4 w-4 text-accent-foreground" aria-hidden="true">
+                    <path
+                        d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z">
+                    </path>
+                    <path d="M20 2v4"></path>
+                    <path d="M22 4h-4"></path>
+                    <circle cx="4" cy="20" r="2"></circle>
+                </svg>
+                <span class="c-badge__text">El futuro del networking profesional</span>
+            </div>
+            <h1 class="landing__hero-main-title">
+                Tu portfolio<br>en un toque
+            </h1>
+            <p class="landing__hero-subtitle">
+                Comparte tu información profesional al instante con tecnología NFC. Moderno, sostenible y memorable.
+            </p>
+            <div class="landing__hero-actions">
+                <a color="primary" class="landing__hero-button">
+                    Explorar productos
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-arrow-right ml-2 h-5 w-5" aria-hidden="true">
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                </a>
+                <a color="primary" class="landing__hero-button landing__hero-button--secondary">
+                    Como funciona
+                </a>
+            </div>
+        </div>
+        <div class="landing__hero-right-side" motion [scale]="0.9" [opacity]="0" [delay]="100" [duration]="800">
+            <c-cool-card></c-cool-card>
+        </div>
+    </section>
+    <section class="landing__info-container">
+        <feature-section [imagePosition]="'right'" [imageUrl]="'assets/photo1.jpg'"
+            [title]="'Instantáneo y sin esfuerzo'" [butonContent]="'Ver Productos'" [routeLink]="['/products']">
+            Un simple toque y tu contacto está guardado. Sin apps, sin complicaciones. La tecnología NFC hace que
+            compartir tu información sea tan natural como un apretón de manos.
+        </feature-section>
+        <feature-section [imagePosition]="'left'" [imageUrl]="'assets/photo2.jpg'" [title]="'Siempre actualizado'"
+            [butonContent]="'Conoce la Tecnología'" [routeLink]="['/technology']">
+            Cambia tu información cuando quieras desde nuestro panel. Tu tarjeta siempre estará actualizada sin
+            necesidad de reimprimirla. Una inversión que perdura.
+        </feature-section>
+    </section>
+    <section class="landing__stats-page">
+        <div class="landing__stats-page-main-content">
+            <div class="landing__stats-page-header" motion [y]="-20" [opacity]="0" [delay]="100" [duration]="600">
+                <h2 class="landing__stats-page-title">Únete a la revolución digital</h2>
+                <p class="landing__stats-page-subtitle">Miles de profesionales ya confían en NFC Pro</p>
+            </div>
+            <div class="landing__stats-page-body" motion [y]="20" [opacity]="0" [delay]="100" [duration]="600">
+                <div class="landing__stats-page-stat">
+                    <h1 class="landing__stats-page-quantity">10K+</h1>
+                    <p class="landing__stats-page-description">Clientes satisfechos</p>
+                </div>
+                <div class="landing__stats-page-stat">
+                    <h1 class="landing__stats-page-quantity">50k+</h1>
+                    <p>Contactos compartidos</p>
+                </div>
+                <div class="landing__stats-page-stat">
+                    <h1 class="landing__stats-page-quantity">98%</h1>
+                    <p>Recomendación</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="landing__products-section" motion [x]="-20" [opacity]="0" [delay]="100" [duration]="600">
+        <div class="landing__products-section-content">
+            <h2 class="landing__products-section-title">Comienza hoy</h2>
+            <p class="landing__products-section-subtitle">Elige la tarjeta perfecta para ti y empieza a compartir tu
+                información de forma profesional</p>
+            <a routerLink="/products" class="landing__products-section-button">
+                <span>Ver Todos los Productos</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-arrow-right ml-2 h-5 w-5" aria-hidden="true">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+    </section>
+    <div class="landing__footer-wrapper">
+        <c-footer></c-footer>
+    </div>
+</div>

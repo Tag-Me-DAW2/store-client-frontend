@@ -1,0 +1,23 @@
+<div class="feature-section">
+    <span motion [x]="textMotionX" [opacity]="0" [delay]="100" [duration]="600">
+        <h2 class="feature-section__header-title">{{ title }}</h2>
+        <p class="feature-section__description">
+            <ng-content></ng-content>
+        </p>
+        <a class="feature-section__button" [routerLink]="routeLink">
+            {{ butonContent }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-arrow-right ml-2 h-5 w-5" aria-hidden="true">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+            </svg>
+        </a>
+    </span>
+    <div class="feature-section__image-container"
+        [ngClass]="{'--left' : imagePosition === 'left', '--right': imagePosition === 'right'}"
+        motion [x]="motionX" [opacity]="0" [delay]="100" [duration]="600"
+        >
+        <img [src]="imageUrl" alt="image-info">
+    </div>
+</div>

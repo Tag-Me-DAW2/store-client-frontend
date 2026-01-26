@@ -1,0 +1,263 @@
+.landing {
+    overflow: hidden;
+    background-image: linear-gradient(color-mix(in oklab, #e8e7e7 20%, transparent));
+
+    &__hero {
+        position: relative;
+        max-width: 80rem;
+        min-height: 90vh;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: center;
+        overflow: hidden;
+        gap: calc(.25rem * 12);
+        margin-inline: auto;
+        padding: calc(.25rem * 20) calc(.25rem * 8);
+    }
+
+    &__hero-left-side {
+        text-align: left;
+    }
+
+    &__hero-badge {
+        padding: calc(.25rem * 2) calc(.25rem * 4);
+
+        >svg {
+            color: #272838;
+            height: calc(.25rem * 4);
+            width: calc(.25rem * 4);
+        }
+
+        >span {
+            color: #272838;
+            font-size: .875rem;
+            line-height: calc(1.25 / .875);
+        }
+    }
+
+    &__hero-main-title {
+        color: #272838;
+        font-size: 4.5rem;
+        line-height: 1;
+        margin-bottom: calc(.25rem * 6);
+        letter-spacing: -.025em;
+    }
+
+    &__hero-subtitle {
+        max-width: 48rem;
+        font-size: 1.5rem;
+        line-height: calc(2 / 1.5);
+        color: #5a5c6d;
+        margin-inline: calc(.25rem * 0);
+        margin-bottom: calc(.25rem * 12);
+    }
+
+    &__hero-actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: calc(.25rem * 4);
+    }
+
+    &__hero-button {
+        cursor: pointer;
+        height: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #f9f8f8;
+        background-color: #272838;
+        font-size: 1.125rem;
+        font-weight: 500;
+        line-height: calc(1.75 / 1.125);
+        white-space: nowrap;
+        border-radius: calc(.625rem - 2px);
+        gap: calc(.25rem * 2);
+        padding: calc(.25rem * 6) calc(.25rem * 4);
+        transition: all .15s cubic-bezier(.4, 0, .2, 1);
+
+        &:hover {
+            background-color: color-mix(in oklab, #272838 90%, transparent);
+            ;
+        }
+
+        >svg {
+            height: calc(.25rem * 4);
+            width: calc(.25rem * 4);
+            margin-left: .25rem * 2;
+        }
+
+        &--secondary {
+            color: #272838;
+            background-color: #f9f8f8;
+            border: 2px solid #2728381a;
+            padding: calc(.25rem * 6) calc(.25rem * 8);
+
+            &:hover {
+                background-color: color-mix(in oklab, #f3de8a 90%, transparent);
+            }
+        }
+    }
+
+    &__hero-right-side {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+        transform: none;
+    }
+
+    &__info-container {
+        padding-block: calc(.25rem * 32);
+        background-color: #f9f8f8;
+    }
+
+    &__stats-page {
+        color: #f9f8f8;
+        background-color: #272838;
+        padding-block: calc(.25rem * 25);
+    }
+
+    &__stats-page-main-content {
+        max-width: 80rem;
+        margin-inline: auto;
+        padding-inline: calc(.25rem * 8);
+    }
+
+    &__stats-page-header {
+        text-align: center;
+        margin-bottom: calc(.25rem * 20);
+    }
+
+    &__stats-page-title {
+        font-size: 3rem;
+        line-height: 1;
+        letter-spacing: -.025em;
+        margin-bottom: calc(.25rem * 6);
+    }
+
+    &__stats-page-subtitle {
+        color: color-mix(in oklab, #f9f8f8 80%, transparent);
+        max-width: 42rem;
+        font-size: 1.25rem;
+        line-height: calc(1.75 / 1.25);
+        margin-inline: auto;
+    }
+
+    &__stats-page-body {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: calc(.25rem * 12);
+    }
+
+    &__stats-page-stat {
+        text-align: center;
+    }
+
+    &__stats-page-quantity {
+        color: #f3de8a;
+        font-size: 3.75rem;
+        line-height: 1;
+        margin-bottom: calc(.25rem * 4);
+    }
+
+    &__stats-page-description {
+        font-size: 1.25rem;
+        line-height: calc(1.75 / 1.25);
+        color: color-mix(in oklab, #f9f8f8 80%, transparent);
+    }
+
+    &__products-section {
+        padding-block: calc(.25rem * 32);
+        background-color: #f9f8f8;
+    }
+
+    &__products-section-content {
+        max-width: 56rem;
+        text-align: center;
+        margin-inline: auto;
+        padding-inline: calc(.25rem * 8);
+    }
+
+    &__products-section-title {
+        font-size: 3rem;
+        line-height: 1;
+        letter-spacing: -.025em;
+        margin-bottom: calc(.25rem * 6);
+    }
+
+    &__products-section-subtitle {
+        color: #5a5c6d;
+        max-width: 42rem;
+        font-size: 1.25rem;
+        line-height: 1.625;
+        margin-inline: auto;
+        margin-bottom: calc(.25rem * 12);
+    }
+
+    &__products-section-button {
+        height: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #f9f8f8;
+        background-color: #272838;
+        border-radius: calc(.625rem - 2px);
+        white-space: nowrap;
+        font-size: 1.125rem;
+        line-height: calc(1.75 / 1.125);
+        gap: calc(.25rem * 2);
+        padding: calc(.25rem * 6) calc(.25rem * 4);
+        transition: all .15s cubic-bezier(.4, 0, .2, 1);
+
+        >svg {
+            height: calc(.25rem * 4);
+            width: calc(.25rem * 4);
+            margin-left: .25rem * 2;
+        }
+
+        &:hover {
+            background-color: color-mix(in oklab, #272838 90%, transparent);
+        }
+    }
+
+    &__footer-wrapper {
+        padding-block: calc(.25rem * 16);
+        background-color: color-mix(in oklab, #e8e7e7 30%, transparent);
+
+    }
+
+    @media (width < 64rem) {
+        &__hero {
+            grid-template-columns: minmax(0, 1fr);
+            justify-content: center;
+        }
+
+        &__hero-left-side {
+            text-align: center;
+        }
+
+        &__hero-subtitle {
+            margin-inline: auto;
+        }
+
+        &__hero-actions {
+            justify-content: center;
+        }
+    }
+
+    @media (width < 40rem) {
+        &__hero-main-title {
+            font-size: 3rem;
+        }
+
+        &__hero-subtitle {
+            font-size: 1.25rem;
+        }
+
+        &__hero-actions {
+            flex-direction: column;
+        }
+    }
+}

@@ -6,9 +6,13 @@ $colors: (
   "tgm-sys-color-white": #FFFFFF,
   "tgm-sys-color-black": #000000,
   "tgm-sys-color-primary": #F3DE8A,
+  "tgm-sys-color-primary-light": #f3de8a32,
   "tgm-sys-color-secondary": #272838,
   "tgm-sys-color-accent": #FF5733,
-  "tgm-sys-color-background": #F9F8F8
+  "tgm-sys-color-background": #F9F8F8,
+  "tgm-sys-color-success": #22c55e,
+  "tgm-sys-color-warning": #fb923c,
+  "tgm-sys-color-danger": #ef4444
 );
 // Font Families
 $font-families: (
@@ -17,46 +21,48 @@ $font-families: (
 );
 // Font Sizes
 $font-sizes: (
-  "tgm-sys-font-size-small": 12px,
-  "tgm-sys-font-size-medium": 16px,
-  "tgm-sys-font-size-large": 20px,
-  "tgm-sys-font-size-xlarge": 24px
+  "tgm-sys-font-size-12": 12px,
+  "tgm-sys-font-size-14": 14px,
+  "tgm-sys-font-size-16": 16px,
+  "tgm-sys-font-size-20": 20px,
+  "tgm-sys-font-size-24": 24px
 );
 // Font Weights
 $font-weights: (
-  "tgm-sys-font-weight-light": 300,
-  "tgm-sys-font-weight-regular": 400,
-  "tgm-sys-font-weight-medium": 500,
-  "tgm-sys-font-weight-bold": 700,
-  "tgm-sys-font-weight-extra-bold": 800,
-  "tgm-sys-font-weight-black": 900
+  "tgm-sys-font-weight-300": 300,
+  "tgm-sys-font-weight-400": 400,
+  "tgm-sys-font-weight-500": 500,
+  "tgm-sys-font-weight-700": 700,
+  "tgm-sys-font-weight-800": 800,
+  "tgm-sys-font-weight-900": 900
 );
 // Spacing
 $spacing: (
-  "tgm-sys-spacing-small": 8px,
-  "tgm-sys-spacing-medium": 16px,
-  "tgm-sys-spacing-large": 24px,
-  "tgm-sys-spacing-xlarge": 32px
+  "tgm-sys-spacing-8": 8px,
+  "tgm-sys-spacing-16": 16px,
+  "tgm-sys-spacing-24": 24px,
+  "tgm-sys-spacing-32": 32px
 );
 // Border Radius
 $border-radius: (
-  "tgm-sys-border-radius-small": 4px,
-  "tgm-sys-border-radius-medium": 8px,
-  "tgm-sys-border-radius-large": 16px,
-  "tgm-sys-border-radius-xlarge": 32px
+  "tgm-sys-border-radius-4": 4px,
+  "tgm-sys-border-radius-8": 8px,
+  "tgm-sys-border-radius-16": 16px,
+  "tgm-sys-border-radius-32": 32px,
+  "tgm-sys-border-radius-full": 9999px
 );
 // Fixed Heights
 $fixed-heights: (
-  "tgm-sys-height-header": 100px,
-  "tgm-sys-height-footer": 80px
+  "tgm-sys-height-100": 100px,
+  "tgm-sys-height-80": 80px
 );
 // Fixed widths
 $fixed-widths: (
-  "tgm-sys-width-image-small": 100px,
-  "tgm-sys-width-image-medium": 200px,
-  "tgm-sys-width-image-large": 400px,
-  "tgm-sys-width-sidebar": 250px,
-  "tgm-sys-width-content": 800px
+  "tgm-sys-width-image-100": 100px,
+  "tgm-sys-width-image-200": 200px,
+  "tgm-sys-width-250": 250px,
+  "tgm-sys-width-image-400": 400px,
+  "tgm-sys-width-800": 800px
 );
 // Percentages
 $percentages: (
@@ -67,24 +73,39 @@ $percentages: (
 );
 // Gaps
 $gaps: (
-  "tgm-sys-gap-small": 10px,
-  "tgm-sys-gap-medium": 20px,
-  "tgm-sys-gap-large": 30px,
-  "tgm-sys-gap-xlarge": 40px,
-  "tgm-sys-gap-xxlarge": 50px
+  "tgm-sys-gap-4": 4px,
+  "tgm-sys-gap-10": 10px,
+  "tgm-sys-gap-20": 20px,
+  "tgm-sys-gap-30": 30px,
+  "tgm-sys-gap-40": 40px,
+  "tgm-sys-gap-50": 50px
 );
 // paddings
 $paddings: (
-  "tgm-sys-padding-small": 10px,
-  "tgm-sys-padding-medium": 20px,
-  "tgm-sys-padding-large": 30px,
-  "tgm-sys-padding-xlarge": 40px,
-  "tgm-sys-padding-xxlarge": 50px
+  "tgm-sys-padding-4": 4px,
+  "tgm-sys-padding-8": 8px,
+  "tgm-sys-padding-10": 10px,
+  "tgm-sys-padding-12": 12px,
+  "tgm-sys-padding-20": 20px,
+  "tgm-sys-padding-30": 30px,
+  "tgm-sys-padding-40": 40px,
+  "tgm-sys-padding-50": 50px
 );
 // Margins
 $margins: (
-  "tgm-sys-margin-small": 10px,
-  "tgm-sys-margin-medium": 20px,
-  "tgm-sys-margin-large": 30px,
-  "tgm-sys-margin-xlarge": 40px
+  "tgm-sys-margin-10": 10px,
+  "tgm-sys-margin-20": 20px,
+  "tgm-sys-margin-30": 30px,
+  "tgm-sys-margin-40": 40px
+);
+// Icon Sizes
+$icon-sizes: (
+  "tgm-sys-icon-size-14": 14px,
+  "tgm-sys-icon-size-16": 16px,
+  "tgm-sys-icon-size-18": 18px
+);
+
+$opacities: (
+  "tgm-sys-opacity-light": 0.1,
+  "tgm-sys-opacity-medium": 0.2
 );

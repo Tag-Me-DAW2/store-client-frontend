@@ -1,0 +1,51 @@
+.footer {
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: calc(.25rem * 8);
+
+    &__links {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: calc(.25rem * 12);
+        margin-bottom: calc(.25rem * 12);
+    }
+
+    &__links-title {
+        margin-bottom: calc(.25rem * 4);
+
+        &--secondary {
+            font-size: .875rem;
+            line-height: calc(1.25 / .875);
+        }
+    }
+
+    &__links-list {
+        color: #272838;
+        font-size: .875rem;
+        line-height: calc(1.25 / .875);
+
+        >*+* {
+            margin-top: calc(.25rem * 3);
+        }
+    }
+
+    &__links-description {
+        cursor: pointer;
+        color: #5a5c6d;
+        font-size: .875rem;
+        line-height: 1.625;
+
+        &:hover {
+            color: #272838;
+        }
+    }
+
+    &__rights {
+        color: #5a5c6d;
+        font-size: .875rem;
+        line-height: calc(1.25 / .875);
+        text-align: center;
+        padding-top: calc(.25rem * 8);
+        border-top: 1px solid color-mix(in oklab, #2728381a 50%, transparent);
+    }
+}

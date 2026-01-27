@@ -1,0 +1,83 @@
+.pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: calc(.25rem * 3);
+    margin-top: calc(.25rem * 16);
+
+    &__arrow-button {
+        cursor: pointer;
+        height: calc(.25rem * 11);
+        width: calc(.25rem * 11);
+        color: #272838;
+        background-color: #f9f8f8;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        font-size: .875rem;
+        font-weight: 500;
+        line-height: calc(1.25 / .875);
+        border: 2px solid #2728381a;
+        border-radius: 3.40282e38px;
+        white-space: nowrap;
+        gap: calc(.25rem * 2);
+        padding-inline: calc(.25rem * 2);
+        transition: all .15s cubic-bezier(.4, 0, .2, 1);
+
+        >svg {
+            height: calc(.25rem * 4);
+            width: calc(.25rem * 4);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.3;
+        }
+
+        &:hover {
+            color: #272838;
+            background-color: #f3de8a;
+        }
+    }
+
+    &__pages-wrapper {
+        display: flex;
+        align-items: center;
+        gap: calc(.25rem * 2);
+        padding-inline: calc(.25rem * 4);
+    }
+
+    &__page-number {
+        cursor: pointer;
+        height: calc(.25rem * 11);
+        width: calc(.25rem * 11);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #272838;
+        background-color: #f9f8f8;
+        border: 2px solid #2728381a;
+        border-radius: 3.40282e38px;
+        font-size: .875rem;
+        font-weight: 500;
+        line-height: calc(1.25 / .875);
+        white-space: nowrap;
+        gap: calc(.25rem * 2);
+        padding: calc(.25rem * 0);
+        transition: all .15s cubic-bezier(.4, 0, .2, 1);
+
+        &.--active {
+            background-color: #272838;
+            color: #f9f8f8;
+            box-shadow: 0 10px 15px -3px color-mix(in oklab, color-mix(in oklab, #272838 30%, transparent) 100%, transparent), 0 4px 6px -4px color-mix(in oklab, color-mix(in oklab, #272838 30%, transparent) 100%, transparent);
+        }
+
+        &:not(.--active):hover {
+            background-color: var(--tgm-sys-color-background-secondary);
+            transform: scale(1.05);
+        }
+    }
+}

@@ -49,23 +49,33 @@ export class MotionDirective implements AfterViewInit, OnDestroy {
 
     this.observer.observe(el);
 
-    // Extra: si ya está visible al cargar, animar inmediatamente
-    const rect = el.getBoundingClientRect();
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    if (rect.top < vh && rect.bottom > 0) {
-      this.animate();
-      this.observer.disconnect();
-    }
+    // Extra: si ya está visible al cargar, animar con delay
+    setTimeout(() => {
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.top < vh && rect.bottom > 0) {
+        this.animate();
+        this.observer.disconnect();
+      }
+    }, 0);
   }
 
   private animate() {
     const el = this.el.nativeElement;
 
     requestAnimationFrame(() => {
-      el.style.transition = `
-        opacity ${this.duration}ms ${this.easing} ${this.delay}ms,
-        transform ${this.duration}ms ${this.easing} ${this.delay}ms
-      `;
+      // Obtener la transición existente del elemento
+      const existingTransition = window.getComputedStyle(el).transition;
+      const hasExistingTransition = existingTransition && existingTransition !== 'all 0s ease 0s';
+      
+      // Construir la nueva transición preservando la existente
+      const motionTransition = `opacity ${this.duration}ms ${this.easing} ${this.delay}ms, transform ${this.duration}ms ${this.easing} ${this.delay}ms`;
+      
+      if (hasExistingTransition && existingTransition !== 'none') {
+        el.style.transition = `${existingTransition}, ${motionTransition}`;
+      } else {
+        el.style.transition = motionTransition;
+      }
 
       /* ESTADO FINAL */
       el.style.opacity = '1';

@@ -1,4 +1,4 @@
-import {CategoryModel} from './CategoryModel';
+import {CategoryResponse} from './CategoryResponse';
 
 export interface ProductDetailModel {
   id: number,
@@ -8,5 +8,5 @@ export interface ProductDetailModel {
   discountPercentage: number,
   price: number,
   image: string,
-  category: CategoryModel
+  category: CategoryResponse
 }

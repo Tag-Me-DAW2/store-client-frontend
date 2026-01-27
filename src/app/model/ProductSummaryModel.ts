@@ -1,7 +1,10 @@
-import {CategoryModel} from './CategoryModel';
+import {CategoryResponse} from './CategoryResponse';
 
 export interface ProductSummaryModel {
-  id: number,
-  name: string,
-  category: CategoryModel
+  id: number;
+  name: string;
+  discountPercentage: number;
+  price: number;
+  image: string;
+  category: CategoryResponse;
 }

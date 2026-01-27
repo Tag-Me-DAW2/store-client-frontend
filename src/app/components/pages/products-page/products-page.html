@@ -1,0 +1,233 @@
+<div class="products-page">
+    <div class="products-page__header-wrapper">
+        <div class="products-page__header-content" motion [y]="20" [opacity]="0" [duration]="600">
+            <h1 class="products-page__title">Nuestros Productos</h1>
+            <p class="products-page__subtitle">Encuentra la solución perfecta para compartir tu portfolio profesional
+            </p>
+        </div>
+    </div>
+    <div class="products-page__search-bar-wrapper">
+        <div class="products-page__search-bar-content">
+            <div class="products-page__search-bar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-search absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground"
+                    aria-hidden="true">
+                    <path d="m21 21-4.34-4.34"></path>
+                    <circle cx="11" cy="11" r="8"></circle>
+                </svg>
+                <input type="text" class="products-page__search-input" placeholder="Buscar productos..."
+                    [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()">
+            </div>
+            <div class="products-page__custom-select">
+                <button class="products-page__custom-select-trigger" (click)="toggleDropdown()"
+                    [attr.aria-expanded]="isDropdownOpen">
+                    <span class="products-page__custom-select-value">{{ ProductSortLabels[sortOptions] }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="products-page__custom-select-icon" [class.rotated]="isDropdownOpen" aria-hidden="true">
+                        <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                </button>
+                <div class="products-page__custom-select-content" [class.open]="isDropdownOpen">
+                    @for (option of sortOptionsArray; track option) {
+                    <div class="products-page__custom-select-item" [class.selected]="sortOptions === option"
+                        (click)="onSortChange(option)">
+                        <span class="products-page__custom-select-check">
+                            @if (sortOptions === option) {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="products-page__custom-select-check-icon">
+                                <path d="M20 6 9 17l-5-5"></path>
+                            </svg>
+                            }
+                        </span>
+                        <span class="products-page__custom-select-item-text">{{ ProductSortLabels[option] }}</span>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="products-page__wrapper">
+        <div class="products-page__content">
+            <aside class="products-page__sidebar-wrapper">
+                <div class="products-page__sidebar-content">
+                    <h3 class="products-page__sidebar-header">Filtros</h3>
+                    <div class="products-page__sidebar-body">
+                        <div>
+                            <label class="products-page__sidebar-section-title">Categoría</label>
+                            @if (isLoadingCategories) {
+                            <div class="products-page__sidebar-section-grid">
+                                @for (item of [1,2,3,4]; track item) {
+                                <div class="products-page__sidebar-section-grid-item skeleton-loader" style="height: 36px; cursor: wait;"></div>
+                                }
+                            </div>
+                            } @else {
+                            <div class="products-page__sidebar-section-grid">
+                                <button class="products-page__sidebar-section-grid-item"
+                                    [class.selected]="selectedCategory === null" (click)="selectCategory(null)">
+                                    Todos
+                                </button>
+                                @for (category of categoriesOptionsArray; track category.id) {
+                                <button class="products-page__sidebar-section-grid-item"
+                                    [class.selected]="isCategorySelected(category.id)"
+                                    (click)="selectCategory(category.id)">
+                                    {{ category.name }}
+                                </button>
+                                }
+                            </div>
+                            }
+                        </div>
+                        <div>
+                            <label class="products-page__sidebar-section-title">Material</label>
+                            <div class="products-page__sidebar-section-grid">
+                                <button class="products-page__sidebar-section-grid-item"
+                                    [class.selected]="isMaterialSelected(null)" (click)="selectMaterial(null)">
+                                    Todos
+                                </button>
+                                @for (material of materialOptionsArray; track material) {
+                                <button class="products-page__sidebar-section-grid-item"
+                                    [class.selected]="isMaterialSelected(material)" (click)="selectMaterial(material)">
+                                    {{ material }}
+                                </button>
+                                }
+                            </div>
+                        </div>
+                        <div>
+                            <label class="products-page__sidebar-section-title">
+                                Rango de Precio: ${{ priceRange.min }} - ${{ priceRange.max }}
+                            </label>
+                            <span class="products-page__price-range-container">
+                                <div class="products-page__price-range-track"></div>
+                                <div class="products-page__price-range-selected"
+                                    [style.left.%]="(priceRange.min / 300) * 100"
+                                    [style.width.%]="((priceRange.max - priceRange.min) / 300) * 100"></div>
+                                <input type="range"
+                                    class="products-page__price-range-slider products-page__price-range-slider--min"
+                                    [min]="0" [max]="300" [(ngModel)]="priceRange.min"
+                                    (change)="onMinPriceChange($event)">
+                                <input type="range"
+                                    class="products-page__price-range-slider products-page__price-range-slider--max"
+                                    [min]="0" [max]="300" [(ngModel)]="priceRange.max"
+                                    (change)="onMaxPriceChange($event)">
+                            </span>
+                            <div class="products-page__sidebar-price-options-label">
+                                <span>0€</span>
+                                <span>300€</span>
+                            </div>
+                        </div>
+                        @if (hasActiveFilters) {
+                        <button class="products-page__sidebar-clear-filters-button" (click)="clearFilters()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-x h-4 w-4 mr-2" aria-hidden="true">
+                                <path d="M18 6 6 18"></path>
+                                <path d="m6 6 12 12"></path>
+                            </svg>
+                            <span>Limpiar Filtros</span>
+                        </button>
+                        }
+                    </div>
+                </div>
+            </aside>
+            <div class="products-page__products-container">
+                <div class="products-page__products-header">
+                    <p class="products-page__products-page-info">
+                        @if (!isLoadingProducts && products.data) {
+                        Mostrando {{ (products.pageNumber - 1) * products.pageSize + 1 }} - {{ products.pageNumber *
+                        products.pageSize }} de {{ products.totalElements }} productos
+                        } @else {
+                        Cargando productos...
+                        }
+                    </p>
+                </div>
+                @if (isLoadingProducts) {
+                <div class="products-page__products-grid">
+                    @for (item of [1,2,3,4,5,6]; track item) {
+                    <div class="products-page__product-card skeleton-loading">
+                        <div class="products-page__product-card-content">
+                            <div class="products-page__product-card-image skeleton-loader" style="height: 200px;"></div>
+                            <div class="products-page__product-card-details">
+                                <div class="skeleton-loader" style="height: 16px; width: 60%; margin-bottom: 8px;"></div>
+                                <div class="skeleton-loader" style="height: 20px; width: 80%; margin-bottom: 8px;"></div>
+                                <div class="skeleton-loader" style="height: 18px; width: 40%;"></div>
+                            </div>
+                        </div>
+                        <div class="products-page__product-card-button">
+                            <div class="skeleton-loader" style="height: 40px;"></div>
+                        </div>
+                    </div>
+                    }
+                </div>
+                } @else if (products.data && products.data.length > 0) {
+                <div class="products-page__products-grid" motion [opacity]="0" [duration]="500">
+                    @for (product of products.data; track product.id; let i = $index) {
+                    <div class="products-page__product-card" motion [y]="20" [opacity]="0" [delay]="i * 50" [duration]="500">
+                        <div class="products-page__product-card-content">
+                            <div class="products-page__product-card-image">
+                                <img [src]="product.image" alt="">
+                                @if (product.discountPercentage) {
+                                <span class="products-page__product-card-label products-page__product-card-label--left">{{ product.discountPercentage }}%</span>
+                                }
+                                @if (sortOptions === ProductSortLabels.MOST_POPULAR) {
+                                <span class="products-page__product-card-label products-page__product-card-label--right">Popular</span>
+                                }
+                            </div>
+                            <div class="products-page__product-card-details">
+                                <div class="products-page__product-card-category">{{ product.category.name }}</div>
+                                <h3 class="products-page__product-card-title">{{ product.name }}</h3>
+                                <!-- <p class="products-page__product-card-description">{{ product.description }}</p> -->
+                                <span class="products-page__product-card-price">{{ product.price | currency }}</span>
+                            </div>
+                        </div>
+                        <div class="products-page__product-card-button">
+                            <a class="products-page__product-card-cart-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-plus h-4 w-4 mr-2" aria-hidden="true">
+                                    <path d="M5 12h14"></path>
+                                    <path d="M12 5v14"></path>
+                                </svg>
+                                <span>Añadir al carrito</span>
+                            </a>
+                        </div>
+                    </div>
+                    }
+                </div>
+                } @else {
+                <div class="products-page__no-products-message-container">
+                    <div class="products-page__lens-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-search h-10 w-10 text-muted-foreground" aria-hidden="true">
+                            <path d="m21 21-4.34-4.34"></path>
+                            <circle cx="11" cy="11" r="8"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="products-page__no-products-title">No se encontraron productos</h3>
+                    <p class="products-page__no-products-subtitle">Intenta ajustar los filtros o la búsqueda</p>
+                    <button
+                        class="products-page__sidebar-clear-filters-button products-page__sidebar-clear-filters-button--fit-content"
+                        (click)="clearFilters()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-x h-4 w-4 mr-2" aria-hidden="true">
+                            <path d="M18 6 6 18"></path>
+                            <path d="m6 6 12 12"></path>
+                        </svg>
+                        <span>Limpiar Filtros</span>
+                    </button>
+                </div>
+                }
+                @if (!isLoadingProducts) {
+                <div class="products-page__products-pagination" motion [y]="20" [opacity]="0" [duration]="500">
+                    <app-pagination-component [currentPageNumber]="products.pageNumber" [totalPages]="products.totalPages"
+                        (pageChange)="onPageChange($event)"></app-pagination-component>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    <button class="products-page__footer"></button>
+</div>

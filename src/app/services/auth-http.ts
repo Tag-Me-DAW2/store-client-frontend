@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { UserResponse } from '../model/response/userResponse';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../model/request/LoginRequest';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { LoginRequest } from '../model/request/LoginRequest';
 export class AuthHttp {
   HttpClient = inject(HttpClient);
   route = inject(Router);
-  apiUrl = 'http://localhost:8080/auth';
+  apiUrl = environment.apiUrl + '/auth';
 
   // Borrar
   getUserByCurrentToken(): Observable<UserResponse> {

@@ -5,12 +5,13 @@ import {Observable} from 'rxjs';
 import {ProductDetailModel} from '../model/ProductDetailModel';
 import {PageInterface} from '../model/PageInterface';
 import {ProductFilterParams, ProductSort} from '../model/ProductFilterModel';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: "root"
 })
 export class ProductService {
-  url: string = 'http://localhost:8080/products';
+  url: string = environment.apiUrl + '/products';
 
   constructor(private httpClient: HttpClient) {
   }

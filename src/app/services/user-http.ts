@@ -3,13 +3,14 @@ import { inject, Injectable } from '@angular/core';
 import { UserResponse } from '../model/response/userResponse';
 import { UserInsertRequest } from '../model/request/UserInsertRequest';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserHttp {
   httpClient = inject(HttpClient);
-  apiUrl = 'http://localhost:8080/users';
+  apiUrl = environment.apiUrl + '/users';
 
   createUser(user: UserInsertRequest): Observable<UserResponse> {
     return this.httpClient.post<UserResponse>(`${this.apiUrl}/customer`, user);

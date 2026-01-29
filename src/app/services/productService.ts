@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {ProductDetailModel} from '../model/ProductDetailModel';
 import {PageInterface} from '../model/PageInterface';
 import {ProductFilterParams, ProductSort} from '../model/ProductFilterModel';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: "root"

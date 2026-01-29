@@ -23,7 +23,6 @@ export class AuthService {
     return this.authHttp.login(loginRequest).pipe(
       tap((response: { token: string }) => {
         localStorage.setItem('authToken', response.token);
-        console.log('Token stored in localStorage' + response.token);
         this.getUser();
       }),
     );

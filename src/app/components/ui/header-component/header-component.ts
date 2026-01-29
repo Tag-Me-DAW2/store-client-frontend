@@ -19,6 +19,7 @@ export class HeaderComponent {
   isMenuOpen: boolean = false;
   isUserMenuOpen: boolean = false;
   user = this.authService.user$;
+  profilePictureUrl: string | null = null;
   route: string = '';
 
   ngOnInit() {

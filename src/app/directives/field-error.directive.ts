@@ -51,7 +51,13 @@ export class FieldErrorDirective implements OnDestroy, OnChanges, OnInit {
 
     if (!control) return false;
 
+    // Mostrar errores si el formulario fue enviado y es inválido
     if (this.formSubmitted && control.invalid) {
+      return true;
+    }
+
+    // Mostrar errores si el campo ha sido tocado o modificado y es inválido
+    if ((control.touched || control.dirty) && control.invalid) {
       return true;
     }
 
@@ -69,6 +75,7 @@ export class FieldErrorDirective implements OnDestroy, OnChanges, OnInit {
       return 'Por favor ingresa tu nombre y apellido separados por un espacio';
     if (errors['telefonoInvalido'])
       return 'El número de teléfono debe comenzar con + seguido del código de país y contener entre 8 y 15 dígitos';
+    if (errors['passwordMismatch']) return 'Las contraseñas no coinciden';
 
     return this.fieldError;
   }

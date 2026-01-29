@@ -63,4 +63,64 @@ export class UserService {
       },
     });
   }
+
+  updateUser(
+    user: UserResponse,
+    previewUrl: string | null,
+    previewFileName: string | null,
+  ): void {
+    const userUpdateRequest = {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phone: user.phone,
+      profilePicture: user.profilePicture || previewUrl || '0x00',
+      profilePictureName: user.profilePictureName || previewFileName || '0x00',
+      role: user.role,
+    };
+
+    this.userHttp.updateUser(userUpdateRequest).subscribe({
+      next: (updatedUser: UserResponse) => {
+        this.alertService.success({
+          title: 'Usuario actualizado',
+          text: `El usuario ${updatedUser.username} ha sido actualizado exitosamente.`,
+        });
+        this.authService.getUser();
+      },
+      error: (error) => {
+        this.alertService.error({
+          title: 'Error al actualizar el usuario',
+          text: error.error?.message || 'Ha ocurrido un error inesperado.',
+        });
+      },
+    });
+  }
+
+  updateUserPassword(
+    newPassword: string,
+    newPasswordConfirmation: string,
+    userId: number,
+  ): void {
+    const passwordRequest = {
+      newPassword,
+      newPasswordConfirmation,
+    };
+
+    this.userHttp.updateUserPassword(passwordRequest, userId).subscribe({
+      next: () => {
+        this.alertService.success({
+          title: 'Contraseña actualizada',
+          text: 'La contraseña ha sido actualizada exitosamente.',
+        });
+      },
+      error: (error) => {
+        this.alertService.error({
+          title: 'Error al actualizar la contraseña',
+          text: error.error?.message || 'Ha ocurrido un error inesperado.',
+        });
+      },
+    });
+  }
 }

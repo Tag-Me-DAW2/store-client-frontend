@@ -5,9 +5,8 @@ import { AuthService } from '../services/auth-service';
 export const UserConfGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
-  const user = authService.user$();
 
-  if (user) {
+  if (localStorage.getItem('authToken')) {
     return true;
   } else {
     router.navigate(['/']);

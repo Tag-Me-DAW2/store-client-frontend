@@ -207,4 +207,8 @@ export class UserConfPage {
       );
     }
   }
+
+  cancel() {
+    this.router.navigate(['/']);
+  }
 }

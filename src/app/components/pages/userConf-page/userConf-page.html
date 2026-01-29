@@ -13,9 +13,9 @@
 
                 <div class="user-conf__form__image__upload">
                     <div class="preview">
-                        @if(previewUrl && previewUrl !== '0x00') {
+                        @if(previewUrl && previewUrl !== '0x00' && !previewUrl.includes('null')) {
                         <img [src]="previewUrl" alt="Previsualización" class="preview">
-                        <button class="preview-delete" (click)="removeImage()">
+                        <button type="button" class="preview-delete" (click)="removeImage()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="" aria-hidden="true">
@@ -39,7 +39,7 @@
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                 </svg> Subir imagen
                             </button>
-                            @if(previewUrl && previewUrl !== '0x00') {
+                            @if(previewUrl && previewUrl !== '0x00' && !previewUrl.includes('null')) {
                             <button type="button" class="button-delete" (click)="removeImage()">
                                 Eliminar
                             </button>
@@ -205,7 +205,7 @@
                 </div>
             </section>
             <div class="form-actions">
-                <button class="action-cancel">Cancelar</button>
+                <button class="action-cancel" (click)="cancel()">Cancelar</button>
                 <button type="submit" class="action-save" [disabled]="!isFormValid">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

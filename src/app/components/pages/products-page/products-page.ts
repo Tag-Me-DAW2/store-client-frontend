@@ -23,6 +23,7 @@ export class ProductsPage implements OnInit, OnDestroy {
   categoryService = inject(CategoryService);
   productService = inject(ProductService);
   ProductSortLabels = ProductSortLabels;
+  Math = Math;
   sortOptionsArray: ProductSort[] = [
     ProductSort.NAME_ASC,
     ProductSort.NAME_DESC,

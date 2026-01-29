@@ -135,8 +135,7 @@
                 <div class="products-page__products-header">
                     <p class="products-page__products-page-info">
                         @if (!isLoadingProducts && products.data) {
-                        Mostrando {{ (products.pageNumber - 1) * products.pageSize + 1 }} - {{ products.pageNumber *
-                        products.pageSize }} de {{ products.totalElements }} productos
+                        Mostrando {{ (products.pageNumber - 1) * products.pageSize + 1 }} - {{ Math.min(products.pageNumber * products.pageSize, products.totalElements) }} de {{ products.totalElements }} productos
                         } @else {
                         Cargando productos...
                         }

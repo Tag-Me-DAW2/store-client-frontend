@@ -9,6 +9,6 @@ export const routes: Routes = [
   { path: '', component: LandingPage },
   { path: 'login', component: LoginPage },
   { path: 'products', component: ProductsPage },
-  { path: 'userconf', component: UserConfPage },
+  { path: 'userconf', canActivate: [UserConfGuard], component: UserConfPage },
   { path: '**', redirectTo: '' },
 ];

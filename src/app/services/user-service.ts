@@ -110,10 +110,7 @@ export class UserService {
 
     this.userHttp.updateUserPassword(passwordRequest, userId).subscribe({
       next: () => {
-        this.alertService.success({
-          title: 'Contraseña actualizada',
-          text: 'La contraseña ha sido actualizada exitosamente.',
-        });
+        console.log('Password updated successfully');
       },
       error: (error) => {
         this.alertService.error({

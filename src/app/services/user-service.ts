@@ -102,22 +102,12 @@ export class UserService {
     newPassword: string,
     newPasswordConfirmation: string,
     userId: number,
-  ): void {
+  ): Observable<void> {
     const passwordRequest = {
       newPassword,
       newPasswordConfirmation,
     };
 
-    this.userHttp.updateUserPassword(passwordRequest, userId).subscribe({
-      next: () => {
-        console.log('Password updated successfully');
-      },
-      error: (error) => {
-        this.alertService.error({
-          title: 'Error al actualizar la contraseña',
-          text: error.error?.message || 'Ha ocurrido un error inesperado.',
-        });
-      },
-    });
+    return this.userHttp.updateUserPassword(passwordRequest, userId);
   }
 }

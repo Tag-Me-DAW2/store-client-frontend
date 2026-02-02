@@ -33,4 +33,10 @@ export class AuthHttp {
   loadUser(): Observable<UserResponse> {
     return this.HttpClient.get<UserResponse>(`${this.apiUrl}`);
   }
+
+  verifyPassword(password: string): Observable<boolean> {
+    return this.HttpClient.post<boolean>(`${this.apiUrl}/verify-password`, {
+      password: password,
+    });
+  }
 }

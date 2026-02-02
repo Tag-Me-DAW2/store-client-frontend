@@ -57,4 +57,8 @@ export class AuthService {
       },
     });
   }
+
+  verifyPassword(password: string): Observable<boolean> {
+    return this.authHttp.verifyPassword(password);
+  }
 }

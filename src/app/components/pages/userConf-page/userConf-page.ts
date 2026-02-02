@@ -12,7 +12,7 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { last } from 'rxjs';
+import { last, debounceTime, distinctUntilChanged } from 'rxjs';
 import { FieldErrorDirective } from '../../../directives/field-error.directive';
 import { phoneValidator } from '../../../validators/phoneValidator';
 
@@ -34,19 +34,84 @@ export class UserConfPage {
   user = this.authService.user$;
   eyeIcon = true;
   eyeIcon2 = true;
+  eyeIcon3 = true;
+  isCurrentPasswordValid = false;
 
   constructor() {
     this.formulario = this.createForm();
 
+    this.formulario
+      .get('currentPassword')
+      ?.valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((value) => {
+        const currentPasswordControl = this.formulario.get('currentPassword');
+        const passwordControl = this.formulario.get('password');
+        const passwordConfirmControl = this.formulario.get('passwordConfirm');
+
+        if (value && value.length > 0) {
+          this.authService.verifyPassword(value).subscribe({
+            next: (response) => {
+              console.log('Response de verifyPassword:', response);
+              if (response) {
+                this.isCurrentPasswordValid = true;
+                currentPasswordControl?.updateValueAndValidity({
+                  emitEvent: false,
+                });
+                passwordControl?.enable({ emitEvent: false });
+                passwordControl?.updateValueAndValidity({ emitEvent: false });
+              } else {
+                this.isCurrentPasswordValid = false;
+                currentPasswordControl?.updateValueAndValidity({
+                  emitEvent: false,
+                });
+                passwordControl?.disable({ emitEvent: false });
+                passwordControl?.setValue('', { emitEvent: false });
+                passwordConfirmControl?.disable({ emitEvent: false });
+                passwordConfirmControl?.setValue('', { emitEvent: false });
+              }
+            },
+            error: (err) => {
+              this.isCurrentPasswordValid = false;
+              currentPasswordControl?.updateValueAndValidity({
+                emitEvent: false,
+              });
+              passwordControl?.disable({ emitEvent: false });
+              passwordControl?.setValue('', { emitEvent: false });
+              passwordConfirmControl?.disable({ emitEvent: false });
+              passwordConfirmControl?.setValue('', { emitEvent: false });
+            },
+          });
+        } else {
+          this.isCurrentPasswordValid = false;
+          currentPasswordControl?.updateValueAndValidity({ emitEvent: false });
+          passwordControl?.disable({ emitEvent: false });
+          passwordControl?.setValue('', { emitEvent: false });
+          passwordConfirmControl?.disable({ emitEvent: false });
+          passwordConfirmControl?.setValue('', { emitEvent: false });
+        }
+      });
+
     this.formulario.get('password')?.valueChanges.subscribe((value) => {
+      const currentPasswordValue =
+        this.formulario.get('currentPassword')?.value;
+      const passwordControl = this.formulario.get('password');
       const passwordConfirmControl = this.formulario.get('passwordConfirm');
-      if (value && value.length > 0) {
+
+      // Verificar si la nueva contraseña es igual a la actual
+      const isSameAsCurrent =
+        value && currentPasswordValue && value === currentPasswordValue;
+
+      if (isSameAsCurrent) {
+        passwordControl?.setErrors({ passwordSameAsCurrent: true });
+        passwordConfirmControl?.disable({ emitEvent: false });
+        passwordConfirmControl?.setValue('', { emitEvent: false });
+      } else if (value && value.length > 0) {
+        passwordControl?.setErrors(null);
         passwordConfirmControl?.enable({ emitEvent: false });
       } else {
         passwordConfirmControl?.disable({ emitEvent: false });
         passwordConfirmControl?.setValue('', { emitEvent: false });
       }
-
       passwordConfirmControl?.updateValueAndValidity({ emitEvent: false });
     });
 
@@ -78,12 +143,46 @@ export class UserConfPage {
       username: [this.user()?.username, [Validators.required]],
       phone: [this.user()?.phone, [Validators.required, phoneValidator]],
       email: [this.user()?.email, [Validators.required, Validators.email]],
-      password: [''],
+      currentPassword: ['', [this.currentPasswordValidator.bind(this)]],
+      password: [
+        { value: '', disabled: true },
+        [this.passwordCurrentAndNewAreDifferentValidator.bind(this)],
+      ],
       passwordConfirm: [
         { value: '', disabled: true },
         [this.passwordMatchValidator.bind(this)],
       ],
     });
+  }
+
+  currentPasswordValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+
+    if (!value || value.length === 0) {
+      return null;
+    }
+
+    return this.isCurrentPasswordValid
+      ? null
+      : { invalidCurrentPassword: true };
+  }
+
+  passwordCurrentAndNewAreDifferentValidator(
+    control: AbstractControl,
+  ): ValidationErrors | null {
+    if (!control.parent) {
+      return null;
+    }
+    const currentPassword = control.parent.get('currentPassword')?.value;
+    const newPassword = control.value;
+
+    if (!currentPassword || currentPassword.length === 0) {
+      return null;
+    }
+
+    return currentPassword !== newPassword
+      ? null
+      : { passwordSameAsCurrent: true };
   }
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
@@ -152,16 +251,40 @@ export class UserConfPage {
 
   togglePasswordVisibility(number: number) {
     const passwordInput = document.getElementById(
-      number === 1 ? 'password' : 'passwordConfirm',
+      number === 1
+        ? 'currentPassword'
+        : number === 2
+          ? 'password'
+          : 'passwordConfirm',
     ) as HTMLInputElement;
 
     if (passwordInput.type === 'password') {
       passwordInput.type = 'text';
 
-      number === 1 ? (this.eyeIcon = false) : (this.eyeIcon2 = false);
+      switch (number) {
+        case 1:
+          this.eyeIcon = false;
+          break;
+        case 2:
+          this.eyeIcon2 = false;
+          break;
+        case 3:
+          this.eyeIcon3 = false;
+          break;
+      }
     } else {
       passwordInput.type = 'password';
-      number === 1 ? (this.eyeIcon = true) : (this.eyeIcon2 = true);
+      switch (number) {
+        case 1:
+          this.eyeIcon = true;
+          break;
+        case 2:
+          this.eyeIcon2 = true;
+          break;
+        case 3:
+          this.eyeIcon3 = true;
+          break;
+      }
     }
   }
 
@@ -200,11 +323,23 @@ export class UserConfPage {
     );
 
     if (password && password.length > 0) {
-      this.userService.updateUserPassword(
-        password,
-        passwordConfirm,
-        currentUser.id,
-      );
+      this.userService
+        .updateUserPassword(password, passwordConfirm, currentUser.id)
+        .subscribe({
+          next: () => {
+            this.formulario.patchValue({
+              currentPassword: '',
+              password: '',
+              passwordConfirm: '',
+            });
+          },
+          error: (error) => {
+            this.alertService.error({
+              title: 'Error al actualizar la contraseña',
+              text: error.error?.message || 'Ha ocurrido un error inesperado.',
+            });
+          },
+        });
     }
   }
 

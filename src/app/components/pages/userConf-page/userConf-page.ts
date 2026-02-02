@@ -297,6 +297,7 @@ export class UserConfPage {
     const username = this.formulario.get('username')?.value;
     const phone = this.formulario.get('phone')?.value;
     const email = this.formulario.get('email')?.value;
+    const currentPassword = this.formulario.get('currentPassword')?.value;
     const password = this.formulario.get('password')?.value;
     const passwordConfirm = this.formulario.get('passwordConfirm')?.value;
 
@@ -324,7 +325,12 @@ export class UserConfPage {
 
     if (password && password.length > 0) {
       this.userService
-        .updateUserPassword(password, passwordConfirm, currentUser.id)
+        .updateUserPassword(
+          currentPassword,
+          password,
+          passwordConfirm,
+          currentUser.id,
+        )
         .subscribe({
           next: () => {
             this.formulario.patchValue({

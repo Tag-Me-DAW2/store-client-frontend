@@ -99,11 +99,13 @@ export class UserService {
   }
 
   updateUserPassword(
+    currentPassword: string,
     newPassword: string,
     newPasswordConfirmation: string,
     userId: number,
   ): Observable<void> {
     const passwordRequest = {
+      currentPassword,
       newPassword,
       newPasswordConfirmation,
     };

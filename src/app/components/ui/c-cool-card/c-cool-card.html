@@ -4,7 +4,9 @@
     <div class="cool-card__info">
         <span>
             <h3 class="cool-card__holder-name" motion [x]="-20" [opacity]="0" [delay]="500">{{ name }}</h3>
-            <p class="cool-card__holder-description" motion [x]="-20" [opacity]="0" [delay]="600">{{ job }}</p>
+            <p class="cool-card__holder-description"
+                [ngClass]="{'cool-card__holder-description--animating': isJobAnimating()}" motion [x]="-20"
+                [opacity]="0" [delay]="600">{{ job }}</p>
         </span>
         <span>
             <div class="cool-card__holder-socials" motion [x]="-20" [opacity]="0" [delay]="700">

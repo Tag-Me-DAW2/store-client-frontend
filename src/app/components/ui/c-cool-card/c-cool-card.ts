@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { MotionDirective } from '../../../directives/motion.directive';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'c-cool-card',
-  imports: [MotionDirective],
+  imports: [MotionDirective, NgClass],
   templateUrl: './c-cool-card.html',
   styleUrl: './c-cool-card.scss',
 })
@@ -11,13 +12,34 @@ export class CCoolCard {
   @Input() name?: string;
   @Input() email?: string;
   job!: string;
+  intervalId!: any;
+  isJobAnimating = signal(false);
 
   ngOnInit() {
     this.setUser();
+    this.intervalId = setInterval(() => {
+      this.triggerJobAnimation();
+    }, 5000);
+  }
+
+  triggerJobAnimation() {
+    this.isJobAnimating.set(true);
+    setTimeout(() => {
+      this.job = this.getTrabajoAleatorio();
+      setTimeout(() => {
+        this.isJobAnimating.set(false);
+      }, 300);
+    }, 300);
   }
 
   ngOnChanges() {
     this.setUser();
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 
   setUser() {
@@ -88,6 +110,13 @@ export class CCoolCard {
       'The Gurter',
       'The one who Gurts',
       'Lord of the Gurts',
+      'Gurtmaster General',
+      'Gurt Whisperer',
+      'Gurt Engineer',
+      'Cheff',
+      'Lord of the Files',
+      'The Committer',
+      'The Pusher',
     ];
 
     const index = Math.floor(Math.random() * trabajos.length);

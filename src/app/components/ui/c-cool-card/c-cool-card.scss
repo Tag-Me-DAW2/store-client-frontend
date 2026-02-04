@@ -58,7 +58,7 @@
         font-size: .875rem;
         line-height: calc(1.25 / .875);
         color: #f3de8a;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: opacity, transform, filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         transform-origin: left center;
 
         &--animating {

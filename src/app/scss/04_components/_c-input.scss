@@ -1,0 +1,73 @@
+.c-input {
+  position: relative;
+
+  &__svg {
+    color: #272838;
+    translate: 0 calc(calc(1 / 2 * 100%) * -1);
+    width: calc(0.25rem * 4);
+    height: calc(0.25rem * 4);
+    left: calc(0.25rem * 3);
+    top: 50%;
+    position: absolute;
+    vertical-align: middle;
+
+    &-eye {
+      width: calc(0.25rem * 4);
+      translate: 50% calc(calc(1 / 2 * 100%) * -1);
+      vertical-align: middle;
+      height: calc(0.25rem * 4);
+    }
+  }
+
+  > input {
+    font-size: 0.875rem;
+    line-height: calc(1.25 / 0.875);
+    outline-style: none;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+    padding-left: calc(0.25rem * 10);
+    padding-right: calc(0.25rem * 10);
+    padding-block: calc(0.25rem * 1);
+    background-color: color-mix(in oklab, #e8e7e7 30%, transparent);
+    border-color: color-mix(in oklab, #2728381a 50%, transparent);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: calc(0.625rem + 4px);
+    min-width: calc(0.25rem * 0);
+    width: 100%;
+    height: calc(0.25rem * 11);
+    display: flex;
+
+    &::placeholder {
+      color: #5a5c6d;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px
+        color-mix(in oklab, var(--tgm-sys-color-primary) 50%, transparent);
+      border-color: var(--tgm-sys-color-primary);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+
+      + svg {
+        opacity: 0.5;
+
+        + button {
+          opacity: 0.5;
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  &__btn-eye {
+    position: absolute;
+    color: #272838;
+    translate: calc(calc(1 / 2 * 100%) * -1);
+    right: calc(0.25rem * 3);
+    top: 50%;
+  }
+}

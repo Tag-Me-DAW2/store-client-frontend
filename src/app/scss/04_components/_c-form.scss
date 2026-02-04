@@ -1,0 +1,85 @@
+.c-form-group {
+  margin-block-start: 0;
+  margin-block-end: calc(0.25rem * 4);
+
+  &-expand {
+    grid-column: span 2 / span 2;
+  }
+
+  &-label {
+    display: flex;
+    user-select: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: calc(1.25 / 0.875);
+    gap: calc(0.25rem * 2);
+    align-items: center;
+    margin-block-end: calc(0.25rem * 2);
+  }
+
+  &-submit {
+    transform: none;
+    margin-top: calc(0.25rem * 2);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+    box-shadow:
+      0 4px 6px -1px #0000001a,
+      0 2px 4px -2px #0000001a;
+    color: white;
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: calc(1.5 / 1);
+    background-color: #272838;
+    border-radius: calc(0.625rem + 4px);
+    gap: calc(0.25rem * 2);
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(0.25rem * 11);
+    display: inline-flex;
+    appearance: button;
+
+    &__svg {
+      width: calc(0.25rem * 4);
+      height: calc(0.25rem * 4);
+      vertical-align: middle;
+      color: white;
+    }
+
+    &:hover {
+      transform: scale(1.01);
+      background-color: color-mix(
+        in oklab,
+        #272838 90%,
+        var(--tgm-sys-color-primary)
+      );
+    }
+  }
+
+  &__extra-fields {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    overflow: hidden;
+    transition:
+      grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      overflow 0s 0s;
+
+    > * {
+      min-height: 0;
+    }
+
+    &.open {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      overflow: visible;
+      transition:
+        grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        overflow 0s 0.4s;
+    }
+  }
+}

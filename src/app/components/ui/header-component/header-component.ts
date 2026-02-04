@@ -1,4 +1,11 @@
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Host,
+  HostListener,
+  inject,
+  ViewChild,
+} from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter, Observable, Subscription } from 'rxjs';
 import { NgClass } from '@angular/common';
@@ -17,10 +24,38 @@ export class HeaderComponent {
   subscriptions: Subscription[] = [];
 
   isMenuOpen: boolean = false;
-  isUserMenuOpen: boolean = false;
   user = this.authService.user$;
   profilePictureUrl: string | null = null;
   route: string = '';
+
+  @ViewChild('userMenu') userMenu!: ElementRef;
+  isUserMenuOpen: boolean = false;
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!this.userMenu) return;
+
+    const clickedInside = this.userMenu.nativeElement.contains(event.target);
+    const clickedToggle = (event.target as HTMLElement).closest(
+      '.header__user-container',
+    );
+
+    if (clickedToggle) {
+      return;
+    }
+
+    if (!clickedInside && this.isUserMenuOpen) {
+      this.isUserMenuOpen = false;
+    }
+  }
+
+  constructor() {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.isUserMenuOpen = false;
+      });
+  }
 
   ngOnInit() {
     this.checkRoute();

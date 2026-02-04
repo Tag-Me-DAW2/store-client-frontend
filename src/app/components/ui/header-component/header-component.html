@@ -25,7 +25,7 @@
           </div>
           <span>{{ user()?.username }}</span>
         </a>
-        <div class="header__user-menu"
+        <div class="header__user-menu" #userMenu
           [ngClass]="{'header__user-menu--open': isUserMenuOpen, 'header__user-menu--closed': !isUserMenuOpen}">
           <div class="header__user-menu-header">
             <div class="header__user-image  header__user-image--menu">

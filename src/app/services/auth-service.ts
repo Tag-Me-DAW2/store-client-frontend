@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthHttp } from './auth-http';
 import { AlertService } from './alert-service';
 import { Observable, tap } from 'rxjs';
-import { UserResponse } from '../model/response/userResponse';
+import { UserResponse } from '../model/response/user/userResponse';
 
 @Injectable({
   providedIn: 'root',

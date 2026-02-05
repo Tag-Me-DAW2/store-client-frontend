@@ -9,7 +9,7 @@ import {
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter, Observable, Subscription } from 'rxjs';
 import { NgClass } from '@angular/common';
-import { UserResponse } from '../../../model/response/userResponse';
+import { UserResponse } from '../../../model/response/user/userResponse';
 import { AuthService } from '../../../services/auth-service';
 import { CartService } from '../../../services/cart-service';
 

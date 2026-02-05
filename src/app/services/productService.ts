@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { ProductSummaryModel } from '../model/ProductSummaryModel';
+import { ProductSummaryModel } from '../model/response/product/ProductSummaryModel';
 import { Observable } from 'rxjs';
-import { ProductDetailModel } from '../model/ProductDetailModel';
+import { ProductDetailModel } from '../model/response/product/ProductDetailModel';
 import { PageInterface } from '../model/PageInterface';
-import { ProductFilterParams, ProductSort } from '../model/ProductFilterModel';
+import { ProductFilterParams, ProductSort } from '../model/response/product/ProductFilterModel';
 import { environment } from '../../environments/environment';
 
 @Injectable({

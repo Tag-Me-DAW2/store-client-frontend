@@ -1,6 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import { ProductSummaryModel } from '../../../model/ProductSummaryModel';
+import { ProductSummaryModel } from '../../../model/response/product/ProductSummaryModel';
 import { CartService } from '../../../services/cart-service';
 import { MotionDirective } from '../../../directives/motion.directive';
 import { ProductService } from '../../../services/productService';

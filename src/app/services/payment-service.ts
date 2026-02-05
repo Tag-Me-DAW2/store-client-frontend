@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { PaymentHttp } from './payment-http';
 import { AlertService } from './alert-service';
 import { CartService } from './cart-service';
-import { CreditCardPaymentRequest, TransferPaymentRequest } from '../model/request/PaymentRequest';
+import { CreditCardPaymentRequest, TransferPaymentRequest } from '../model/request/orderProcess/PaymentRequest';
 
 export type PaymentMethod = 'credit-card' | 'transfer';
 

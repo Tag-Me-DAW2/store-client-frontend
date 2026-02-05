@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserResponse } from '../model/response/userResponse';
+import { UserResponse } from '../model/response/user/userResponse';
 import { Router } from '@angular/router';
-import { LoginRequest } from '../model/request/LoginRequest';
+import { LoginRequest } from '../model/request/auth/LoginRequest';
 import { environment } from '../../environments/environment';
 
 @Injectable({

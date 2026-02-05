@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import { OrderItemResponse } from '../../../../model/response/OrderItemResponse';
+import { OrderItemResponse } from '../../../../model/response/order/OrderItemResponse';
 import { ProductService } from '../../../../services/productService';
 
 @Component({

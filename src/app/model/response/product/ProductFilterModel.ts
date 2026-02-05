@@ -1,4 +1,4 @@
-import { ProductMaterial } from './ProductMaterial';
+import { ProductMaterial } from '../../ProductMaterial';
 
 export enum ProductSort {
   MOST_POPULAR = 'MOST_POPULAR',

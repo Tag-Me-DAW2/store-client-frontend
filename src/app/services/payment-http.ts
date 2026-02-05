@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreditCardPaymentRequest, TransferPaymentRequest } from '../model/request/PaymentRequest';
+import { CreditCardPaymentRequest, TransferPaymentRequest } from '../model/request/orderProcess/PaymentRequest';
 import { environment } from '../../environments/environment';
 
 @Injectable({

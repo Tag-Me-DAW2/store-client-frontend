@@ -1,4 +1,5 @@
 import { OrderItemResponse } from './OrderItemResponse';
+import { ShippingInfoResponse } from '../ShippingInfoResponse';
 
 export enum OrderStatus {
   PENDING = 'PENDING',
@@ -12,5 +13,7 @@ export interface OrderResponse {
   orderStatus: OrderStatus;
   orderItems: OrderItemResponse[];
   totalPrice: number;
+  shippingCost: number;
+  shippingInfo: ShippingInfoResponse | null;
   paidDate: string;
 }

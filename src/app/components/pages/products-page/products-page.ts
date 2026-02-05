@@ -7,16 +7,16 @@ import {
 } from '@angular/core';
 import { MotionDirective } from '../../../directives/motion.directive';
 import { FormsModule } from '@angular/forms';
-import { CategoryResponse } from '../../../model/CategoryResponse';
+import { CategoryResponse } from '../../../model/response/CategoryResponse';
 import { CategoryService } from '../../../services/category-service';
-import { ProductMaterial } from '../../../model/ProductMaterial';
+import { ProductMaterial } from '../../../model/response/product/ProductMaterial';
 import { ProductService } from '../../../services/productService';
 import {
   ProductFilterParams,
   ProductSort,
   ProductSortLabels,
-} from '../../../model/ProductFilterModel';
-import { ProductSummaryModel } from '../../../model/ProductSummaryModel';
+} from '../../../model/response/product/ProductFilterModel';
+import { ProductSummaryModel } from '../../../model/response/product/ProductSummaryModel';
 import { PageInterface } from '../../../model/PageInterface';
 import { PaginationComponent } from '../../ui/c-pagination/c-pagination';
 import { CProductCard } from '../../ui/c-product-card/c-product-card';

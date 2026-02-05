@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { UserResponse } from '../model/response/userResponse';
-import { UserInsertRequest } from '../model/request/UserInsertRequest';
+import { UserResponse } from '../model/response/user/userResponse';
+import { UserInsertRequest } from '../model/request/user/UserInsertRequest';
 import { Observable } from 'rxjs';
-import { UserUpdateRequest } from '../model/request/UserUpdateRequest';
-import { PasswordRequest } from '../model/request/PasswordRequest';
+import { UserUpdateRequest } from '../model/request/user/UserUpdateRequest';
+import { PasswordRequest } from '../model/request/auth/PasswordRequest';
 import { environment } from '../../environments/environment';
 
 @Injectable({

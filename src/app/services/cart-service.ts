@@ -3,10 +3,10 @@ import { CartHttp } from './cart-http';
 import { AlertService } from './alert-service';
 import { AuthService } from './auth-service';
 import { ProductService } from './productService';
-import { OrderResponse, OrderStatus } from '../model/response/OrderResponse';
-import { OrderItemResponse } from '../model/response/OrderItemResponse';
-import { OrderUpdateRequest } from '../model/request/OrderUpdateRequest';
-import { ProductSummaryModel } from '../model/ProductSummaryModel';
+import { OrderResponse, OrderStatus } from '../model/response/order/OrderResponse';
+import { OrderItemResponse } from '../model/response/order/OrderItemResponse';
+import { OrderUpdateRequest } from '../model/request/order/OrderUpdateRequest';
+import { ProductSummaryModel } from '../model/response/product/ProductSummaryModel';
 
 @Injectable({
   providedIn: 'root',
@@ -38,12 +38,13 @@ export class CartService {
   });
 
   readonly shippingCost = computed(() => {
-    const subtotal = this.cartSubtotal();
-    return subtotal > 50 ? 0 : 4.99;
+    const cart = this._cart();
+    return cart?.shippingCost ?? 0;
   });
 
   readonly cartTotal = computed(() => {
-    return this.cartSubtotal() + this.shippingCost();
+    const cart = this._cart();
+    return cart?.totalPrice ?? 0;
   });
 
   loadCart(): void {
@@ -54,33 +55,10 @@ export class CartService {
     }
 
     this._isLoading.set(true);
-    const currentCart = this._cart(); // Guardar carrito actual para preservar info de productos
 
     this.cartHttp.getActiveCart(user.id).subscribe({
       next: (cart) => {
         console.log('Cart loaded from backend:', cart);
-
-        // Si el backend no devuelve información completa del producto,
-        // intentamos preservar la información que ya teníamos
-        if (currentCart && cart.orderItems) {
-          cart.orderItems = cart.orderItems.map((item) => {
-            // Buscar el item correspondiente en el carrito actual
-            const existingItem = currentCart.orderItems?.find(
-              (existing) => existing.product.id === item.product.id,
-            );
-
-            // Si el producto del backend no tiene imagen pero el existente sí, usar el existente
-            if (existingItem && (!item.product.image || !item.product.name)) {
-              return {
-                ...item,
-                product: existingItem.product,
-              };
-            }
-            return item;
-          });
-        }
-
-        console.log('Cart items after merge:', cart.orderItems);
         this._cart.set(cart);
         this._isLoading.set(false);
       },
@@ -131,6 +109,9 @@ export class CartService {
       const newItem: OrderItemResponse = {
         id: 0,
         product: product,
+        productName: product.name,
+        productImage: product.image,
+        productImageName: '',
         quantity: quantity,
         basePrice: product.basePrice,
         discountPercentage: product.discountPercentage,
@@ -198,8 +179,6 @@ export class CartService {
     const user = this.authService.user$();
     if (!user) return;
 
-    const totalPrice = items.reduce((total, item) => total + item.total, 0);
-
     const cartUpdateRequest: OrderUpdateRequest = {
       userId: user.id,
       orderItems: items.map((item) => ({
@@ -210,21 +189,20 @@ export class CartService {
 
     console.log('Sending cart update request:', cartUpdateRequest);
 
-    // Actualización optimista
+    // Actualización optimista de items (UX inmediata)
     const currentCart = this._cart();
     if (currentCart) {
       this._cart.set({
         ...currentCart,
         orderItems: items,
-        totalPrice: totalPrice,
       });
     }
 
     this.cartHttp.updateCart(cartUpdateRequest).subscribe({
       next: () => {
-        // La actualización optimista ya actualizó la UI
-        // No es necesario volver a cargar desde el backend
         console.log('Cart updated successfully');
+        // Recargar del backend para obtener subtotal, shippingCost y totalPrice calculados
+        this.loadCart();
       },
       error: (error) => {
         console.error('Error updating cart:', error);

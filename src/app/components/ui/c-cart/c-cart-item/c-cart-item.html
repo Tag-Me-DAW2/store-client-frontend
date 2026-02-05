@@ -1,13 +1,15 @@
 <div class="cart-item">
     <div class="cart-item__image">
-        <img [src]="item.product.image" [alt]="item.product.name">
+        <img [src]="item.productImage" [alt]="item.productName">
     </div>
     <div class="cart-item__details">
         <div class="cart-item__info">
-            <h4 class="cart-item__name">{{ item.product.name }}</h4>
+            <h4 class="cart-item__name">{{ item.productName }}</h4>
             <span class="cart-item__info-wrapper">
-                <p class="cart-item__price">{{ item.product.price | currency }}</p>
-                <p class="cart-item__discount">{{ item.product.discountPercentage }}%</p>
+                <p class="cart-item__price">{{ item.basePrice | currency }}</p>
+                @if (item.discountPercentage > 0) {
+                <p class="cart-item__discount">-{{ item.discountPercentage }}%</p>
+                }
             </span>
         </div>
         <div class="cart-item__actions">

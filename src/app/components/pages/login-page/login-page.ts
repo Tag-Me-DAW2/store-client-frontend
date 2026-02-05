@@ -14,7 +14,7 @@ import { phoneValidator } from '../../../validators/phoneValidator';
 import { Router } from '@angular/router';
 import { AlertService } from '../../../services/alert-service';
 import { UserService } from '../../../services/user-service';
-import { UserResponse } from '../../../model/response/userResponse';
+import { UserResponse } from '../../../model/response/user/userResponse';
 
 @Component({
   selector: 'login-page',

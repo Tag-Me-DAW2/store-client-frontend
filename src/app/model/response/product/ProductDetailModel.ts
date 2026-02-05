@@ -1,4 +1,4 @@
-import {CategoryResponse} from './CategoryResponse';
+import {CategoryResponse} from '../CategoryResponse';
 
 export interface ProductDetailModel {
   id: number,

@@ -1,0 +1,109 @@
+.cart-summary {
+    padding: calc(.25rem * 6);
+    background-color: #f9f8f8;
+    border-top: 1px solid #2728381a;
+
+    &__row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: calc(.25rem * 3);
+
+        &--total {
+            margin-bottom: calc(.25rem * 4);
+        }
+    }
+
+    &__label {
+        font-size: .875rem;
+        color: #5a5c6d;
+
+        &--total {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #272838;
+        }
+    }
+
+    &__value {
+        font-size: .875rem;
+        font-weight: 500;
+        color: #272838;
+
+        &--free {
+            color: #22c55e;
+        }
+
+        &--total {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #272838;
+        }
+    }
+
+    &__shipping-note {
+        display: flex;
+        align-items: center;
+        gap: calc(.25rem * 2);
+        font-size: .75rem;
+        color: #5a5c6d;
+        background-color: #fff;
+        border-radius: calc(.625rem - 2px);
+        padding: calc(.25rem * 2) calc(.25rem * 3);
+        margin-bottom: calc(.25rem * 3);
+
+        svg {
+            flex-shrink: 0;
+            color: #f3de8a;
+        }
+    }
+
+    &__divider {
+        height: 1px;
+        background-color: #2728381a;
+        margin-bottom: calc(.25rem * 3);
+    }
+
+    &__checkout-btn {
+        cursor: pointer;
+        width: 100%;
+        height: calc(.25rem * 12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: calc(.25rem * 2);
+        background-color: #272838;
+        color: #f9f8f8;
+        font-size: .875rem;
+        font-weight: 600;
+        border: none;
+        border-radius: calc(.625rem - 2px);
+        transition: all .15s cubic-bezier(.4, 0, .2, 1);
+
+        &:hover:not(:disabled) {
+            background-color: color-mix(in oklab, #272838 85%, transparent);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        svg {
+            flex-shrink: 0;
+        }
+    }
+
+    &__spinner {
+        animation: spin 1s linear infinite;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

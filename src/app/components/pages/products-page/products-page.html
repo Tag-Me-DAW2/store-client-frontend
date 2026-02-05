@@ -60,20 +60,21 @@
                             @if (isLoadingCategories) {
                             <div class="products-page__sidebar-section-grid">
                                 @for (item of [1,2,3,4]; track item) {
-                                <div class="products-page__sidebar-section-grid-item skeleton-loader" style="height: 36px; cursor: wait;"></div>
+                                <div class="products-page__sidebar-section-grid-item skeleton-loader"
+                                    style="height: 36px; cursor: wait;"></div>
                                 }
                             </div>
                             } @else {
                             <div class="products-page__sidebar-section-grid">
                                 <button class="products-page__sidebar-section-grid-item"
                                     [class.selected]="selectedCategory === null" (click)="selectCategory(null)">
-                                    Todos
+                                    <span>Todos</span>
                                 </button>
                                 @for (category of categoriesOptionsArray; track category.id) {
                                 <button class="products-page__sidebar-section-grid-item"
                                     [class.selected]="isCategorySelected(category.id)"
                                     (click)="selectCategory(category.id)">
-                                    {{ category.name }}
+                                    <span [title]="category.name">{{ category.name }}</span>
                                 </button>
                                 }
                             </div>
@@ -95,8 +96,12 @@
                             </div>
                         </div>
                         <div>
-                            <label class="products-page__sidebar-section-title">
-                                Rango de Precio: ${{ priceRange.min }} - ${{ priceRange.max }}
+                            <label class="products-page__sidebar-section-title">Rango de Precio:<span>
+                                    {{ priceRange.min | currency:'EUR':true:'0.0-0' }} - {{
+                                    priceRange.max
+                                    |
+                                    currency:'EUR':true:'0.0-0' }}
+                                </span>
                             </label>
                             <span class="products-page__price-range-container">
                                 <div class="products-page__price-range-track"></div>
@@ -135,7 +140,9 @@
                 <div class="products-page__products-header">
                     <p class="products-page__products-page-info">
                         @if (!isLoadingProducts && products.data) {
-                        Mostrando {{ (products.pageNumber - 1) * products.pageSize + 1 }} - {{ Math.min(products.pageNumber * products.pageSize, products.totalElements) }} de {{ products.totalElements }} productos
+                        Mostrando {{ (products.pageNumber - 1) * products.pageSize + 1 }} - {{
+                        Math.min(products.pageNumber * products.pageSize, products.totalElements) }} de {{
+                        products.totalElements }} productos
                         } @else {
                         Cargando productos...
                         }
@@ -148,8 +155,10 @@
                         <div class="products-page__product-card-content">
                             <div class="products-page__product-card-image skeleton-loader" style="height: 200px;"></div>
                             <div class="products-page__product-card-details">
-                                <div class="skeleton-loader" style="height: 16px; width: 60%; margin-bottom: 8px;"></div>
-                                <div class="skeleton-loader" style="height: 20px; width: 80%; margin-bottom: 8px;"></div>
+                                <div class="skeleton-loader" style="height: 16px; width: 60%; margin-bottom: 8px;">
+                                </div>
+                                <div class="skeleton-loader" style="height: 20px; width: 80%; margin-bottom: 8px;">
+                                </div>
                                 <div class="skeleton-loader" style="height: 18px; width: 40%;"></div>
                             </div>
                         </div>
@@ -162,36 +171,9 @@
                 } @else if (products.data && products.data.length > 0) {
                 <div class="products-page__products-grid" motion [opacity]="0" [duration]="500">
                     @for (product of products.data; track product.id; let i = $index) {
-                    <div class="products-page__product-card" motion [y]="20" [opacity]="0" [delay]="i * 50" [duration]="500">
-                        <div class="products-page__product-card-content">
-                            <div class="products-page__product-card-image">
-                                <img [src]="product.image" alt="">
-                                @if (product.discountPercentage) {
-                                <span class="products-page__product-card-label products-page__product-card-label--left">{{ product.discountPercentage }}%</span>
-                                }
-                                @if (sortOptions === ProductSortLabels.MOST_POPULAR) {
-                                <span class="products-page__product-card-label products-page__product-card-label--right">Popular</span>
-                                }
-                            </div>
-                            <div class="products-page__product-card-details">
-                                <div class="products-page__product-card-category">{{ product.category.name }}</div>
-                                <h3 class="products-page__product-card-title">{{ product.name }}</h3>
-                                <!-- <p class="products-page__product-card-description">{{ product.description }}</p> -->
-                                <span class="products-page__product-card-price">{{ product.price | currency }}</span>
-                            </div>
-                        </div>
-                        <div class="products-page__product-card-button">
-                            <a class="products-page__product-card-cart-button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-plus h-4 w-4 mr-2" aria-hidden="true">
-                                    <path d="M5 12h14"></path>
-                                    <path d="M12 5v14"></path>
-                                </svg>
-                                <span>Añadir al carrito</span>
-                            </a>
-                        </div>
-                    </div>
+                    <c-product-card [product]="product" [showPopularLabel]="sortOptions === 'MOST_POPULAR'"
+                        [animationDelay]="i * 50">
+                    </c-product-card>
                     }
                 </div>
                 } @else {
@@ -221,7 +203,8 @@
                 }
                 @if (!isLoadingProducts) {
                 <div class="products-page__products-pagination" motion [y]="20" [opacity]="0" [duration]="500">
-                    <app-pagination-component [currentPageNumber]="products.pageNumber" [totalPages]="products.totalPages"
+                    <app-pagination-component [currentPageNumber]="products.pageNumber"
+                        [totalPages]="products.totalPages"
                         (pageChange)="onPageChange($event)"></app-pagination-component>
                 </div>
                 }

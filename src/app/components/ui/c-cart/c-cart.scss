@@ -1,0 +1,222 @@
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-color: rgba(39, 40, 56, 0.5);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &--open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 101;
+
+  &--open {
+    transform: translateX(0);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(0.25rem * 6);
+    border-bottom: 1px solid #2728381a;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: calc(0.25rem * 3);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #272838;
+    margin: 0;
+
+    svg {
+      color: #272838;
+    }
+  }
+
+  &__close-btn {
+    cursor: pointer;
+    width: calc(0.25rem * 10);
+    height: calc(0.25rem * 10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    border-radius: calc(0.625rem - 2px);
+    color: #5a5c6d;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background-color: #f9f8f8;
+      color: #272838;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  &__loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: calc(0.25rem * 4);
+    color: #5a5c6d;
+  }
+
+  &__spinner {
+    width: calc(0.25rem * 10);
+    height: calc(0.25rem * 10);
+    border: 3px solid #f3de8a;
+    border-top-color: #272838;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: calc(0.25rem * 8);
+    text-align: center;
+  }
+
+  &__empty-icon {
+    width: calc(0.25rem * 24);
+    height: calc(0.25rem * 24);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f8f8;
+    border-radius: 50%;
+    margin-bottom: calc(0.25rem * 6);
+
+    svg {
+      color: #5a5c6d;
+    }
+  }
+
+  &__empty-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #272838;
+    margin: 0 0 calc(0.25rem * 2);
+  }
+
+  &__empty-text {
+    font-size: 0.875rem;
+    color: #5a5c6d;
+    margin: 0 0 calc(0.25rem * 6);
+  }
+
+  &__continue-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: calc(0.25rem * 2);
+    padding: calc(0.25rem * 3) calc(0.25rem * 5);
+    background-color: #f9f8f8;
+    border: 1px solid #2728381a;
+    border-radius: calc(0.625rem - 2px);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #272838;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background-color: #f3de8a;
+      border-color: #f3de8a;
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  &__items-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(0.25rem * 4) calc(0.25rem * 6);
+    background-color: #f9f8f8;
+    border-bottom: 1px solid #2728381a;
+  }
+
+  &__items-count {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #5a5c6d;
+  }
+
+  &__clear-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: calc(0.25rem * 1.5);
+    padding: calc(0.25rem * 1.5) calc(0.25rem * 3);
+    background-color: transparent;
+    border: none;
+    border-radius: calc(0.625rem - 2px);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #5a5c6d;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background-color: #fee2e2;
+      color: #ef4444;
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  &__items-list {
+    padding: 0;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Responsive
+@media (max-width: 480px) {
+  .cart-sidebar {
+    max-width: 100%;
+  }
+}

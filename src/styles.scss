@@ -1,4 +1,3 @@
-
 @use "app/scss/main" as *;
 @use "@angular/material" as mat;
 
@@ -31,4 +30,8 @@ body {
   // Reset the user agent margin.
   min-height: 100vh;
   margin: 0;
+}
+
+.LandbotLivechat {
+  z-index: 1 !important;
 }

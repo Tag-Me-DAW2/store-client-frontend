@@ -1,27 +1,46 @@
-import { Component, HostListener, inject, OnInit, OnDestroy } from '@angular/core';
-import { MotionDirective } from "../../../directives/motion.directive";
+import {
+  Component,
+  HostListener,
+  inject,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
+import { MotionDirective } from '../../../directives/motion.directive';
 import { FormsModule } from '@angular/forms';
 import { CategoryResponse } from '../../../model/CategoryResponse';
 import { CategoryService } from '../../../services/category-service';
 import { ProductMaterial } from '../../../model/ProductMaterial';
 import { ProductService } from '../../../services/productService';
-import { ProductFilterParams, ProductSort, ProductSortLabels } from '../../../model/ProductFilterModel';
+import {
+  ProductFilterParams,
+  ProductSort,
+  ProductSortLabels,
+} from '../../../model/ProductFilterModel';
 import { ProductSummaryModel } from '../../../model/ProductSummaryModel';
 import { PageInterface } from '../../../model/PageInterface';
-import { CurrencyPipe } from '@angular/common';
 import { PaginationComponent } from '../../ui/c-pagination/c-pagination';
+import { CProductCard } from '../../ui/c-product-card/c-product-card';
+import { CartService } from '../../../services/cart-service';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-products-page',
-  imports: [MotionDirective, FormsModule, CurrencyPipe, PaginationComponent],
+  imports: [
+    MotionDirective,
+    FormsModule,
+    PaginationComponent,
+    CProductCard,
+    CurrencyPipe,
+  ],
   templateUrl: './products-page.html',
   styleUrl: './products-page.scss',
 })
 export class ProductsPage implements OnInit, OnDestroy {
   categoryService = inject(CategoryService);
   productService = inject(ProductService);
+  cartService = inject(CartService);
   ProductSortLabels = ProductSortLabels;
   Math = Math;
   sortOptionsArray: ProductSort[] = [
@@ -29,16 +48,17 @@ export class ProductsPage implements OnInit, OnDestroy {
     ProductSort.NAME_DESC,
     ProductSort.PRICE_ASC,
     ProductSort.PRICE_DESC,
-    ProductSort.MOST_POPULAR
+    ProductSort.MOST_POPULAR,
   ];
   categoriesOptionsArray: CategoryResponse[] = [];
   materialOptionsArray: ProductMaterial[] = [
     ProductMaterial.STEEL,
     ProductMaterial.WOOD,
     ProductMaterial.PVC,
-    ProductMaterial.GOLDEN
+    ProductMaterial.GOLDEN,
   ];
-  products: PageInterface<ProductSummaryModel> = {} as PageInterface<ProductSummaryModel>;
+  products: PageInterface<ProductSummaryModel> =
+    {} as PageInterface<ProductSummaryModel>;
   selectedCategory: CategoryResponse | null = null;
   selectedMaterial: ProductMaterial | null = null;
   priceRange = { min: 0, max: 300 };
@@ -48,7 +68,7 @@ export class ProductsPage implements OnInit, OnDestroy {
   currentPage: number = 1;
   isLoadingProducts = true;
   isLoadingCategories = true;
-  
+
   private searchSubject = new Subject<string>();
   private priceChangeSubject = new Subject<void>();
   private subscriptions = new Subscription();
@@ -56,28 +76,28 @@ export class ProductsPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadCategories();
     this.loadProducts();
-    
+    this.cartService.loadCart();
+
     // Debounce para búsqueda - espera 400ms después de que el usuario deje de escribir
-    const searchSub = this.searchSubject.pipe(
-      debounceTime(400),
-      distinctUntilChanged()
-    ).subscribe(() => {
-      this.currentPage = 1;
-      this.loadProducts();
-    });
-    
+    const searchSub = this.searchSubject
+      .pipe(debounceTime(400), distinctUntilChanged())
+      .subscribe(() => {
+        this.currentPage = 1;
+        this.loadProducts();
+      });
+
     // Throttle para cambios de precio - espera 500ms después del último cambio
-    const priceSub = this.priceChangeSubject.pipe(
-      debounceTime(500)
-    ).subscribe(() => {
-      this.currentPage = 1;
-      this.loadProducts();
-    });
-    
+    const priceSub = this.priceChangeSubject
+      .pipe(debounceTime(500))
+      .subscribe(() => {
+        this.currentPage = 1;
+        this.loadProducts();
+      });
+
     this.subscriptions.add(searchSub);
     this.subscriptions.add(priceSub);
   }
-  
+
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
@@ -102,7 +122,10 @@ export class ProductsPage implements OnInit, OnDestroy {
     if (categoryId === null) {
       this.selectedCategory = null;
     } else {
-      this.selectedCategory = this.categoriesOptionsArray.find(category => category.id === categoryId) || null;
+      this.selectedCategory =
+        this.categoriesOptionsArray.find(
+          (category) => category.id === categoryId,
+        ) || null;
     }
     this.currentPage = 1;
     this.loadProducts();
@@ -147,7 +170,7 @@ export class ProductsPage implements OnInit, OnDestroy {
 
   loadCategories() {
     this.isLoadingCategories = true;
-    this.categoryService.getAll().subscribe(response => {
+    this.categoryService.getAll().subscribe((response) => {
       this.categoriesOptionsArray = response.data;
       this.isLoadingCategories = false;
       console.log(response);
@@ -163,10 +186,12 @@ export class ProductsPage implements OnInit, OnDestroy {
   }
 
   get hasActiveFilters(): boolean {
-    return this.selectedCategory !== null || 
-           this.selectedMaterial !== null || 
-           this.priceRange.min !== 0 || 
-           this.priceRange.max !== 300;
+    return (
+      this.selectedCategory !== null ||
+      this.selectedMaterial !== null ||
+      this.priceRange.min !== 0 ||
+      this.priceRange.max !== 300
+    );
   }
 
   onPageChange(page: number) {
@@ -180,7 +205,7 @@ export class ProductsPage implements OnInit, OnDestroy {
     const filters: ProductFilterParams = {
       page: this.currentPage,
       size: 6,
-      sort: this.sortOptions
+      sort: this.sortOptions,
     };
 
     if (this.searchQuery && this.searchQuery.trim() !== '') {
@@ -203,7 +228,7 @@ export class ProductsPage implements OnInit, OnDestroy {
       filters.maxPrice = this.priceRange.max;
     }
 
-    this.productService.getFilteredProducts(filters).subscribe(response => {
+    this.productService.getFilteredProducts(filters).subscribe((response) => {
       this.products = response;
       this.isLoadingProducts = false;
       console.log('Products loaded:', this.products);

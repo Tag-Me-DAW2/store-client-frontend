@@ -114,7 +114,8 @@
       gap: calc(0.25rem * 3);
 
       > button {
-        transition: all cubic-bezier(-4, 0, 0.2, 1) 0.15s;
+        transition: all cubic-bezier(-4, 0, 0.2, 1);
+        transition-duration: 0.25s;
         padding-inline: calc(0.25rem * 3);
         color: #272838;
         font-weight: 500;
@@ -185,7 +186,8 @@
     justify-content: flex-end;
 
     > button {
-      transition: all cubic-bezier(-4, 0, 0.2, 1) 0.15s;
+      transition: all cubic-bezier(-4, 0, 0.2, 1);
+      transition-duration: 0.25s;
       padding-inline: calc(0.25rem * 3);
       font-weight: 500;
       font-size: 0.875rem;

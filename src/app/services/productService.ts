@@ -1,20 +1,19 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {ProductSummaryModel} from '../model/ProductSummaryModel';
-import {Observable} from 'rxjs';
-import {ProductDetailModel} from '../model/ProductDetailModel';
-import {PageInterface} from '../model/PageInterface';
-import {ProductFilterParams, ProductSort} from '../model/ProductFilterModel';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ProductSummaryModel } from '../model/ProductSummaryModel';
+import { Observable } from 'rxjs';
+import { ProductDetailModel } from '../model/ProductDetailModel';
+import { PageInterface } from '../model/PageInterface';
+import { ProductFilterParams, ProductSort } from '../model/ProductFilterModel';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class ProductService {
   url: string = environment.apiUrl + '/products';
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
   getAll(): Observable<ProductSummaryModel[]> {
     return this.httpClient.get<ProductSummaryModel[]>(this.url);
@@ -24,7 +23,9 @@ export class ProductService {
     return this.httpClient.get<ProductDetailModel>(`${this.url}/${id}`);
   }
 
-  getFilteredProducts(filters: ProductFilterParams): Observable<PageInterface<ProductSummaryModel>> {
+  getFilteredProducts(
+    filters: ProductFilterParams,
+  ): Observable<PageInterface<ProductSummaryModel>> {
     let params = new HttpParams();
 
     if (filters.page !== undefined) {
@@ -52,6 +53,22 @@ export class ProductService {
       params = params.set('sort', filters.sort);
     }
 
-    return this.httpClient.get<PageInterface<ProductSummaryModel>>(`${this.url}/filter`, { params });
+    console.log('Fetching products with params:', params.toString());
+
+    return this.httpClient.get<PageInterface<ProductSummaryModel>>(
+      `${this.url}/filter`,
+      { params },
+    );
+  }
+
+  calculateDiscountedPrice(
+    originalPrice: number,
+    discountPercentage: number,
+  ): number {
+    if (discountPercentage <= 0 || discountPercentage >= 100) {
+      return originalPrice;
+    }
+    const discountAmount = (originalPrice * discountPercentage) / 100;
+    return parseFloat((originalPrice - discountAmount).toFixed(2));
   }
 }

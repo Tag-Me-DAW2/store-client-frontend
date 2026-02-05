@@ -11,6 +11,7 @@ import { filter, Observable, Subscription } from 'rxjs';
 import { NgClass } from '@angular/common';
 import { UserResponse } from '../../../model/response/userResponse';
 import { AuthService } from '../../../services/auth-service';
+import { CartService } from '../../../services/cart-service';
 
 @Component({
   selector: 'header-component',
@@ -20,11 +21,13 @@ import { AuthService } from '../../../services/auth-service';
 })
 export class HeaderComponent {
   authService = inject(AuthService);
+  cartService = inject(CartService);
   router = inject(Router);
   subscriptions: Subscription[] = [];
 
   isMenuOpen: boolean = false;
   user = this.authService.user$;
+  cartItemsCount = this.cartService.cartItemsCount;
   profilePictureUrl: string | null = null;
   route: string = '';
 
@@ -89,6 +92,11 @@ export class HeaderComponent {
   // Function to toggle the user menu visibility
   toggleUserMenu() {
     this.isUserMenuOpen = !this.isUserMenuOpen;
+  }
+
+  // Function to open the cart sidebar
+  openCart() {
+    this.cartService.openCart();
   }
 
   closeSession() {

@@ -1,0 +1,35 @@
+<div class="product-card" motion [y]="20" [opacity]="0" [delay]="animationDelay" [duration]="500">
+    <div class="product-card__content">
+        <div class="product-card__image">
+            <img [src]="product.image" [alt]="product.name">
+            @if (product.discountPercentage) {
+            <span class="product-card__label product-card__label--left">{{ product.discountPercentage }}%</span>
+            }
+            @if (showPopularLabel) {
+            <span class="product-card__label product-card__label--right">Popular</span>
+            }
+        </div>
+        <div class="product-card__details">
+            <div class="product-card__category">{{ product.category.name }}</div>
+            <h3 class="product-card__title">{{ product.name }}</h3>
+            <span class="product-card__prices-wrapper">
+                <span class="product-card__price">{{ product.price| currency }}</span>
+                @if (product.discountPercentage) {
+                <span class="product-card__price product-card__price--original">{{ product.basePrice | currency
+                    }}</span>
+                }
+            </span>
+        </div>
+    </div>
+    <div class="product-card__button">
+        <button class="product-card__cart-button" (click)="onAddToCart()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-plus" aria-hidden="true">
+                <path d="M5 12h14"></path>
+                <path d="M12 5v14"></path>
+            </svg>
+            <span>Añadir al carrito</span>
+        </button>
+    </div>
+</div>

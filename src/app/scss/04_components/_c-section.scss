@@ -10,6 +10,52 @@
   border-radius: 1rem;
   margin-block-end: calc(0.25rem * 8);
 
+  &__header {
+    gap: calc(0.25rem * 3);
+    align-items: center;
+    display: flex;
+    margin-bottom: calc(0.25rem * 6);
+
+    &-icon {
+      display: flex;
+      background-color: color-mix(
+        in oklab,
+        var(--tgm-sys-color-secondary) 10%,
+        transparent
+      );
+      border-color: color-mix(
+        in oklab,
+        var(--tgm-sys-color-secondary) 20%,
+        transparent
+      );
+      border-width: 1px;
+      border-style: solid;
+      border-radius: calc(0.625rem + 4px);
+      justify-content: center;
+      align-items: center;
+      width: calc(0.25rem * 12);
+      height: calc(0.25rem * 12);
+
+      &-svg {
+        color: #272838;
+        width: calc(0.25rem * 6);
+        height: calc(0.25rem * 6);
+        vertical-align: middle;
+      }
+    }
+
+    &-title {
+      font-size: 1.5rem;
+      line-height: calc(2 / 1.5);
+    }
+
+    &-subtitle {
+      font-size: 0.875rem;
+      line-height: calc(1.25 / 0.875);
+      color: #5a5c6d;
+    }
+  }
+
   &-title {
     font-size: 1.25rem;
     font-weight: 500;

@@ -63,6 +63,13 @@
     }
   }
 
+  &--no-icon {
+    > input {
+      padding-left: calc(0.25rem * 3);
+      padding-right: calc(0.25rem * 3);
+    }
+  }
+
   &__btn-eye {
     position: absolute;
     color: #272838;

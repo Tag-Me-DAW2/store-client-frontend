@@ -1,0 +1,212 @@
+<div class="contact-page">
+    <!-- Hero Section -->
+    <section class="contact-page__hero">
+        <div class="contact-page__hero-container" motion [y]="20" [opacity]="0" [duration]="600">
+            <h1 class="contact-page__hero-title">Hablemos</h1>
+            <p class="contact-page__hero-subtitle">
+                ¿Tienes preguntas? Estamos aquí para ayudarte a encontrar la solución perfecta para tus necesidades
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Form & Info Section -->
+    <section class="contact-page__main">
+        <div class="contact-page__main-container">
+            <div class="contact-page__grid">
+                <!-- Contact Form -->
+                <div class="contact-page__form-wrapper" motion [x]="-20" [opacity]="0" [duration]="600">
+                    <div class="contact-page__form-card">
+                        <h2 class="contact-page__form-title">Envíanos un mensaje</h2>
+                        <form class="contact-page__form" (ngSubmit)="onSubmit()">
+                            <div class="c-form-group">
+                                <label class="c-form-group-label" for="name">Nombre completo</label>
+                                <div class="c-input c-input--no-icon">
+                                    <input id="name" name="name" placeholder="Tu nombre" required
+                                        [(ngModel)]="formData.name">
+                                </div>
+                            </div>
+                            <div class="c-form-group">
+                                <label class="c-form-group-label" for="email">Email</label>
+                                <div class="c-input c-input--no-icon">
+                                    <input type="email" id="email" name="email" placeholder="tu@email.com" required
+                                        [(ngModel)]="formData.email">
+                                </div>
+                            </div>
+                            <div class="c-form-group">
+                                <label class="c-form-group-label" for="phone">Teléfono (opcional)</label>
+                                <div class="c-input c-input--no-icon">
+                                    <input type="tel" id="phone" name="phone" placeholder="+34 600 000 000"
+                                        [(ngModel)]="formData.phone">
+                                </div>
+                            </div>
+                            <div class="c-form-group">
+                                <label class="c-form-group-label" for="message">Mensaje</label>
+                                <textarea class="contact-page__textarea" id="message" name="message"
+                                    placeholder="Cuéntanos cómo podemos ayudarte..." required rows="6"
+                                    [(ngModel)]="formData.message"></textarea>
+                            </div>
+                            <button type="submit" class="c-form-group-submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="c-form-group-submit__svg" aria-hidden="true">
+                                    <path
+                                        d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z">
+                                    </path>
+                                    <path d="m21.854 2.147-10.94 10.939"></path>
+                                </svg>
+                                Enviar Mensaje
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="contact-page__info" motion [x]="20" [opacity]="0" [duration]="600">
+                    <div class="contact-page__info-header">
+                        <h2 class="contact-page__info-title">Información de contacto</h2>
+                        <p class="contact-page__info-subtitle">
+                            Estamos disponibles de lunes a viernes de 9:00 a 18:00. Responderemos tu consulta en menos
+                            de 24 horas.
+                        </p>
+                    </div>
+
+                    <div class="contact-page__info-cards">
+                        <!-- Email Card -->
+                        <div class="contact-page__info-card">
+                            <div class="contact-page__info-card-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true">
+                                    <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                </svg>
+                            </div>
+                            <div class="contact-page__info-card-content">
+                                <h4 class="contact-page__info-card-title">Email</h4>
+                                <a href="mailto:noreply@tag-me.com"
+                                    class="contact-page__info-card-link">noreply&#64;tag-me.com</a>
+                            </div>
+                        </div>
+
+                        <!-- Phone Card -->
+                        <div class="contact-page__info-card">
+                            <div class="contact-page__info-card-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true">
+                                    <path
+                                        d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div class="contact-page__info-card-content">
+                                <h4 class="contact-page__info-card-title">Teléfono</h4>
+                                <a href="tel:+34900123456" class="contact-page__info-card-link">+34 900 123 456</a>
+                            </div>
+                        </div>
+
+                        <!-- Location Card -->
+                        <div class="contact-page__info-card">
+                            <div class="contact-page__info-card-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true">
+                                    <path
+                                        d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0">
+                                    </path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="contact-page__info-card-content">
+                                <h4 class="contact-page__info-card-title">Oficina</h4>
+                                <p class="contact-page__info-card-text">
+                                    Little Saint James<br>00802 St Thomas 00802, Islas Vírgenes de los Estados Unidos
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Schedule Card -->
+                    <div class="contact-page__schedule">
+                        <h3 class="contact-page__schedule-title">Horario de atención</h3>
+                        <div class="contact-page__schedule-items">
+                            <div class="contact-page__schedule-item">
+                                <span>Lunes - Viernes</span>
+                                <span class="contact-page__schedule-time">9:00 - 18:00</span>
+                            </div>
+                            <div class="contact-page__schedule-item">
+                                <span>Sábado</span>
+                                <span class="contact-page__schedule-time">10:00 - 14:00</span>
+                            </div>
+                            <div class="contact-page__schedule-item">
+                                <span>Domingo</span>
+                                <span class="contact-page__schedule-closed">Cerrado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="contact-page__faq">
+        <div class="contact-page__faq-container">
+            <div class="contact-page__faq-header">
+                <h2 class="contact-page__faq-title">Preguntas rápidas</h2>
+                <p class="contact-page__faq-subtitle">Tal vez encuentres la respuesta aquí</p>
+            </div>
+            <div class="contact-page__faq-grid">
+                <div class="contact-page__faq-card">
+                    <h4 class="contact-page__faq-card-title">¿Ofrecen personalización?</h4>
+                    <p class="contact-page__faq-card-text">
+                        Sí, ofrecemos servicios de personalización completos para empresas y equipos.
+                    </p>
+                </div>
+                <div class="contact-page__faq-card">
+                    <h4 class="contact-page__faq-card-title">¿Cuánto tarda el envío?</h4>
+                    <p class="contact-page__faq-card-text">
+                        Envío estándar en 3-5 días laborables. Express disponible en 24-48h.
+                    </p>
+                </div>
+                <div class="contact-page__faq-card">
+                    <h4 class="contact-page__faq-card-title">¿Tienen descuentos por volumen?</h4>
+                    <p class="contact-page__faq-card-text">
+                        Sí, ofrecemos descuentos para pedidos superiores a 10 unidades.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="contact-page__map-section">
+        <div class="contact-page__map-container">
+            <div class="contact-page__map">
+                @if (!mapLoaded) {
+                <div class="contact-page__map-placeholder">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path
+                            d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0">
+                        </path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <p>Cargando mapa...</p>
+                </div>
+                }
+                <iframe class="contact-page__map-iframe" [class.loaded]="mapLoaded"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3613.1575766864853!2d-64.82438885100763!3d18.300885996992363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1770364915534!5m2!1ses!2ses"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    (load)="onMapLoad()"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="contact-page__footer-wrapper">
+        <c-footer></c-footer>
+    </div>
+</div>

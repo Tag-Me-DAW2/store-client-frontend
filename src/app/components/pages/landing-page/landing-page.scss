@@ -228,10 +228,13 @@
 
     }
 
-    @media (width < 64rem) {
+    // Responsive breakpoints
+    // lg: 1024px
+    @media (max-width: 1024px) {
         &__hero {
             grid-template-columns: minmax(0, 1fr);
             justify-content: center;
+            padding-inline: calc(.25rem * 6);
         }
 
         &__hero-left-side {
@@ -245,9 +248,63 @@
         &__hero-actions {
             justify-content: center;
         }
+
+        &__hero-main-title {
+            font-size: 3.75rem;
+        }
+
+        &__hero-right-side {
+            display: none;
+        }
+
+        &__stats-page-main-content {
+            padding-inline: calc(.25rem * 6);
+        }
+
+        &__products-section-content {
+            padding-inline: calc(.25rem * 6);
+        }
     }
 
-    @media (width < 40rem) {
+    // md: 768px
+    @media (max-width: 768px) {
+        &__stats-page-body {
+            grid-template-columns: minmax(0, 1fr);
+            gap: calc(.25rem * 8);
+        }
+
+        &__stats-page-quantity {
+            font-size: 3rem;
+        }
+
+        &__stats-page-title {
+            font-size: 2.25rem;
+        }
+
+        &__products-section-title {
+            font-size: 2.25rem;
+        }
+
+        &__stats-page {
+            padding-block: calc(.25rem * 20);
+        }
+
+        &__products-section {
+            padding-block: calc(.25rem * 24);
+        }
+
+        &__info-container {
+            padding-block: calc(.25rem * 24);
+        }
+    }
+
+    // sm: 640px
+    @media (max-width: 640px) {
+        &__hero {
+            padding: calc(.25rem * 10) calc(.25rem * 4);
+            min-height: auto;
+        }
+
         &__hero-main-title {
             font-size: 3rem;
         }
@@ -258,6 +315,51 @@
 
         &__hero-actions {
             flex-direction: column;
+        }
+
+        &__hero-button {
+            width: 100%;
+            justify-content: center;
+        }
+
+        &__stats-page {
+            padding-block: calc(.25rem * 16);
+        }
+
+        &__stats-page-main-content {
+            padding-inline: calc(.25rem * 4);
+        }
+
+        &__stats-page-header {
+            margin-bottom: calc(.25rem * 12);
+        }
+
+        &__stats-page-title {
+            font-size: 1.875rem;
+        }
+
+        &__stats-page-subtitle {
+            font-size: 1rem;
+        }
+
+        &__products-section {
+            padding-block: calc(.25rem * 20);
+        }
+
+        &__products-section-content {
+            padding-inline: calc(.25rem * 4);
+        }
+
+        &__products-section-title {
+            font-size: 1.875rem;
+        }
+
+        &__products-section-subtitle {
+            font-size: 1rem;
+        }
+
+        &__info-container {
+            padding-block: calc(.25rem * 20);
         }
     }
 }

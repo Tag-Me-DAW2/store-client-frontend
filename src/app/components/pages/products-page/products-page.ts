@@ -65,6 +65,7 @@ export class ProductsPage implements OnInit, OnDestroy {
   sortOptions: ProductSort = ProductSort.MOST_POPULAR;
   searchQuery: string = '';
   isDropdownOpen = false;
+  isMobileFiltersOpen = false;
   currentPage: number = 1;
   isLoadingProducts = true;
   isLoadingCategories = true;
@@ -146,6 +147,16 @@ export class ProductsPage implements OnInit, OnDestroy {
 
   onSearchChange() {
     this.searchSubject.next(this.searchQuery);
+  }
+
+  openMobileFilters() {
+    this.isMobileFiltersOpen = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeMobileFilters() {
+    this.isMobileFiltersOpen = false;
+    document.body.style.overflow = '';
   }
 
   isCategorySelected(categoryId: number): boolean {

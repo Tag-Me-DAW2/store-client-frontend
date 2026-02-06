@@ -1,4 +1,101 @@
 <div class="products-page">
+    <!-- Mobile Filters Overlay -->
+    <div class="products-page__mobile-overlay" [class.open]="isMobileFiltersOpen" (click)="closeMobileFilters()"></div>
+    
+    <!-- Mobile Filters Sidebar -->
+    <div class="products-page__mobile-sidebar" [class.open]="isMobileFiltersOpen">
+        <div class="products-page__mobile-sidebar-header">
+            <h3 class="products-page__mobile-sidebar-title">Filtros</h3>
+            <button class="products-page__mobile-sidebar-close" (click)="closeMobileFilters()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 6 6 18"></path>
+                    <path d="m6 6 12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="products-page__mobile-sidebar-body">
+            <div>
+                <label class="products-page__sidebar-section-title">Categoría</label>
+                @if (isLoadingCategories) {
+                <div class="products-page__sidebar-section-grid">
+                    @for (item of [1,2,3,4]; track item) {
+                    <div class="products-page__sidebar-section-grid-item skeleton-loader"
+                        style="height: 36px; cursor: wait;"></div>
+                    }
+                </div>
+                } @else {
+                <div class="products-page__sidebar-section-grid">
+                    <button class="products-page__sidebar-section-grid-item"
+                        [class.selected]="selectedCategory === null" (click)="selectCategory(null)">
+                        <span>Todos</span>
+                    </button>
+                    @for (category of categoriesOptionsArray; track category.id) {
+                    <button class="products-page__sidebar-section-grid-item"
+                        [class.selected]="isCategorySelected(category.id)"
+                        (click)="selectCategory(category.id)">
+                        <span [title]="category.name">{{ category.name }}</span>
+                    </button>
+                    }
+                </div>
+                }
+            </div>
+            <div>
+                <label class="products-page__sidebar-section-title">Material</label>
+                <div class="products-page__sidebar-section-grid">
+                    <button class="products-page__sidebar-section-grid-item"
+                        [class.selected]="isMaterialSelected(null)" (click)="selectMaterial(null)">
+                        Todos
+                    </button>
+                    @for (material of materialOptionsArray; track material) {
+                    <button class="products-page__sidebar-section-grid-item"
+                        [class.selected]="isMaterialSelected(material)" (click)="selectMaterial(material)">
+                        {{ material }}
+                    </button>
+                    }
+                </div>
+            </div>
+            <div>
+                <label class="products-page__sidebar-section-title">Rango de Precio:<span>
+                        {{ priceRange.min | currency:'EUR':true:'0.0-0' }} - {{
+                        priceRange.max
+                        |
+                        currency:'EUR':true:'0.0-0' }}
+                    </span>
+                </label>
+                <span class="products-page__price-range-container">
+                    <div class="products-page__price-range-track"></div>
+                    <div class="products-page__price-range-selected"
+                        [style.left.%]="(priceRange.min / 300) * 100"
+                        [style.width.%]="((priceRange.max - priceRange.min) / 300) * 100"></div>
+                    <input type="range"
+                        class="products-page__price-range-slider products-page__price-range-slider--min"
+                        [min]="0" [max]="300" [(ngModel)]="priceRange.min"
+                        (change)="onMinPriceChange($event)">
+                    <input type="range"
+                        class="products-page__price-range-slider products-page__price-range-slider--max"
+                        [min]="0" [max]="300" [(ngModel)]="priceRange.max"
+                        (change)="onMaxPriceChange($event)">
+                </span>
+                <div class="products-page__sidebar-price-options-label">
+                    <span>0€</span>
+                    <span>300€</span>
+                </div>
+            </div>
+            @if (hasActiveFilters) {
+            <button class="products-page__sidebar-clear-filters-button" (click)="clearFilters()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="lucide lucide-x h-4 w-4 mr-2" aria-hidden="true">
+                    <path d="M18 6 6 18"></path>
+                    <path d="m6 6 12 12"></path>
+                </svg>
+                <span>Limpiar Filtros</span>
+            </button>
+            }
+        </div>
+    </div>
+
     <div class="products-page__header-wrapper">
         <div class="products-page__header-content" motion [y]="20" [opacity]="0" [duration]="600">
             <h1 class="products-page__title">Nuestros Productos</h1>
@@ -47,6 +144,23 @@
                     }
                 </div>
             </div>
+            <!-- Mobile Filters Button -->
+            <button class="products-page__mobile-filters-button" (click)="openMobileFilters()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <path d="M10 5H3"></path>
+                    <path d="M12 19H3"></path>
+                    <path d="M14 3v4"></path>
+                    <path d="M16 17v4"></path>
+                    <path d="M21 12h-9"></path>
+                    <path d="M21 19h-5"></path>
+                    <path d="M21 5h-7"></path>
+                    <path d="M8 10v4"></path>
+                    <path d="M8 12H3"></path>
+                </svg>
+                <span>Filtros</span>
+            </button>
         </div>
     </div>
     <div class="products-page__wrapper">

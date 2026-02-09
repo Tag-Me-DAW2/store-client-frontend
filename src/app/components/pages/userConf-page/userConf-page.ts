@@ -36,6 +36,7 @@ export class UserConfPage {
   eyeIcon2 = true;
   eyeIcon3 = true;
   isCurrentPasswordValid = false;
+  formSubmitted = false;
 
   constructor() {
     this.formulario = this.createForm();
@@ -289,6 +290,7 @@ export class UserConfPage {
   }
 
   onSubmit() {
+    this.formSubmitted = true;
     const currentUser = this.user();
     if (!currentUser) return;
 
@@ -300,6 +302,11 @@ export class UserConfPage {
     const currentPassword = this.formulario.get('currentPassword')?.value;
     const password = this.formulario.get('password')?.value;
     const passwordConfirm = this.formulario.get('passwordConfirm')?.value;
+
+    if (!this.formulario.valid) {
+      this.formulario.markAllAsTouched();
+      return;
+    }
 
     this.userService.updateUser(
       {

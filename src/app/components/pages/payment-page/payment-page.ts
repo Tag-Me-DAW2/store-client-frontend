@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, effect } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -19,6 +19,7 @@ import {
   cvvValidator,
 } from '../../../validators/cardValidator';
 import { ShippingInfoRequest } from '../../../model/request/ShippingInfoRequest';
+import { PaymentService } from '../../../services/payment-service';
 
 @Component({
   selector: 'payment-page',
@@ -32,6 +33,7 @@ export class PaymentPage {
   fb = inject(FormBuilder);
   cartService = inject(CartService);
   authService = inject(AuthService);
+  paymentService = inject(PaymentService);
 
   cart = this.cartService.cart$;
   subtotal = this.cartService.cartSubtotal;
@@ -45,17 +47,32 @@ export class PaymentPage {
   // Almacenar información de envío
   shippingInfo: ShippingInfoRequest | null = null;
 
+  // Control de estado de submit de formularios
+  shippingFormSubmitted = signal<boolean>(false);
+  paymentFormSubmitted = signal<boolean>(false);
+
   constructor() {
     this.shippingForm = this.createShippingForm();
     this.paymentForm = this.createPaymentForm();
+
+    // Effect para actualizar el formulario cuando el usuario cambie
+    effect(() => {
+      const currentUser = this.user();
+      if (currentUser) {
+        this.shippingForm.patchValue({
+          firstName: currentUser.firstName || '',
+          lastName: currentUser.lastName || '',
+          email: currentUser.email || '',
+          phone: currentUser.phone || '',
+        });
+      }
+    });
   }
 
   createShippingForm(): FormGroup {
-    const currentUser = this.user();
-
     return this.fb.group({
       firstName: [
-        currentUser?.firstName || '',
+        '',
         [
           Validators.required,
           Validators.minLength(2),
@@ -63,18 +80,15 @@ export class PaymentPage {
         ],
       ],
       lastName: [
-        currentUser?.lastName || '',
+        '',
         [
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(50),
         ],
       ],
-      email: [
-        currentUser?.email || '',
-        [Validators.required, Validators.email],
-      ],
-      phone: [currentUser?.phone || '', [Validators.required, phoneValidator]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, phoneValidator]],
       address: ['', [Validators.required, addressValidator]],
       city: [
         '',
@@ -98,18 +112,20 @@ export class PaymentPage {
 
   createPaymentForm(): FormGroup {
     return this.fb.group({
-      cardName: ['', [Validators.required, Validators.minLength(3)]],
+      cardHolderName: ['', [Validators.required, Validators.minLength(3)]],
       cardNumber: ['', [Validators.required, cardNumberValidator]],
-      expiryDate: ['', [Validators.required, expiryDateValidator]],
+      expirationDate: ['', [Validators.required, expiryDateValidator]],
       cvv: ['', [Validators.required, cvvValidator]],
     });
   }
 
   onShippingSubmit() {
+    this.shippingFormSubmitted.set(true);
     if (this.shippingForm.valid) {
       this.shippingInfo = this.shippingForm.value;
       console.log('Información de envío guardada:', this.shippingInfo);
       this.currentStep.set(2);
+      this.shippingFormSubmitted.set(false); // Reset para el siguiente intento
     } else {
       console.log('Formulario de envío inválido');
       Object.keys(this.shippingForm.controls).forEach((key) => {
@@ -119,18 +135,21 @@ export class PaymentPage {
   }
 
   onPaymentSubmit() {
-    if (this.paymentForm.valid) {
+    this.paymentFormSubmitted.set(true);
+    if (this.paymentForm.valid && this.shippingInfo) {
       const paymentData = {
-        shipping: this.shippingInfo,
-        payment: this.paymentForm.value,
-        order: {
+        shippingInfo: this.shippingInfo,
+        paymentInfo: this.paymentForm.value,
+        orderInfo: {
+          shippingCost: this.shipping(),
           subtotal: this.subtotal(),
-          shipping: this.shipping(),
           total: this.total(),
         },
       };
       console.log('Datos completos para pagar:', paymentData);
-      // Aquí llamarías al servicio de pago
+      paymentData.paymentInfo.cardNumber =
+        paymentData.paymentInfo.cardNumber.replace(/\s/g, '');
+      this.paymentService.processCreditCardPayment(paymentData);
     } else {
       console.log('Formulario de pago inválido');
       Object.keys(this.paymentForm.controls).forEach((key) => {
@@ -181,5 +200,6 @@ export class PaymentPage {
 
   goBackToShipping() {
     this.currentStep.set(1);
+    this.paymentFormSubmitted.set(false); // Reset al volver atrás
   }
 }

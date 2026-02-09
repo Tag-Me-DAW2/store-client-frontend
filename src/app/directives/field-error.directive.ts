@@ -130,6 +130,11 @@ export class FieldErrorDirective implements OnDestroy, OnChanges, OnInit {
   @HostListener('blur')
   @HostListener('mouseleave')
   hide() {
+    // No ocultar el tooltip si el formulario ha sido enviado y hay errores
+    if (this.formSubmitted && this.shouldShow()) {
+      return;
+    }
+
     if (this.tooltip) {
       this.renderer.removeChild(
         this.el.nativeElement.parentElement,

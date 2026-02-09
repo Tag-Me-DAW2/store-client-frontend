@@ -63,7 +63,7 @@
                                 <circle cx="12" cy="7" r="4"></circle>
                             </svg>
                             <input type="text" id="name" formControlName="name" placeholder="Nombre" minlength="1"
-                                fieldError="El nombre es obligatorio" />
+                                fieldError="El nombre es obligatorio" [formSubmitted]="formSubmitted" />
                         </div>
                     </div>
                     <div class="c-form-group">
@@ -76,7 +76,7 @@
                                 <circle cx="12" cy="7" r="4"></circle>
                             </svg>
                             <input type="text" id="lastName" formControlName="lastName" placeholder="Apellido"
-                                minlength="1" fieldError="El apellido es obligatorio" />
+                                minlength="1" fieldError="El apellido es obligatorio" [formSubmitted]="formSubmitted" />
                         </div>
                     </div>
                     <div class="c-form-group">
@@ -89,7 +89,8 @@
                                 <circle cx="12" cy="7" r="4"></circle>
                             </svg>
                             <input type="text" id="username" formControlName="username" placeholder="Nombre de usuario"
-                                minlength="1" fieldError="El nombre de usuario es obligatorio" />
+                                minlength="1" fieldError="El nombre de usuario es obligatorio"
+                                [formSubmitted]="formSubmitted" />
                         </div>
                     </div>
                     <div class="c-form-group">
@@ -103,7 +104,7 @@
                                 </path>
                             </svg>
                             <input type="text" id="phone" formControlName="phone" placeholder="+34 600 000 000"
-                                fieldError="El número de teléfono es obligatorio" />
+                                fieldError="El número de teléfono es obligatorio" [formSubmitted]="formSubmitted" />
                         </div>
                     </div>
                     <div class="c-form-group c-form-group-expand">
@@ -116,7 +117,7 @@
                                 <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                             </svg>
                             <input type="email" id="email" formControlName="email" placeholder="tu@email.com"
-                                fieldError="El email es obligatorio" />
+                                fieldError="El email es obligatorio" [formSubmitted]="formSubmitted" />
                         </div>
                     </div>
                 </div>
@@ -128,7 +129,8 @@
                         <label for="currentPassword" class="c-form-group-label">Contraseña Actual</label>
                         <div class="c-input">
                             <input type="password" id="currentPassword" formControlName="currentPassword"
-                                placeholder="Pon tu contraseña actual" fieldError="Esta no es la contraseña actual" />
+                                placeholder="Pon tu contraseña actual" fieldError="Esta no es la contraseña actual"
+                                [formSubmitted]="formSubmitted" />
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="c-input__svg" aria-hidden="true">
@@ -168,7 +170,8 @@
                         <div class="c-input">
                             <input type="password" id="password" formControlName="password"
                                 placeholder="Dejar en blanco para no cambiar"
-                                fieldError="La nueva contraseña no puede ser igual a la actual" />
+                                fieldError="La nueva contraseña no puede ser igual a la actual"
+                                [formSubmitted]="formSubmitted" />
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="c-input__svg" aria-hidden="true">
@@ -206,7 +209,8 @@
                         <label for="passwordConfirm" class="c-form-group-label">Confirmar nueva contraseña</label>
                         <div class="c-input">
                             <input type="password" id="passwordConfirm" formControlName="passwordConfirm"
-                                placeholder="Confirmar nueva contraseña" fieldError="Las contraseñas no coinciden" />
+                                placeholder="Confirmar nueva contraseña" fieldError="Las contraseñas no coinciden"
+                                [formSubmitted]="formSubmitted" />
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="c-input__svg" aria-hidden="true">

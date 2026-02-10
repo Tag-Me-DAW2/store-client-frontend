@@ -1,0 +1,495 @@
+.order-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f9f8f8, #f0efef 50%, #f9f8f8);
+  padding: 96px 16px 64px;
+  position: relative;
+
+  // Background Pattern
+  &__background-pattern {
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgzOSw0MCw1NiwwLjAzKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+");
+    opacity: 1;
+    pointer-events: none;
+  }
+
+  // Container
+  &__container {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+  }
+
+  // Header
+  &__header {
+    margin-bottom: 32px;
+  }
+
+  &__title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #272838;
+    margin-bottom: 12px;
+    letter-spacing: -0.025em;
+  }
+
+  &__subtitle {
+    color: #6b7280;
+    font-size: 1rem;
+  }
+
+  // Loading State
+  &__loading {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  // Empty State
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 24px;
+    background-color: #fff;
+    border: 1px solid color-mix(in oklab, #272838 10%, transparent);
+    border-radius: 16px;
+    text-align: center;
+  }
+
+  &__empty-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background-color: color-mix(in oklab, #f3de8a 10%, transparent);
+    border: 1px solid color-mix(in oklab, #f3de8a 20%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+
+    svg {
+      width: 32px;
+      height: 32px;
+      color: #f3de8a;
+    }
+  }
+
+  &__empty-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #272838;
+    margin-bottom: 8px;
+  }
+
+  &__empty-text {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-bottom: 24px;
+  }
+
+  &__empty-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background-color: #f3de8a;
+    color: #272838;
+    font-weight: 500;
+    font-size: 0.875rem;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: darken(#f3de8a, 5%);
+      transform: translateY(-1px);
+    }
+  }
+
+  // Orders List
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  // Order Card
+  &__card {
+    background-color: #fff;
+    border: 1px solid color-mix(in oklab, #272838 10%, transparent);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    &--skeleton {
+      pointer-events: none;
+    }
+  }
+
+  &__card-content {
+    padding: 24px;
+  }
+
+  // Card Header
+  &__card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+
+    @media (min-width: 640px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__card-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background-color: color-mix(in oklab, #f3de8a 10%, transparent);
+    border: 1px solid color-mix(in oklab, #f3de8a 20%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      color: #f3de8a;
+    }
+  }
+
+  &__card-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__card-order-id {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #272838;
+    margin-bottom: 4px;
+  }
+
+  &__card-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: #6b7280;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &__card-status {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @media (min-width: 640px) {
+      align-items: flex-end;
+    }
+  }
+
+  &__status-icon {
+    width: 14px;
+    height: 14px;
+    margin-right: 6px;
+  }
+
+  &__card-total {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #272838;
+  }
+
+  // Products Preview
+  &__card-products {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  &__products-preview {
+    display: flex;
+    margin-left: 8px;
+  }
+
+  &__product-thumbnail {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    background-color: #f0efef;
+    overflow: hidden;
+    margin-left: -8px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__products-count {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+
+  // Shipping Info (Compact)
+  &__card-shipping {
+    background-color: color-mix(in oklab, #f0efef 30%, transparent);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  &__shipping-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+
+  &__shipping-address {
+    font-size: 0.875rem;
+    font-family: monospace;
+    color: #272838;
+  }
+
+  // Toggle Button
+  &__toggle-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: transparent;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #272838;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: color-mix(in oklab, #f0efef 50%, transparent);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s ease;
+
+      &.rotated {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  // Expanded Details
+  &__details {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid color-mix(in oklab, #272838 10%, transparent);
+  }
+
+  &__details-header {
+    margin-bottom: 16px;
+  }
+
+  &__details-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #272838;
+  }
+
+  // Order Items
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background-color: #f9f8f8;
+    border-radius: 8px;
+  }
+
+  &__item-image {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__item-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__item-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #272838;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__item-quantity {
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+
+  &__item-price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  &__item-original-price {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-decoration: line-through;
+  }
+
+  &__item-final-price {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #272838;
+  }
+
+  // Summary
+  &__summary {
+    padding: 16px;
+    background-color: color-mix(in oklab, #f0efef 30%, transparent);
+    border-radius: 8px;
+  }
+
+  &__summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &--total {
+      padding-top: 8px;
+      border-top: 1px solid color-mix(in oklab, #272838 10%, transparent);
+      font-weight: 600;
+      color: #272838;
+      font-size: 1rem;
+    }
+  }
+
+  // Shipping Details (Expanded)
+  &__shipping-details {
+    padding: 16px;
+    background-color: #f9f8f8;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+
+  &__shipping-details-title {
+    display: flex;
+    align-items: center;
+    color: #272838;
+    font-size: 0.875rem;
+    font-weight: 600;
+    gap: calc(.25rem * 2);
+    margin-bottom: 12px;
+  }
+
+  &__shipping-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__shipping-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__shipping-item-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+
+  &__shipping-item-value {
+    font-size: 0.875rem;
+    color: #272838;
+  }
+
+  // Skeleton Loader
+  .skeleton-loader {
+    background: linear-gradient(
+      90deg,
+      #f0efef 25%,
+      #e5e4e4 50%,
+      #f0efef 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: 4px;
+  }
+
+  @keyframes skeleton-shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+}

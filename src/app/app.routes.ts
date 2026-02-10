@@ -7,6 +7,7 @@ import { SessionGuard } from './guards/SessionGuard';
 import { PaymentPage } from './components/pages/payment-page/payment-page';
 import { TecnologiaPage } from './components/pages/tecnologia-page/tecnologia-page';
 import { ContantPage } from './components/pages/contant-page/contant-page';
+import { OrderPage } from './components/pages/order-page/order-page';
 
 export const routes: Routes = [
   { path: '', component: LandingPage },
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'tech', component: TecnologiaPage },
   { path: 'contact', component: ContantPage },
   { path: 'userconf', canActivate: [SessionGuard], component: UserConfPage },
+  { path: 'orders', canActivate: [SessionGuard], component: OrderPage },
   { path: 'payment', canActivate: [SessionGuard], component: PaymentPage },
   { path: '**', redirectTo: '' },
 ];

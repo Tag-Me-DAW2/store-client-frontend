@@ -40,8 +40,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
           this.alertService
             .error({
-              title: 'Session Expired',
-              text: 'Your session has expired. Please log in again.',
+              title: 'Sesión expirada',
+              text: 'Tu sesión ha expirado. Por favor, inicia sesión de nuevo.',
               allowOutsideClick: false,
               allowEscapeKey: false,
             })

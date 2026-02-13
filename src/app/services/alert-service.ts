@@ -27,7 +27,10 @@ export class AlertService implements AlertInterface {
 
   error(options: AlertOptions): Promise<void> {
     // Si hay una alerta de sesión activa Y NO es la propia alerta de sesión, no mostrar
-    if (this.isSessionExpiredAlertActive && options.title !== 'Session Expired') {
+    if (
+      this.isSessionExpiredAlertActive &&
+      options.title !== 'Sesión expirada'
+    ) {
       return Promise.resolve();
     }
     return Swal.fire({

@@ -37,8 +37,8 @@ export class AuthService {
       },
       error: (error) => {
         this.alertService.error({
-          title: 'Logout Failed',
-          text: 'An error occurred while logging out. Please try again.',
+          title: 'Error al cerrar sesión',
+          text: 'Ocurrió un error al cerrar sesión. Por favor, inténtalo de nuevo.',
         });
       },
     });

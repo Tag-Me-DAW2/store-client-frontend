@@ -24,6 +24,7 @@ import { CartService } from '../../../services/cart-service';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CurrencyPipe } from '@angular/common';
+import { EasterEggService } from '../../../services/easter-egg.service';
 
 @Component({
   selector: 'app-products-page',
@@ -41,6 +42,10 @@ export class ProductsPage implements OnInit, OnDestroy {
   categoryService = inject(CategoryService);
   productService = inject(ProductService);
   cartService = inject(CartService);
+  easterEggService = inject(EasterEggService);
+
+  // Estado del Easter Egg (efecto flip)
+  isFlipped: boolean = false;
   ProductSortLabels = ProductSortLabels;
   Math = Math;
   sortOptionsArray: ProductSort[] = [
@@ -78,6 +83,8 @@ export class ProductsPage implements OnInit, OnDestroy {
     this.loadCategories();
     this.loadProducts();
     this.cartService.loadCart();
+    this.setupEasterEggListener();
+    this.updateEasterEggConditions();
 
     // Debounce para búsqueda - espera 400ms después de que el usuario deje de escribir
     const searchSub = this.searchSubject
@@ -101,7 +108,79 @@ export class ProductsPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+    this.easterEggService.clearConditions();
   }
+
+    onMinPriceInput(value: number) {
+    if (value < 0) value = 0;
+    if (value > 300) value = 300;
+    if (value > this.priceRange.max) value = this.priceRange.max;
+    this.priceRange.min = value;
+    this.priceChangeSubject.next();
+    this.updateEasterEggConditions();
+  }
+
+  onMaxPriceInput(value: number) {
+    if (value < this.priceRange.min) value = this.priceRange.min;
+    if (value > 300) value = 300;
+    if (value < 0) value = 0;
+    this.priceRange.max = value;
+    this.priceChangeSubject.next();
+    this.updateEasterEggConditions();
+  }
+
+  // =============================================
+  // EASTER EGG - Funciones aisladas
+  // =============================================
+
+  /**
+   * Configura el listener para el evento del logo click
+   * Esta función está aislada para manejar el Easter Egg
+   */
+  private setupEasterEggListener(): void {
+    const easterEggSub = this.easterEggService.logoClick$.subscribe(() => {
+      this.checkAndTriggerEasterEgg();
+    });
+    this.subscriptions.add(easterEggSub);
+  }
+
+  /**
+   * Verifica las condiciones y activa el Easter Egg si se cumplen
+   */
+  private checkAndTriggerEasterEgg(): void {
+    const conditionsMet = this.easterEggService.checkSecretConditions(
+      this.priceRange.min,
+      this.priceRange.max,
+      this.searchQuery
+    );
+
+    if (conditionsMet) {
+      this.triggerFlipAnimation();
+    }
+  }
+
+  /**
+   * Activa/desactiva el Easter Egg overlay
+   */
+  triggerFlipAnimation(): void {
+    this.isFlipped = !this.isFlipped;
+  }
+
+  /**
+   * Actualiza las condiciones del Easter Egg en el servicio
+   * Se llama cada vez que cambian los filtros
+   */
+  private updateEasterEggConditions(): void {
+    this.easterEggService.updateCurrentConditions(
+      this.priceRange.min,
+      this.priceRange.max,
+      this.searchQuery
+    );
+  }
+
+  // =============================================
+  // FIN EASTER EGG
+  // =============================================
 
   onMinPriceChange(event: Event) {
     const value = +(event.target as HTMLInputElement).value;
@@ -109,6 +188,7 @@ export class ProductsPage implements OnInit, OnDestroy {
       this.priceRange.min = this.priceRange.max;
     }
     this.priceChangeSubject.next();
+    this.updateEasterEggConditions();
   }
 
   onMaxPriceChange(event: Event) {
@@ -117,6 +197,7 @@ export class ProductsPage implements OnInit, OnDestroy {
       this.priceRange.max = this.priceRange.min;
     }
     this.priceChangeSubject.next();
+    this.updateEasterEggConditions();
   }
 
   selectCategory(categoryId: number | null) {
@@ -147,6 +228,7 @@ export class ProductsPage implements OnInit, OnDestroy {
 
   onSearchChange() {
     this.searchSubject.next(this.searchQuery);
+    this.updateEasterEggConditions();
   }
 
   openMobileFilters() {

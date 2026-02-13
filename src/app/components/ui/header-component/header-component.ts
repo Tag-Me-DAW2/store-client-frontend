@@ -12,6 +12,7 @@ import { NgClass } from '@angular/common';
 import { UserResponse } from '../../../model/response/user/userResponse';
 import { AuthService } from '../../../services/auth-service';
 import { CartService } from '../../../services/cart-service';
+import { EasterEggService } from '../../../services/easter-egg.service';
 
 @Component({
   selector: 'header-component',
@@ -23,6 +24,7 @@ export class HeaderComponent {
   authService = inject(AuthService);
   cartService = inject(CartService);
   router = inject(Router);
+  easterEggService = inject(EasterEggService);
   subscriptions: Subscription[] = [];
 
   isMenuOpen: boolean = false;
@@ -105,5 +107,18 @@ export class HeaderComponent {
 
   logout() {
     this.authService.logout();
+  }
+
+  // Función aislada para el Easter Egg - emite evento al hacer click en el logo
+  onLogoClick(event: MouseEvent): void {
+    event.preventDefault();
+    
+    // Si estamos en products y las condiciones se cumplen, solo emitir evento
+    if (this.route.includes('/products') && this.easterEggService.areConditionsMet()) {
+      this.easterEggService.emitLogoClick();
+    } else {
+      // Si no, navegar a inicio normalmente
+      this.router.navigate(['/']);
+    }
   }
 }

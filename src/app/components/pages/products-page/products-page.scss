@@ -1,3 +1,34 @@
+.products-page__price-range-inputs {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.products-page__price-range-input {
+  height: calc(0.25rem * 8);
+  width: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: calc(1.25 / 0.875);
+  outline-style: none;
+  background-color: #f9f8f8;
+  border: 1px solid #2728381a;
+  border-radius: calc(0.625rem - 2px);
+  padding-inline: calc(0.25rem * 3);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #272838;
+  text-align: center;
+}
+
+.products-page__price-range-input:focus {
+  border-color: color-mix(in oklab, #272838 50%, transparent);
+  outline: none;
+}
+
 .products-page {
   min-height: 100vh;
   background-color: #f9f8f8;
@@ -875,3 +906,89 @@
     background-position: -200% 0;
   }
 }
+
+// =============================================
+// EASTER EGG - Overlay secreto
+// =============================================
+
+.products-page__easter-egg-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  perspective: 2000px;
+  /* El fondo negro aparece instantáneo */
+  animation: none;
+  opacity: 1;
+}
+
+.products-page__easter-egg-image {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+  animation: memeFlip3D 6s ease-in-out infinite, memeFadeIn 5s ease-out forwards;
+  transform-style: preserve-3d;
+  opacity: 0;
+}
+@keyframes memeFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.products-page__easter-egg-hint {
+  position: absolute;
+  bottom: 2rem;
+  color: #fff;
+  font-size: 1rem;
+  opacity: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  animation: hintFadeIn 3s ease-out 5s forwards;
+}
+
+@keyframes overlayFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes memeFlip3D {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(180deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes hintFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+// =============================================
+// FIN EASTER EGG
+// =============================================
+

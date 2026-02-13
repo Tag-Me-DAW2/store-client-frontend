@@ -56,13 +56,13 @@
                 </div>
             </div>
             <div>
-                <label class="products-page__sidebar-section-title">Rango de Precio:<span>
-                        {{ priceRange.min | currency:'EUR':true:'0.0-0' }} - {{
-                        priceRange.max
-                        |
-                        currency:'EUR':true:'0.0-0' }}
-                    </span>
+                <label class="products-page__sidebar-section-title">Rango de Precio:
                 </label>
+                <div class="products-page__price-range-inputs">
+                    <input type="number" min="0" max="300" [(ngModel)]="priceRange.min" (ngModelChange)="onMinPriceInput($event)" class="products-page__price-range-input" />
+                    <span> - </span>
+                    <input type="number" min="0" max="300" [(ngModel)]="priceRange.max" (ngModelChange)="onMaxPriceInput($event)" class="products-page__price-range-input" />
+                </div>
                 <span class="products-page__price-range-container">
                     <div class="products-page__price-range-track"></div>
                     <div class="products-page__price-range-selected"
@@ -210,13 +210,13 @@
                             </div>
                         </div>
                         <div>
-                            <label class="products-page__sidebar-section-title">Rango de Precio:<span>
-                                    {{ priceRange.min | currency:'EUR':true:'0.0-0' }} - {{
-                                    priceRange.max
-                                    |
-                                    currency:'EUR':true:'0.0-0' }}
-                                </span>
+                            <label class="products-page__sidebar-section-title">Rango de Precio:
                             </label>
+                            <div class="products-page__price-range-inputs">
+                                <input type="number" min="0" max="300" [(ngModel)]="priceRange.min" (ngModelChange)="onMinPriceInput($event)" class="products-page__price-range-input" />
+                                <span> - </span>
+                                <input type="number" min="0" max="300" [(ngModel)]="priceRange.max" (ngModelChange)="onMaxPriceInput($event)" class="products-page__price-range-input" />
+                            </div>
                             <span class="products-page__price-range-container">
                                 <div class="products-page__price-range-track"></div>
                                 <div class="products-page__price-range-selected"
@@ -327,3 +327,11 @@
     </div>
     <button class="products-page__footer"></button>
 </div>
+
+<!-- Easter Egg Overlay -->
+@if (isFlipped) {
+<div class="products-page__easter-egg-overlay" (click)="triggerFlipAnimation()">
+    <img src="/assets/dumb-patrick.png" alt="Easter Egg" class="products-page__easter-egg-image">
+    <p class="products-page__easter-egg-hint">Click para volver</p>
+</div>
+}

@@ -46,6 +46,8 @@ export class ProductsPage implements OnInit, OnDestroy {
 
   // Estado del Easter Egg (efecto flip)
   isFlipped: boolean = false;
+  // Audio para el Easter Egg
+  private easterAudio: HTMLAudioElement | null = null;
   ProductSortLabels = ProductSortLabels;
   Math = Math;
   sortOptionsArray: ProductSort[] = [
@@ -85,6 +87,7 @@ export class ProductsPage implements OnInit, OnDestroy {
     this.cartService.loadCart();
     this.setupEasterEggListener();
     this.updateEasterEggConditions();
+    this.initEasterAudio();
 
     // Debounce para búsqueda - espera 400ms después de que el usuario deje de escribir
     const searchSub = this.searchSubject
@@ -109,6 +112,15 @@ export class ProductsPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
     this.easterEggService.clearConditions();
+    if (this.easterAudio) {
+      try {
+        this.easterAudio.pause();
+        this.easterAudio.src = '';
+      } catch (e) {
+        // ignore
+      }
+      this.easterAudio = null;
+    }
   }
 
     onMinPriceInput(value: number) {
@@ -164,6 +176,23 @@ export class ProductsPage implements OnInit, OnDestroy {
    */
   triggerFlipAnimation(): void {
     this.isFlipped = !this.isFlipped;
+    // Reproducir/pausar audio según el estado (esto se dispara tras un gesto del usuario)
+    if (this.isFlipped) {
+      try {
+        if (!this.easterAudio) this.initEasterAudio();
+        this.easterAudio?.currentTime && (this.easterAudio.currentTime = 0);
+        this.easterAudio?.play();
+      } catch (e) {
+        // reproducción puede fallar por permisos; ignoramos
+      }
+    } else {
+      try {
+        this.easterAudio?.pause();
+        if (this.easterAudio) this.easterAudio.currentTime = 0;
+      } catch (e) {
+        // ignore
+      }
+    }
   }
 
   /**
@@ -176,6 +205,19 @@ export class ProductsPage implements OnInit, OnDestroy {
       this.priceRange.max,
       this.searchQuery
     );
+  }
+
+  /** Inicializa el objeto Audio para el Easter Egg */
+  private initEasterAudio(): void {
+    try {
+      // Añade tu fichero de audio en /public/assets/easter-egg.mp3
+      this.easterAudio = new Audio('/assets/easter-egg.mp3');
+      this.easterAudio.preload = 'auto';
+      // Ajustes opcionales: volumen por defecto
+      this.easterAudio.volume = 0.9;
+    } catch (e) {
+      this.easterAudio = null;
+    }
   }
 
   // =============================================

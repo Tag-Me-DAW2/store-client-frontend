@@ -1,14 +1,19 @@
 // =============================================
-// EASTER EGG - CUBO 3D CON PATRICK
+// EASTER EGG - CUBO 3D (la página ES la cara frontal)
 // =============================================
 // Arquitectura:
-//   .app-page-wrapper        → página normal (siempre visible, se oculta con el overlay)
-//   .easter-zoom-wrapper     → capa fixed, hace el zoom-out (scale)
-//   .easter-cube             → el cubo 3D que rota (preserve-3d + rotateXYZ)
-//   .cube-face--*            → 6 caras del cubo con Patrick
-//   .easter-overlay          → fondo oscuro + partículas + texto (detrás del cubo)
+//   .app-page-wrapper              → normal: contenedor de la página
+//   .app-page-wrapper--active      → Easter Egg: se convierte en cubo 3D giratorio
+//     .app-page-content             → cara frontal = la página real
+//     .cube-face--back/right/left/top/bottom → 5 caras de Patrick
+//   .easter-overlay                 → fondo oscuro + partículas + texto (detrás del cubo)
+//
+// Truco clave: usamos un div intermedio (.easter-cube-rotator) generado
+// con un pseudo-elemento NO, mejor: separamos zoom y rotación
+// poniendo la rotación en el wrapper y el zoom en el body/perspective.
 
-$cube-size: 35vmin; // tamaño de cada cara del cubo
+$cube-size: 40vmin; // tamaño de cada cara del cubo
+$half-cube: calc(#{$cube-size} / 2);
 
 // ---- PÁGINA NORMAL ----
 .app-page-wrapper {
@@ -16,30 +21,49 @@ $cube-size: 35vmin; // tamaño de cada cara del cubo
   min-height: 100vh;
 }
 
-// ---- ZOOM WRAPPER (capa que contiene el cubo) ----
-.easter-zoom-wrapper {
+.app-page-content {
+  width: 100%;
+  min-height: 100vh;
+}
+
+// ---- ESTADO ACTIVO: EL WRAPPER SE CONVIERTE EN EL CUBO ----
+.app-page-wrapper--active {
+  // Se posiciona fixed y centrado
   position: fixed;
   inset: 0;
-  z-index: 100000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  // Animación de aparición (el cubo "entra" escalando)
-  animation: easterZoomIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-// ---- EL CUBO 3D ----
-.easter-cube {
   width: $cube-size;
   height: $cube-size;
-  position: relative;
+  margin: auto; // centrar el cubo
+  z-index: 100000;
+  cursor: pointer;
+  overflow: visible;
+
+  // Este es el CUBO 3D
   transform-style: preserve-3d;
-  // Rotación caótica infinita
-  animation: easterCubeRotate 6s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+
+  // Usamos `scale` (propiedad CSS independiente) para el zoom-in
+  // y `transform` para la rotación 3D — así NO se sobrescriben
+  scale: 0;
+  animation:
+    easterScaleIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+    easterCubeRotate 6s 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+
+  // La página real = cara frontal del cubo
+  .app-page-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    min-height: unset;
+    overflow: hidden;
+    transform: translateZ($half-cube);
+    backface-visibility: visible;
+    border: 3px solid rgba(255, 0, 255, 0.5);
+    box-shadow: inset 0 0 50px rgba(255, 0, 255, 0.2);
+    background: var(--tgm-sys-color-white, #fff);
+  }
 }
 
-// ---- LAS 6 CARAS ----
+// ---- 5 CARAS DE PATRICK ----
 .cube-face {
   position: absolute;
   width: 100%;
@@ -62,24 +86,20 @@ $cube-size: 35vmin; // tamaño de cada cara del cubo
     animation: easterImgShake 0.3s ease-in-out infinite alternate;
   }
 
-  // Posición de cada cara del cubo
-  &--front {
-    transform: rotateY(0deg) translateZ(calc(#{$cube-size} / 2));
-  }
   &--back {
-    transform: rotateY(180deg) translateZ(calc(#{$cube-size} / 2));
+    transform: rotateY(180deg) translateZ($half-cube);
   }
   &--right {
-    transform: rotateY(90deg) translateZ(calc(#{$cube-size} / 2));
+    transform: rotateY(90deg) translateZ($half-cube);
   }
   &--left {
-    transform: rotateY(-90deg) translateZ(calc(#{$cube-size} / 2));
+    transform: rotateY(-90deg) translateZ($half-cube);
   }
   &--top {
-    transform: rotateX(90deg) translateZ(calc(#{$cube-size} / 2));
+    transform: rotateX(90deg) translateZ($half-cube);
   }
   &--bottom {
-    transform: rotateX(-90deg) translateZ(calc(#{$cube-size} / 2));
+    transform: rotateX(-90deg) translateZ($half-cube);
   }
 }
 
@@ -317,26 +337,23 @@ $cube-size: 35vmin; // tamaño de cada cara del cubo
 // ANIMACIONES
 // ==========================
 
-// Zoom-in del cubo al aparecer (rebote elástico)
-@keyframes easterZoomIn {
+// Zoom-in del cubo usando la propiedad `scale` (independiente de `transform`)
+@keyframes easterScaleIn {
   0% {
-    transform: scale(0);
-    opacity: 0;
+    scale: 0;
   }
   60% {
-    transform: scale(1.15);
-    opacity: 1;
+    scale: 1.1;
   }
   80% {
-    transform: scale(0.95);
+    scale: 0.95;
   }
   100% {
-    transform: scale(1);
-    opacity: 1;
+    scale: 1;
   }
 }
 
-// Rotación caótica del cubo (solo rotaciones, sin scale)
+// Rotación caótica del cubo (solo `transform: rotate`)
 @keyframes easterCubeRotate {
   0% {
     transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);

@@ -1,42 +1,38 @@
-<!-- Wrapper normal de la página (siempre visible) -->
-<div class="app-page-wrapper">
-    <header-component></header-component>
-    <router-outlet />
-    <c-cart></c-cart>
-</div>
-
-<!-- Easter Egg: zoom-wrapper (scale) > cube (rotate 3D) > 6 caras -->
-@if (easterEggService.isActive()) {
-<div class="easter-zoom-wrapper" (click)="easterEggService.toggle()">
-    <div class="easter-cube">
-        <!-- Cara frontal: captura de la página -->
-        <div class="cube-face cube-face--front">
-            <img src="/assets/dumb-patrick.png" alt="Patrick" class="cube-face__img" style="filter: drop-shadow(0 0 30px #ff00ff);">
-        </div>
-        <!-- Cara trasera -->
-        <div class="cube-face cube-face--back">
-            <img src="/assets/dumb-patrick.png" alt="Patrick" class="cube-face__img" style="filter: hue-rotate(180deg);">
-        </div>
-        <!-- Cara derecha -->
-        <div class="cube-face cube-face--right">
-            <img src="/assets/dumb-patrick.png" alt="Patrick" class="cube-face__img" style="filter: saturate(3) contrast(1.5);">
-        </div>
-        <!-- Cara izquierda -->
-        <div class="cube-face cube-face--left">
-            <img src="/assets/dumb-patrick.png" alt="Patrick" class="cube-face__img" style="filter: invert(1);">
-        </div>
-        <!-- Cara superior -->
-        <div class="cube-face cube-face--top">
-            <img src="/assets/dumb-patrick.png" alt="Patrick" class="cube-face__img" style="filter: sepia(1) hue-rotate(90deg);">
-        </div>
-        <!-- Cara inferior -->
-        <div class="cube-face cube-face--bottom">
-            <img src="/assets/dumb-patrick.png" alt="Patrick" class="cube-face__img" style="filter: brightness(2) hue-rotate(270deg);">
-        </div>
+<!-- Contenedor principal: la página vive aquí siempre -->
+<div class="app-page-wrapper" [class.app-page-wrapper--active]="easterEggService.isActive()">
+    <!-- Cuando el Easter Egg está activo, este wrapper se convierte en la cara frontal del cubo -->
+    <div class="app-page-content">
+        <header-component></header-component>
+        <router-outlet />
+        <c-cart></c-cart>
     </div>
+
+    <!-- 5 caras de Patrick (solo cuando Easter Egg activo) -->
+    @if (easterEggService.isActive()) {
+    <div class="cube-face cube-face--back">
+        <img src="/assets/dumb-patrick.png" alt="Patrick" class="cube-face__img"
+            style="filter: hue-rotate(180deg);">
+    </div>
+    <div class="cube-face cube-face--right">
+        <img src="/assets/dumb-patrick.png" alt="Patrick" class="cube-face__img"
+            style="filter: saturate(3) contrast(1.5);">
+    </div>
+    <div class="cube-face cube-face--left">
+        <img src="/assets/dumb-patrick.png" alt="Patrick" class="cube-face__img" style="filter: invert(1);">
+    </div>
+    <div class="cube-face cube-face--top">
+        <img src="/assets/dumb-patrick.png" alt="Patrick" class="cube-face__img"
+            style="filter: sepia(1) hue-rotate(90deg);">
+    </div>
+    <div class="cube-face cube-face--bottom">
+        <img src="/assets/dumb-patrick.png" alt="Patrick" class="cube-face__img"
+            style="filter: brightness(2) hue-rotate(270deg);">
+    </div>
+    }
 </div>
 
-<!-- Overlay de fondo: fondo oscuro, partículas, texto -->
+<!-- Overlay de fondo: fondo oscuro, partículas, texto (detrás del cubo) -->
+@if (easterEggService.isActive()) {
 <div class="easter-overlay" (click)="easterEggService.toggle()">
     <div class="easter-overlay__particles">
         @for (i of particleIndexes; track i) {

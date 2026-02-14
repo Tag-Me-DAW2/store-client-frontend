@@ -43,5 +43,15 @@
     </div>
     <p class="easter-overlay__text">🔥 EPSTEIN DIDN'T KILL HIMSELF 🔥</p>
     <p class="easter-overlay__hint">Click para volver</p>
+
+    <!-- VIDEO RANDOM POPUP -->
+    @if (showVideo()) {
+    <div class="easter-video-popup" [style.left]="videoStyle()['left']" [style.top]="videoStyle()['top']"
+        [style.transform]="videoStyle()['transform']">
+        <iframe [src]="safeVideoUrl" class="easter-video-popup__iframe" allow="autoplay; encrypted-media"
+            allowfullscreen>
+        </iframe>
+    </div>
+    }
 </div>
 }

@@ -39,6 +39,17 @@ body {
 // =============================================
 // EASTER EGG GLOBAL (solo body)
 // =============================================
+// Fase zoom-out: fondo oscurece mientras la página se encoge
+body.easter-egg-zooming {
+  overflow: hidden;
+  background: #000;
+  transition: background 0.8s ease;
+
+  .LandbotLivechat {
+    display: none !important;
+  }
+}
+
 body.easter-egg-active {
   overflow: hidden;
   background: #000;

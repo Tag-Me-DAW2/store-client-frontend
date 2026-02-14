@@ -12,6 +12,11 @@ export class EasterEggService {
   // Signal reactivo para el estado activo del Easter Egg (usado por app.ts)
   readonly isActive = signal(false);
 
+  // Fase de zoom-out: la página se encoge antes de que aparezca el cubo
+  readonly isZoomingOut = signal(false);
+
+  private zoomOutTimer: ReturnType<typeof setTimeout> | null = null;
+
   // Subject para emitir cuando se hace click en el logo del header
   private logoClickSubject = new Subject<void>();
   logoClick$ = this.logoClickSubject.asObservable();
@@ -76,16 +81,32 @@ export class EasterEggService {
   // Audio del Easter Egg
   private audio: HTMLAudioElement | null = null;
 
-  // Activar el Easter Egg
+  // Activar el Easter Egg (con fase de zoom-out primero)
   activate(): void {
-    this.isActive.set(true);
-    document.body.classList.add('easter-egg-active');
+    // Fase 1: zoom-out de la página
+    this.isZoomingOut.set(true);
+    document.body.classList.add('easter-egg-zooming');
     this.playAudio();
+
+    // Fase 2: tras el zoom-out, mostrar el cubo
+    this.zoomOutTimer = setTimeout(() => {
+      this.isZoomingOut.set(false);
+      this.isActive.set(true);
+      document.body.classList.remove('easter-egg-zooming');
+      document.body.classList.add('easter-egg-active');
+    }, 1200);
   }
 
   // Desactivar el Easter Egg
   deactivate(): void {
+    // Limpiar timer por si se desactiva durante el zoom-out
+    if (this.zoomOutTimer) {
+      clearTimeout(this.zoomOutTimer);
+      this.zoomOutTimer = null;
+    }
+    this.isZoomingOut.set(false);
     this.isActive.set(false);
+    document.body.classList.remove('easter-egg-zooming');
     document.body.classList.remove('easter-egg-active');
     this.stopAudio();
   }

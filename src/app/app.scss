@@ -32,6 +32,12 @@ $half-cube: calc(#{$cube-size} / 2);
   min-height: 100vh;
 }
 
+// ---- FASE ZOOM-OUT: la página se encoge antes de mostrar el cubo ----
+.app-page-wrapper--zooming {
+  transform-origin: center center;
+  animation: easterPageZoomOut 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
 // ---- ESTADO ACTIVO: EL WRAPPER SE CONVIERTE EN EL CUBO ----
 .app-page-wrapper--active {
   display: flex;
@@ -354,6 +360,25 @@ $half-cube: calc(#{$cube-size} / 2);
 // ==========================
 // ANIMACIONES
 // ==========================
+
+// Zoom-out de la página entera (antes de mostrar el cubo)
+@keyframes easterPageZoomOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+  60% {
+    transform: scale(0.6);
+    opacity: 0.8;
+    filter: blur(1px);
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
 
 // Zoom-in del cubo usando la propiedad `scale` (independiente de `transform`)
 @keyframes easterScaleIn {

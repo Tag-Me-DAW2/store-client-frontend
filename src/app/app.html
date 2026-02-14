@@ -1,5 +1,6 @@
 <!-- Contenedor principal: la página vive aquí siempre -->
-<div class="app-page-wrapper" [class.app-page-wrapper--active]="easterEggService.isActive()">
+<div class="app-page-wrapper" [class.app-page-wrapper--zooming]="easterEggService.isZoomingOut()"
+    [class.app-page-wrapper--active]="easterEggService.isActive()">
     <!-- Cara frontal del cubo = la página real en miniatura -->
     <div class="cube-face cube-face--front">
         <div class="app-page-content">

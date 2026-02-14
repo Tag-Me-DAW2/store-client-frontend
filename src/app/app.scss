@@ -4,13 +4,12 @@
 // Arquitectura:
 //   .app-page-wrapper              → normal: contenedor de la página
 //   .app-page-wrapper--active      → Easter Egg: se convierte en cubo 3D giratorio
-//     .app-page-content             → cara frontal = la página real
+//     .cube-face--front > .app-page-content → cara frontal = la página real (en miniatura)
 //     .cube-face--back/right/left/top/bottom → 5 caras de Patrick
-//   .easter-overlay                 → fondo oscuro + partículas + texto (detrás del cubo)
+//   .easter-overlay                → fondo oscuro + partículas + texto (detrás del cubo)
 //
-// Truco clave: usamos un div intermedio (.easter-cube-rotator) generado
-// con un pseudo-elemento NO, mejor: separamos zoom y rotación
-// poniendo la rotación en el wrapper y el zoom en el body/perspective.
+// Truco: propiedad `scale` (independiente de `transform`) para el zoom-in,
+// y `transform: rotateXYZ` para la rotación 3D — no se sobrescriben.
 
 $cube-size: 40vmin; // tamaño de cada cara del cubo
 $half-cube: calc(#{$cube-size} / 2);
@@ -19,6 +18,13 @@ $half-cube: calc(#{$cube-size} / 2);
 .app-page-wrapper {
   width: 100%;
   min-height: 100vh;
+
+  // En estado normal, la cara frontal no tiene transform 3D
+  .cube-face--front {
+    width: 100%;
+    min-height: 100vh;
+    // Sin position absolute, sin transform, flujo normal
+  }
 }
 
 .app-page-content {
@@ -28,43 +34,47 @@ $half-cube: calc(#{$cube-size} / 2);
 
 // ---- ESTADO ACTIVO: EL WRAPPER SE CONVIERTE EN EL CUBO ----
 .app-page-wrapper--active {
-  // Se posiciona fixed y centrado
   position: fixed;
   inset: 0;
   width: $cube-size;
   height: $cube-size;
-  margin: auto; // centrar el cubo
+  margin: auto;
   z-index: 100000;
   cursor: pointer;
   overflow: visible;
-
-  // Este es el CUBO 3D
   transform-style: preserve-3d;
 
-  // Usamos `scale` (propiedad CSS independiente) para el zoom-in
-  // y `transform` para la rotación 3D — así NO se sobrescriben
   scale: 0;
   animation:
     easterScaleIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
     easterCubeRotate 6s 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
 
-  // La página real = cara frontal del cubo
-  .app-page-content {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+  // La cara frontal (contiene la página real en miniatura)
+  .cube-face--front {
     min-height: unset;
-    overflow: hidden;
-    transform: translateZ($half-cube);
-    backface-visibility: visible;
-    border: 3px solid rgba(255, 0, 255, 0.5);
-    box-shadow: inset 0 0 50px rgba(255, 0, 255, 0.2);
-    background: var(--tgm-sys-color-white, #fff);
+    // Quitar flex para que el contenido se posicione absolutamente
+    display: block;
+
+    // La página real se renderiza a tamaño completo y se escala
+    .app-page-content {
+      position: absolute;
+      // La página se renderiza a tamaño real del viewport
+      width: 100vw;
+      height: 100vh;
+      min-height: unset;
+      overflow: hidden;
+      // Centramos: posicionamos en 50%/50% y escalamos desde el centro
+      top: 50%;
+      left: 50%;
+      transform-origin: center center;
+      transform: translate(-50%, -50%) scale(0.3);
+      pointer-events: none;
+    }
   }
 }
 
-// ---- 5 CARAS DE PATRICK ----
-.cube-face {
+// ---- 6 CARAS DEL CUBO (estilos compartidos, solo activos en --active) ----
+.app-page-wrapper--active .cube-face {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -86,6 +96,10 @@ $half-cube: calc(#{$cube-size} / 2);
     animation: easterImgShake 0.3s ease-in-out infinite alternate;
   }
 
+  &--front {
+    transform: rotateY(0deg) translateZ($half-cube);
+    background: var(--tgm-sys-color-white, #fff);
+  }
   &--back {
     transform: rotateY(180deg) translateZ($half-cube);
   }

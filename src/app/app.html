@@ -1,10 +1,12 @@
 <!-- Contenedor principal: la página vive aquí siempre -->
 <div class="app-page-wrapper" [class.app-page-wrapper--active]="easterEggService.isActive()">
-    <!-- Cuando el Easter Egg está activo, este wrapper se convierte en la cara frontal del cubo -->
-    <div class="app-page-content">
-        <header-component></header-component>
-        <router-outlet />
-        <c-cart></c-cart>
+    <!-- Cara frontal del cubo = la página real en miniatura -->
+    <div class="cube-face cube-face--front">
+        <div class="app-page-content">
+            <header-component></header-component>
+            <router-outlet />
+            <c-cart></c-cart>
+        </div>
     </div>
 
     <!-- 5 caras de Patrick (solo cuando Easter Egg activo) -->

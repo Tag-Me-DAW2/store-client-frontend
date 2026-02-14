@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 
 /**
@@ -9,6 +9,9 @@ import { Subject, BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class EasterEggService {
+  // Signal reactivo para el estado activo del Easter Egg (usado por app.ts)
+  readonly isActive = signal(false);
+
   // Subject para emitir cuando se hace click en el logo del header
   private logoClickSubject = new Subject<void>();
   logoClick$ = this.logoClickSubject.asObservable();
@@ -26,7 +29,11 @@ export class EasterEggService {
   }
 
   // Actualizar las condiciones actuales desde products-page
-  updateCurrentConditions(minPrice: number, maxPrice: number, searchQuery: string): void {
+  updateCurrentConditions(
+    minPrice: number,
+    maxPrice: number,
+    searchQuery: string,
+  ): void {
     this.currentConditionsSubject.next({ minPrice, maxPrice, searchQuery });
   }
 
@@ -42,7 +49,7 @@ export class EasterEggService {
     return this.checkSecretConditions(
       conditions.minPrice,
       conditions.maxPrice,
-      conditions.searchQuery
+      conditions.searchQuery,
     );
   }
 
@@ -56,7 +63,7 @@ export class EasterEggService {
   checkSecretConditions(
     minPrice: number,
     maxPrice: number,
-    searchQuery: string
+    searchQuery: string,
   ): boolean {
     const isMinPriceCorrect = minPrice === 6;
     const isMaxPriceCorrect = maxPrice === 7;
@@ -64,5 +71,58 @@ export class EasterEggService {
       searchQuery.toLowerCase().trim() === 'jeffrey epstein';
 
     return isMinPriceCorrect && isMaxPriceCorrect && isSearchQueryCorrect;
+  }
+
+  // Audio del Easter Egg
+  private audio: HTMLAudioElement | null = null;
+
+  // Activar el Easter Egg
+  activate(): void {
+    this.isActive.set(true);
+    document.body.classList.add('easter-egg-active');
+    this.playAudio();
+  }
+
+  // Desactivar el Easter Egg
+  deactivate(): void {
+    this.isActive.set(false);
+    document.body.classList.remove('easter-egg-active');
+    this.stopAudio();
+  }
+
+  // Toggle
+  toggle(): void {
+    if (this.isActive()) {
+      this.deactivate();
+    } else {
+      this.activate();
+    }
+  }
+
+  /** Inicializa y reproduce el audio */
+  private playAudio(): void {
+    try {
+      if (!this.audio) {
+        this.audio = new Audio('/assets/easter-egg.mp3');
+        this.audio.loop = true;
+        this.audio.volume = 0.9;
+      }
+      this.audio.currentTime = 0;
+      this.audio.play().catch(() => {
+        /* permisos */
+      });
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
+  /** Para el audio */
+  private stopAudio(): void {
+    try {
+      this.audio?.pause();
+      if (this.audio) this.audio.currentTime = 0;
+    } catch (e) {
+      /* ignore */
+    }
   }
 }

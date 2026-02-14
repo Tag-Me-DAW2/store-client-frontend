@@ -44,10 +44,7 @@ export class ProductsPage implements OnInit, OnDestroy {
   cartService = inject(CartService);
   easterEggService = inject(EasterEggService);
 
-  // Estado del Easter Egg (efecto flip)
-  isFlipped: boolean = false;
-  // Audio para el Easter Egg
-  private easterAudio: HTMLAudioElement | null = null;
+  // (Audio gestionado por EasterEggService)
   ProductSortLabels = ProductSortLabels;
   Math = Math;
   sortOptionsArray: ProductSort[] = [
@@ -87,7 +84,6 @@ export class ProductsPage implements OnInit, OnDestroy {
     this.cartService.loadCart();
     this.setupEasterEggListener();
     this.updateEasterEggConditions();
-    this.initEasterAudio();
 
     // Debounce para búsqueda - espera 400ms después de que el usuario deje de escribir
     const searchSub = this.searchSubject
@@ -112,18 +108,10 @@ export class ProductsPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
     this.easterEggService.clearConditions();
-    if (this.easterAudio) {
-      try {
-        this.easterAudio.pause();
-        this.easterAudio.src = '';
-      } catch (e) {
-        // ignore
-      }
-      this.easterAudio = null;
-    }
+    this.easterEggService.deactivate();
   }
 
-    onMinPriceInput(value: number) {
+  onMinPriceInput(value: number) {
     if (value < 0) value = 0;
     if (value > 300) value = 300;
     if (value > this.priceRange.max) value = this.priceRange.max;
@@ -163,7 +151,7 @@ export class ProductsPage implements OnInit, OnDestroy {
     const conditionsMet = this.easterEggService.checkSecretConditions(
       this.priceRange.min,
       this.priceRange.max,
-      this.searchQuery
+      this.searchQuery,
     );
 
     if (conditionsMet) {
@@ -175,24 +163,8 @@ export class ProductsPage implements OnInit, OnDestroy {
    * Activa/desactiva el Easter Egg overlay
    */
   triggerFlipAnimation(): void {
-    this.isFlipped = !this.isFlipped;
-    // Reproducir/pausar audio según el estado (esto se dispara tras un gesto del usuario)
-    if (this.isFlipped) {
-      try {
-        if (!this.easterAudio) this.initEasterAudio();
-        this.easterAudio?.currentTime && (this.easterAudio.currentTime = 0);
-        this.easterAudio?.play();
-      } catch (e) {
-        // reproducción puede fallar por permisos; ignoramos
-      }
-    } else {
-      try {
-        this.easterAudio?.pause();
-        if (this.easterAudio) this.easterAudio.currentTime = 0;
-      } catch (e) {
-        // ignore
-      }
-    }
+    // Toggle via servicio (gestiona body class, signal, y audio)
+    this.easterEggService.toggle();
   }
 
   /**
@@ -203,21 +175,8 @@ export class ProductsPage implements OnInit, OnDestroy {
     this.easterEggService.updateCurrentConditions(
       this.priceRange.min,
       this.priceRange.max,
-      this.searchQuery
+      this.searchQuery,
     );
-  }
-
-  /** Inicializa el objeto Audio para el Easter Egg */
-  private initEasterAudio(): void {
-    try {
-      // Añade tu fichero de audio en /public/assets/easter-egg.mp3
-      this.easterAudio = new Audio('/assets/easter-egg.mp3');
-      this.easterAudio.preload = 'auto';
-      // Ajustes opcionales: volumen por defecto
-      this.easterAudio.volume = 0.9;
-    } catch (e) {
-      this.easterAudio = null;
-    }
   }
 
   // =============================================

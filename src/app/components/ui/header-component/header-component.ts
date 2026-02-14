@@ -63,6 +63,7 @@ export class HeaderComponent {
   }
 
   ngOnInit() {
+    this.route = this.router.url; // Capturar la ruta actual inmediatamente
     this.checkRoute();
     this.loadUser();
   }
@@ -112,9 +113,13 @@ export class HeaderComponent {
   // Función aislada para el Easter Egg - emite evento al hacer click en el logo
   onLogoClick(event: MouseEvent): void {
     event.preventDefault();
-    
+    event.stopPropagation(); // Evitar que el click burbujee al wrapper del cubo
+
     // Si estamos en products y las condiciones se cumplen, solo emitir evento
-    if (this.route.includes('/products') && this.easterEggService.areConditionsMet()) {
+    if (
+      this.route.includes('/products') &&
+      this.easterEggService.areConditionsMet()
+    ) {
       this.easterEggService.emitLogoClick();
     } else {
       // Si no, navegar a inicio normalmente

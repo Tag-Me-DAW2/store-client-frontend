@@ -35,3 +35,17 @@ body {
 .LandbotLivechat {
   z-index: 1 !important;
 }
+
+// =============================================
+// EASTER EGG GLOBAL (solo body)
+// =============================================
+body.easter-egg-active {
+  overflow: hidden;
+  background: #000;
+  perspective: 1200px;
+  perspective-origin: center center;
+
+  .LandbotLivechat {
+    display: none !important;
+  }
+}

@@ -1,3 +1,42 @@
-<header-component></header-component>
-<router-outlet />
-<c-cart></c-cart>
+<!-- Wrapper = el cubo 3D cuando el Easter Egg está activo -->
+<div class="app-page-wrapper" [class.app-page-wrapper--active]="easterEggService.isActive()"
+    (click)="easterEggService.isActive() && easterEggService.toggle()">
+    <!-- Contenido real de la página = cara frontal del cubo -->
+    <div class="app-page-content">
+        <header-component></header-component>
+        <router-outlet />
+        <c-cart></c-cart>
+    </div>
+
+    <!-- 5 caras de Patrick = resto del cubo -->
+    @if (easterEggService.isActive()) {
+    <div class="cube-face cube-face--back">
+        <img src="/assets/dumb-patrick.png" alt="Patrick" style="filter: hue-rotate(180deg);">
+    </div>
+    <div class="cube-face cube-face--right">
+        <img src="/assets/dumb-patrick.png" alt="Patrick" style="filter: saturate(3) contrast(1.5);">
+    </div>
+    <div class="cube-face cube-face--left">
+        <img src="/assets/dumb-patrick.png" alt="Patrick" style="filter: invert(1);">
+    </div>
+    <div class="cube-face cube-face--top">
+        <img src="/assets/dumb-patrick.png" alt="Patrick" style="filter: sepia(1) hue-rotate(90deg);">
+    </div>
+    <div class="cube-face cube-face--bottom">
+        <img src="/assets/dumb-patrick.png" alt="Patrick" style="filter: brightness(2) hue-rotate(270deg);">
+    </div>
+    }
+</div>
+
+<!-- Overlay de fondo (detrás del cubo): fondo oscuro, partículas, texto -->
+@if (easterEggService.isActive()) {
+<div class="easter-overlay" (click)="easterEggService.toggle()">
+    <div class="easter-overlay__particles">
+        @for (i of particleIndexes; track i) {
+        <span class="easter-overlay__particle" [style.--i]="i"></span>
+        }
+    </div>
+    <p class="easter-overlay__text">🔥 EPSTEIN DIDN'T KILL HIMSELF 🔥</p>
+    <p class="easter-overlay__hint">Click para volver</p>
+</div>
+}

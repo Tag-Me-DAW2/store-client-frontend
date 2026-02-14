@@ -1,7 +1,7 @@
 <div class="products-page">
     <!-- Mobile Filters Overlay -->
     <div class="products-page__mobile-overlay" [class.open]="isMobileFiltersOpen" (click)="closeMobileFilters()"></div>
-    
+
     <!-- Mobile Filters Sidebar -->
     <div class="products-page__mobile-sidebar" [class.open]="isMobileFiltersOpen">
         <div class="products-page__mobile-sidebar-header">
@@ -32,8 +32,7 @@
                     </button>
                     @for (category of categoriesOptionsArray; track category.id) {
                     <button class="products-page__sidebar-section-grid-item"
-                        [class.selected]="isCategorySelected(category.id)"
-                        (click)="selectCategory(category.id)">
+                        [class.selected]="isCategorySelected(category.id)" (click)="selectCategory(category.id)">
                         <span [title]="category.name">{{ category.name }}</span>
                     </button>
                     }
@@ -43,8 +42,8 @@
             <div>
                 <label class="products-page__sidebar-section-title">Material</label>
                 <div class="products-page__sidebar-section-grid">
-                    <button class="products-page__sidebar-section-grid-item"
-                        [class.selected]="isMaterialSelected(null)" (click)="selectMaterial(null)">
+                    <button class="products-page__sidebar-section-grid-item" [class.selected]="isMaterialSelected(null)"
+                        (click)="selectMaterial(null)">
                         Todos
                     </button>
                     @for (material of materialOptionsArray; track material) {
@@ -59,23 +58,20 @@
                 <label class="products-page__sidebar-section-title">Rango de Precio:
                 </label>
                 <div class="products-page__price-range-inputs">
-                    <input type="number" min="0" max="300" [(ngModel)]="priceRange.min" (ngModelChange)="onMinPriceInput($event)" class="products-page__price-range-input" />
+                    <input type="number" min="0" max="300" [(ngModel)]="priceRange.min"
+                        (ngModelChange)="onMinPriceInput($event)" class="products-page__price-range-input" />
                     <span> - </span>
-                    <input type="number" min="0" max="300" [(ngModel)]="priceRange.max" (ngModelChange)="onMaxPriceInput($event)" class="products-page__price-range-input" />
+                    <input type="number" min="0" max="300" [(ngModel)]="priceRange.max"
+                        (ngModelChange)="onMaxPriceInput($event)" class="products-page__price-range-input" />
                 </div>
                 <span class="products-page__price-range-container">
                     <div class="products-page__price-range-track"></div>
-                    <div class="products-page__price-range-selected"
-                        [style.left.%]="(priceRange.min / 300) * 100"
+                    <div class="products-page__price-range-selected" [style.left.%]="(priceRange.min / 300) * 100"
                         [style.width.%]="((priceRange.max - priceRange.min) / 300) * 100"></div>
-                    <input type="range"
-                        class="products-page__price-range-slider products-page__price-range-slider--min"
-                        [min]="0" [max]="300" [(ngModel)]="priceRange.min"
-                        (change)="onMinPriceChange($event)">
-                    <input type="range"
-                        class="products-page__price-range-slider products-page__price-range-slider--max"
-                        [min]="0" [max]="300" [(ngModel)]="priceRange.max"
-                        (change)="onMaxPriceChange($event)">
+                    <input type="range" class="products-page__price-range-slider products-page__price-range-slider--min"
+                        [min]="0" [max]="300" [(ngModel)]="priceRange.min" (change)="onMinPriceChange($event)">
+                    <input type="range" class="products-page__price-range-slider products-page__price-range-slider--max"
+                        [min]="0" [max]="300" [(ngModel)]="priceRange.max" (change)="onMaxPriceChange($event)">
                 </span>
                 <div class="products-page__sidebar-price-options-label">
                     <span>0€</span>
@@ -84,9 +80,9 @@
             </div>
             @if (hasActiveFilters) {
             <button class="products-page__sidebar-clear-filters-button" (click)="clearFilters()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" class="lucide lucide-x h-4 w-4 mr-2" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-x h-4 w-4 mr-2" aria-hidden="true">
                     <path d="M18 6 6 18"></path>
                     <path d="m6 6 12 12"></path>
                 </svg>
@@ -213,9 +209,13 @@
                             <label class="products-page__sidebar-section-title">Rango de Precio:
                             </label>
                             <div class="products-page__price-range-inputs">
-                                <input type="number" min="0" max="300" [(ngModel)]="priceRange.min" (ngModelChange)="onMinPriceInput($event)" class="products-page__price-range-input" />
+                                <input type="number" min="0" max="300" [(ngModel)]="priceRange.min"
+                                    (ngModelChange)="onMinPriceInput($event)"
+                                    class="products-page__price-range-input" />
                                 <span> - </span>
-                                <input type="number" min="0" max="300" [(ngModel)]="priceRange.max" (ngModelChange)="onMaxPriceInput($event)" class="products-page__price-range-input" />
+                                <input type="number" min="0" max="300" [(ngModel)]="priceRange.max"
+                                    (ngModelChange)="onMaxPriceInput($event)"
+                                    class="products-page__price-range-input" />
                             </div>
                             <span class="products-page__price-range-container">
                                 <div class="products-page__price-range-track"></div>
@@ -327,33 +327,3 @@
     </div>
     <button class="products-page__footer"></button>
 </div>
-
-<!-- Easter Egg Overlay -->
-@if (isFlipped) {
-<div class="products-page__easter-egg-overlay" (click)="triggerFlipAnimation()">
-    <div class="products-page__easter-egg-scene">
-        <div class="products-page__easter-egg-cube">
-            <div class="products-page__easter-egg-face products-page__easter-egg-face--front">
-                <img src="/assets/dumb-patrick.png" alt="Easter Egg">
-            </div>
-            <div class="products-page__easter-egg-face products-page__easter-egg-face--back">
-                <img src="/assets/dumb-patrick.png" alt="Easter Egg" style="filter: hue-rotate(180deg);">
-            </div>
-            <div class="products-page__easter-egg-face products-page__easter-egg-face--right">
-                <img src="/assets/dumb-patrick.png" alt="Easter Egg" style="filter: saturate(3) contrast(1.5);">
-            </div>
-            <div class="products-page__easter-egg-face products-page__easter-egg-face--left">
-                <img src="/assets/dumb-patrick.png" alt="Easter Egg" style="filter: invert(1);">
-            </div>
-            <div class="products-page__easter-egg-face products-page__easter-egg-face--top">
-                <img src="/assets/dumb-patrick.png" alt="Easter Egg" style="filter: sepia(1) hue-rotate(90deg);">
-            </div>
-            <div class="products-page__easter-egg-face products-page__easter-egg-face--bottom">
-                <img src="/assets/dumb-patrick.png" alt="Easter Egg" style="filter: brightness(2) hue-rotate(270deg);">
-            </div>
-        </div>
-    </div>
-    <p class="products-page__easter-egg-hint">Click para volver</p>
-    <p class="products-page__easter-egg-text">🔥 EPSTEIN DIDN'T KILL HIMSELF 🔥</p>
-</div>
-}

@@ -908,8 +908,10 @@
 }
 
 // =============================================
-// EASTER EGG - Overlay secreto
+// EASTER EGG - Overlay secreto (CUBO 3D MEME)
 // =============================================
+
+$cube-size: min(60vw, 60vh);
 
 .products-page__easter-egg-overlay {
   position: fixed;
@@ -918,34 +920,83 @@
   right: 0;
   bottom: 0;
   z-index: 9999;
-  background-color: #000;
+  background: radial-gradient(ellipse at center, #1a0033 0%, #000 70%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   overflow: hidden;
-  perspective: 2000px;
-  /* El fondo negro aparece instantáneo */
-  animation: none;
   opacity: 1;
+  animation: memeBgFlash 2s ease-in-out infinite;
 }
 
-.products-page__easter-egg-image {
-  width: 100vw;
-  height: 100vh;
-  object-fit: contain;
-  animation: memeFlip3D 6s ease-in-out infinite, memeFadeIn 5s ease-out forwards;
-  transform-style: preserve-3d;
-  opacity: 0;
+// Escena 3D con perspectiva
+.products-page__easter-egg-scene {
+  width: $cube-size;
+  height: $cube-size;
+  perspective: 800px;
+  perspective-origin: 50% 50%;
+  animation: memeSceneEntry 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
-@keyframes memeFadeIn {
-  0% {
-    opacity: 0;
+
+// El cubo que gira
+.products-page__easter-egg-cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: memeCubeSpin 4s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+}
+
+// Cada cara del cubo
+.products-page__easter-egg-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid rgba(255, 0, 255, 0.4);
+  box-shadow: inset 0 0 40px rgba(255, 0, 255, 0.15);
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.7);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    animation: memeImgShake 0.3s ease-in-out infinite alternate;
   }
-  100% {
-    opacity: 1;
-  }
+
+  &--front  { transform: translateZ(calc(#{$cube-size} / 2)); }
+  &--back   { transform: rotateY(180deg) translateZ(calc(#{$cube-size} / 2)); }
+  &--right  { transform: rotateY(90deg)  translateZ(calc(#{$cube-size} / 2)); }
+  &--left   { transform: rotateY(-90deg) translateZ(calc(#{$cube-size} / 2)); }
+  &--top    { transform: rotateX(90deg)  translateZ(calc(#{$cube-size} / 2)); }
+  &--bottom { transform: rotateX(-90deg) translateZ(calc(#{$cube-size} / 2)); }
+}
+
+// Texto meme
+.products-page__easter-egg-text {
+  position: absolute;
+  top: 6%;
+  color: #fff;
+  font-size: clamp(1rem, 3vw, 2.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-shadow:
+    0 0 10px #ff00ff,
+    0 0 20px #ff00ff,
+    0 0 40px #ff00ff,
+    3px 3px 0 #000;
+  animation: memeTextGlow 0.8s ease-in-out infinite alternate,
+             memeTextBounce 1.2s ease-in-out infinite;
+  opacity: 0;
+  animation-delay: 0.8s;
+  animation-fill-mode: forwards, none;
 }
 
 .products-page__easter-egg-hint {
@@ -955,37 +1006,113 @@
   font-size: 1rem;
   opacity: 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  animation: hintFadeIn 3s ease-out 5s forwards;
+  animation: hintFadeIn 1s ease-out 2s forwards;
 }
 
-@keyframes overlayFadeIn {
+// ---- ANIMACIONES ----
+
+// Rotación caótica del cubo estilo meme
+@keyframes memeCubeSpin {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+  }
+  10% {
+    transform: rotateX(45deg) rotateY(90deg) rotateZ(10deg) scale(1.1);
+  }
+  20% {
+    transform: rotateX(90deg) rotateY(180deg) rotateZ(-5deg) scale(0.9);
+  }
+  30% {
+    transform: rotateX(180deg) rotateY(270deg) rotateZ(15deg) scale(1.15);
+  }
+  40% {
+    transform: rotateX(270deg) rotateY(360deg) rotateZ(-10deg) scale(0.85);
+  }
+  50% {
+    transform: rotateX(360deg) rotateY(180deg) rotateZ(20deg) scale(1.2);
+  }
+  60% {
+    transform: rotateX(200deg) rotateY(90deg) rotateZ(-15deg) scale(0.9);
+  }
+  70% {
+    transform: rotateX(300deg) rotateY(45deg) rotateZ(25deg) scale(1.1);
+  }
+  80% {
+    transform: rotateX(150deg) rotateY(315deg) rotateZ(-20deg) scale(1.05);
+  }
+  90% {
+    transform: rotateX(45deg) rotateY(270deg) rotateZ(5deg) scale(0.95);
+  }
+  100% {
+    transform: rotateX(0deg) rotateY(360deg) rotateZ(0deg) scale(1);
+  }
+}
+
+// Pequeño temblor en las imágenes
+@keyframes memeImgShake {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  25%  { transform: translate(-2px, 1px) rotate(-1deg); }
+  50%  { transform: translate(2px, -1px) rotate(1deg); }
+  75%  { transform: translate(-1px, 2px) rotate(-0.5deg); }
+  100% { transform: translate(1px, -2px) rotate(0.5deg); }
+}
+
+// Entrada de la escena
+@keyframes memeSceneEntry {
   0% {
     opacity: 0;
+    transform: scale(0) rotate(180deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.2) rotate(-10deg);
   }
   100% {
     opacity: 1;
+    transform: scale(1) rotate(0deg);
   }
 }
 
-@keyframes memeFlip3D {
-  0% {
-    transform: rotateY(0deg);
-  }
-  50% {
-    transform: rotateY(180deg);
-  }
-  100% {
-    transform: rotateY(360deg);
-  }
+// Parpadeo del fondo
+@keyframes memeBgFlash {
+  0%, 100% { background: radial-gradient(ellipse at center, #1a0033 0%, #000 70%); }
+  25%      { background: radial-gradient(ellipse at center, #0d001a 0%, #000 70%); }
+  50%      { background: radial-gradient(ellipse at center, #1a0044 0%, #0a000a 70%); }
+  75%      { background: radial-gradient(ellipse at center, #220033 0%, #000 70%); }
 }
 
-@keyframes hintFadeIn {
+// Brillo del texto
+@keyframes memeTextGlow {
   0% {
     opacity: 0;
+    text-shadow:
+      0 0 10px #ff00ff,
+      0 0 20px #ff00ff,
+      3px 3px 0 #000;
   }
   100% {
-    opacity: 0.8;
+    opacity: 1;
+    text-shadow:
+      0 0 20px #ff00ff,
+      0 0 40px #ff00ff,
+      0 0 80px #ff00ff,
+      0 0 120px #ff00ff,
+      3px 3px 0 #000;
   }
+}
+
+// Rebote del texto
+@keyframes memeTextBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  25%      { transform: translateY(-8px) scale(1.05); }
+  50%      { transform: translateY(0) scale(0.97); }
+  75%      { transform: translateY(-4px) scale(1.02); }
+}
+
+// Hint fade in
+@keyframes hintFadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 0.8; }
 }
 
 // =============================================

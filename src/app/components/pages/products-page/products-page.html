@@ -331,7 +331,29 @@
 <!-- Easter Egg Overlay -->
 @if (isFlipped) {
 <div class="products-page__easter-egg-overlay" (click)="triggerFlipAnimation()">
-    <img src="/assets/dumb-patrick.png" alt="Easter Egg" class="products-page__easter-egg-image">
+    <div class="products-page__easter-egg-scene">
+        <div class="products-page__easter-egg-cube">
+            <div class="products-page__easter-egg-face products-page__easter-egg-face--front">
+                <img src="/assets/dumb-patrick.png" alt="Easter Egg">
+            </div>
+            <div class="products-page__easter-egg-face products-page__easter-egg-face--back">
+                <img src="/assets/dumb-patrick.png" alt="Easter Egg" style="filter: hue-rotate(180deg);">
+            </div>
+            <div class="products-page__easter-egg-face products-page__easter-egg-face--right">
+                <img src="/assets/dumb-patrick.png" alt="Easter Egg" style="filter: saturate(3) contrast(1.5);">
+            </div>
+            <div class="products-page__easter-egg-face products-page__easter-egg-face--left">
+                <img src="/assets/dumb-patrick.png" alt="Easter Egg" style="filter: invert(1);">
+            </div>
+            <div class="products-page__easter-egg-face products-page__easter-egg-face--top">
+                <img src="/assets/dumb-patrick.png" alt="Easter Egg" style="filter: sepia(1) hue-rotate(90deg);">
+            </div>
+            <div class="products-page__easter-egg-face products-page__easter-egg-face--bottom">
+                <img src="/assets/dumb-patrick.png" alt="Easter Egg" style="filter: brightness(2) hue-rotate(270deg);">
+            </div>
+        </div>
+    </div>
     <p class="products-page__easter-egg-hint">Click para volver</p>
+    <p class="products-page__easter-egg-text">🔥 EPSTEIN DIDN'T KILL HIMSELF 🔥</p>
 </div>
 }

@@ -1,54 +1,45 @@
 // =============================================
-// EASTER EGG - CUBO 3D (la página ES una cara)
+// EASTER EGG - CUBO 3D CON PATRICK
 // =============================================
-// El wrapper se convierte en el cubo 3D.
-// .app-page-content = cara frontal (la página real)
-// .cube-face--* = 5 caras con Patrick
-// .easter-overlay = fondo oscuro + partículas + texto (detrás del cubo)
+// Arquitectura:
+//   .app-page-wrapper        → página normal (siempre visible, se oculta con el overlay)
+//   .easter-zoom-wrapper     → capa fixed, hace el zoom-out (scale)
+//   .easter-cube             → el cubo 3D que rota (preserve-3d + rotateXYZ)
+//   .cube-face--*            → 6 caras del cubo con Patrick
+//   .easter-overlay          → fondo oscuro + partículas + texto (detrás del cubo)
 
-$half-cube: 50vh; // mitad del tamaño del cubo (el cubo es 100vh de "profundidad")
+$cube-size: 35vmin; // tamaño de cada cara del cubo
 
-// ---- WRAPPER / CUBO ----
-
-// Estado normal: nada especial
-.app-page-content {
+// ---- PÁGINA NORMAL ----
+.app-page-wrapper {
   width: 100%;
   min-height: 100vh;
 }
 
-// Estado activo: el wrapper SE CONVIERTE en el cubo 3D
-.app-page-wrapper--active {
+// ---- ZOOM WRAPPER (capa que contiene el cubo) ----
+.easter-zoom-wrapper {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
-  transform-style: preserve-3d;
-  transform-origin: center center;
   z-index: 100000;
-  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-
-  // Fase 1 (0-1.8s): zoom-out (la página se aleja)
-  // Fase 2 (1.8s+): giro de cubo caótico
-  animation:
-    easterZoomOut 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards,
-    easterCubeRotate 6s 2s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
-
-  // Contenido de la página = cara frontal
-  .app-page-content {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    transform: translateZ($half-cube);
-    backface-visibility: visible;
-    border: 3px solid rgba(255, 0, 255, 0.4);
-    box-shadow: inset 0 0 60px rgba(255, 0, 255, 0.15);
-    background: var(--tgm-sys-color-white, #fff);
-  }
+  // Animación de aparición (el cubo "entra" escalando)
+  animation: easterZoomIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-// ---- 5 CARAS DE PATRICK ----
+// ---- EL CUBO 3D ----
+.easter-cube {
+  width: $cube-size;
+  height: $cube-size;
+  position: relative;
+  transform-style: preserve-3d;
+  // Rotación caótica infinita
+  animation: easterCubeRotate 6s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+}
+
+// ---- LAS 6 CARAS ----
 .cube-face {
   position: absolute;
   width: 100%;
@@ -57,44 +48,46 @@ $half-cube: 50vh; // mitad del tamaño del cubo (el cubo es 100vh de "profundida
   align-items: center;
   justify-content: center;
   backface-visibility: visible;
-  border: 3px solid rgba(255, 0, 255, 0.35);
-  box-shadow: inset 0 0 50px rgba(255, 0, 255, 0.12);
+  border: 3px solid rgba(255, 0, 255, 0.5);
+  box-shadow:
+    inset 0 0 40px rgba(255, 0, 255, 0.2),
+    0 0 20px rgba(255, 0, 255, 0.1);
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.85);
-  // Aparecen con delay (después del zoom-out)
-  opacity: 0;
-  animation: cubeFaceAppear 0.4s 1.4s ease-out forwards;
+  background: rgba(0, 0, 0, 0.9);
 
-  img {
-    width: 80%;
-    height: 80%;
+  .cube-face__img {
+    width: 85%;
+    height: 85%;
     object-fit: contain;
-    animation: easterImgShake 0.2s ease-in-out infinite alternate;
+    animation: easterImgShake 0.3s ease-in-out infinite alternate;
   }
 
+  // Posición de cada cara del cubo
+  &--front {
+    transform: rotateY(0deg) translateZ(calc(#{$cube-size} / 2));
+  }
   &--back {
-    transform: rotateY(180deg) translateZ($half-cube);
+    transform: rotateY(180deg) translateZ(calc(#{$cube-size} / 2));
   }
   &--right {
-    transform: rotateY(90deg) translateZ($half-cube);
+    transform: rotateY(90deg) translateZ(calc(#{$cube-size} / 2));
   }
   &--left {
-    transform: rotateY(-90deg) translateZ($half-cube);
+    transform: rotateY(-90deg) translateZ(calc(#{$cube-size} / 2));
   }
   &--top {
-    transform: rotateX(90deg) translateZ($half-cube);
+    transform: rotateX(90deg) translateZ(calc(#{$cube-size} / 2));
   }
   &--bottom {
-    transform: rotateX(-90deg) translateZ($half-cube);
+    transform: rotateX(-90deg) translateZ(calc(#{$cube-size} / 2));
   }
 }
 
 // ---- OVERLAY DE FONDO ----
-// Detrás del cubo: fondo oscuro, partículas, texto neón
 .easter-overlay {
   position: fixed;
   inset: 0;
-  z-index: 99998; // por debajo del cubo (100000)
+  z-index: 99998; // por debajo del cubo
   background: radial-gradient(ellipse at center, #1a0033 0%, #000 70%);
   display: flex;
   flex-direction: column;
@@ -103,8 +96,8 @@ $half-cube: 50vh; // mitad del tamaño del cubo (el cubo es 100vh de "profundida
   cursor: pointer;
   overflow: hidden;
   animation:
-    easterOverlayAppear 0.6s 1s ease-out both,
-    easterBgPulse 3s 1.6s ease-in-out infinite;
+    easterOverlayAppear 0.6s ease-out both,
+    easterBgPulse 3s 1s ease-in-out infinite;
 }
 
 // Texto meme neón
@@ -324,69 +317,59 @@ $half-cube: 50vh; // mitad del tamaño del cubo (el cubo es 100vh de "profundida
 // ANIMACIONES
 // ==========================
 
-// Fase 1: la página se aleja (zoom-out)
-@keyframes easterZoomOut {
+// Zoom-in del cubo al aparecer (rebote elástico)
+@keyframes easterZoomIn {
   0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.95);
+  }
+  100% {
     transform: scale(1);
     opacity: 1;
   }
-  50% {
-    transform: scale(0.5);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(0.35);
-    opacity: 1;
-  }
 }
 
-// Fase 2: rotación caótica del cubo
+// Rotación caótica del cubo (solo rotaciones, sin scale)
 @keyframes easterCubeRotate {
   0% {
-    transform: scale(0.35) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
   }
-  8% {
-    transform: scale(0.33) rotateX(35deg) rotateY(80deg) rotateZ(8deg);
+  10% {
+    transform: rotateX(40deg) rotateY(90deg) rotateZ(10deg);
   }
-  16% {
-    transform: scale(0.37) rotateX(90deg) rotateY(160deg) rotateZ(-6deg);
+  20% {
+    transform: rotateX(100deg) rotateY(180deg) rotateZ(-8deg);
   }
-  24% {
-    transform: scale(0.32) rotateX(170deg) rotateY(240deg) rotateZ(14deg);
-  }
-  32% {
-    transform: scale(0.38) rotateX(250deg) rotateY(320deg) rotateZ(-10deg);
+  30% {
+    transform: rotateX(180deg) rotateY(260deg) rotateZ(15deg);
   }
   40% {
-    transform: scale(0.35) rotateX(310deg) rotateY(400deg) rotateZ(18deg);
+    transform: rotateX(260deg) rotateY(340deg) rotateZ(-12deg);
   }
   50% {
-    transform: scale(0.33) rotateX(360deg) rotateY(200deg) rotateZ(-14deg);
+    transform: rotateX(320deg) rotateY(180deg) rotateZ(20deg);
   }
   60% {
-    transform: scale(0.37) rotateX(240deg) rotateY(120deg) rotateZ(20deg);
+    transform: rotateX(220deg) rotateY(100deg) rotateZ(-18deg);
   }
   70% {
-    transform: scale(0.32) rotateX(320deg) rotateY(50deg) rotateZ(-16deg);
+    transform: rotateX(300deg) rotateY(40deg) rotateZ(8deg);
   }
   80% {
-    transform: scale(0.38) rotateX(180deg) rotateY(300deg) rotateZ(10deg);
+    transform: rotateX(160deg) rotateY(280deg) rotateZ(-5deg);
   }
   90% {
-    transform: scale(0.34) rotateX(80deg) rotateY(250deg) rotateZ(-4deg);
+    transform: rotateX(60deg) rotateY(320deg) rotateZ(12deg);
   }
   100% {
-    transform: scale(0.35) rotateX(0deg) rotateY(360deg) rotateZ(0deg);
-  }
-}
-
-// Aparición de las caras de Patrick
-@keyframes cubeFaceAppear {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(0deg);
   }
 }
 
@@ -400,22 +383,22 @@ $half-cube: 50vh; // mitad del tamaño del cubo (el cubo es 100vh de "profundida
   }
 }
 
-// Temblor de imágenes
+// Temblor de imágenes de Patrick
 @keyframes easterImgShake {
   0% {
     transform: translate(0, 0) rotate(0);
   }
   25% {
-    transform: translate(-3px, 2px) rotate(-1.5deg);
+    transform: translate(-4px, 3px) rotate(-2deg);
   }
   50% {
-    transform: translate(3px, -1px) rotate(1deg);
+    transform: translate(4px, -2px) rotate(1.5deg);
   }
   75% {
-    transform: translate(-1px, 3px) rotate(-0.5deg);
+    transform: translate(-2px, 4px) rotate(-1deg);
   }
   100% {
-    transform: translate(2px, -2px) rotate(1deg);
+    transform: translate(3px, -3px) rotate(2deg);
   }
 }
 
@@ -448,7 +431,7 @@ $half-cube: 50vh; // mitad del tamaño del cubo (el cubo es 100vh de "profundida
   }
 }
 
-// Brillo del texto
+// Brillo del texto neón
 @keyframes easterTextGlow {
   0% {
     text-shadow:

@@ -52,14 +52,6 @@ export class CCart {
   }
 
   onCheckout(): void {
-    // Aquí se podría abrir un modal de pago o navegar a una página de checkout
-    // Por ahora, procesamos directamente con tarjeta de crédito de prueba
-    //   this.paymentService.processCreditCardPayment(
-    //     '4111111111111111',
-    //     'Test User',
-    //     '12/25',
-    //     '123'
-    //   );
     this.router.navigate(['/payment']);
     this.closeCart();
   }

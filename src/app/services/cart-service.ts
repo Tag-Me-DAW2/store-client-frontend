@@ -3,7 +3,10 @@ import { CartHttp } from './cart-http';
 import { AlertService } from './alert-service';
 import { AuthService } from './auth-service';
 import { ProductService } from './productService';
-import { OrderResponse, OrderStatus } from '../model/response/order/OrderResponse';
+import {
+  OrderResponse,
+  OrderStatus,
+} from '../model/response/order/OrderResponse';
 import { OrderItemResponse } from '../model/response/order/OrderItemResponse';
 import { OrderUpdateRequest } from '../model/request/order/OrderUpdateRequest';
 import { ProductSummaryModel } from '../model/response/product/ProductSummaryModel';
@@ -44,7 +47,7 @@ export class CartService {
 
   readonly cartTotal = computed(() => {
     const cart = this._cart();
-    return cart?.totalPrice ?? 0;
+    return (cart?.totalPrice ?? 0) + (cart?.shippingCost ?? 0);
   });
 
   loadCart(): void {
@@ -115,7 +118,7 @@ export class CartService {
         quantity: quantity,
         basePrice: product.basePrice,
         discountPercentage: product.discountPercentage,
-        total: product.price * quantity,
+        total: product.price * quantity + this.shippingCost(), // Calcular total con shipping cost incluido
       };
       updatedItems = [...(currentCart.orderItems || []), newItem];
     }
@@ -192,9 +195,20 @@ export class CartService {
     // Actualización optimista de items (UX inmediata)
     const currentCart = this._cart();
     if (currentCart) {
+      // Calcular el nuevo subtotal
+      const newSubtotal = items.reduce((total, item) => total + item.total, 0);
+
+      // Calcular el nuevo shipping cost (gratis si subtotal >= 50, sino 5€)
+      const newShippingCost = newSubtotal >= 50 ? 0 : 5;
+
+      // Calcular el nuevo total
+      const newTotalPrice = newSubtotal + newShippingCost;
+
       this._cart.set({
         ...currentCart,
         orderItems: items,
+        shippingCost: newShippingCost,
+        totalPrice: newTotalPrice,
       });
     }
 

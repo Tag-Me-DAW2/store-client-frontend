@@ -45,9 +45,9 @@
     <p class="easter-overlay__hint">Click para volver</p>
 
     <!-- VIDEO RANDOM POPUP -->
-    @if (showVideo()) {
-    <div class="easter-video-popup" [style.left]="videoStyle()['left']" [style.top]="videoStyle()['top']"
-        [style.transform]="videoStyle()['transform']">
+    @for (video of activeVideos(); track video.id) {
+    <div class="easter-video-popup" [style.left]="video.left" [style.top]="video.top"
+        [style.transform]="video.transform">
         <iframe [src]="safeVideoUrl" class="easter-video-popup__iframe" allow="autoplay; encrypted-media"
             allowfullscreen>
         </iframe>

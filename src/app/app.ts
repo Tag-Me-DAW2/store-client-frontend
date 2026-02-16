@@ -15,6 +15,13 @@ import { CartService } from './services/cart-service';
 import { EasterEggService } from './services/easter-egg.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
+type VideoInstance = {
+  id: number;
+  left: string;
+  top: string;
+  transform: string;
+};
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, HeaderComponent, CCart],
@@ -32,10 +39,8 @@ export class App implements OnInit, OnDestroy {
 
   // Índices para las partículas del Easter Egg
   readonly particleIndexes = Array.from({ length: 20 }, (_, i) => i + 1);
-
-  // Video random popup del Easter Egg
-  readonly showVideo = signal(false);
-  readonly videoStyle = signal<Record<string, string>>({});
+  readonly activeVideos = signal<VideoInstance[]>([]);
+  private videoIdCounter = 0;
   readonly safeVideoUrl: SafeResourceUrl;
   private videoInterval: ReturnType<typeof setInterval> | null = null;
   private videoTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -108,27 +113,39 @@ export class App implements OnInit, OnDestroy {
       clearTimeout(this.videoTimeout);
       this.videoTimeout = null;
     }
-    this.showVideo.set(false);
+    this.activeVideos.set([]);
+  }
+
+  private spawnVideo(): void {
+    const amount = 1 + Math.floor(Math.random() * 3); // 1 a 3 videos
+
+    for (let i = 0; i < amount; i++) {
+      this.createSingleVideo();
+    }
   }
 
   /** Muestra el video en posición aleatoria durante 6 segundos */
-  private spawnVideo(): void {
-    // Posición aleatoria (evitar bordes extremos)
-    const x = 5 + Math.random() * 55; // 5% - 60% desde la izquierda
-    const y = 5 + Math.random() * 45; // 5% - 50% desde arriba
-    const rotation = -20 + Math.random() * 40; // -20° a +20°
-    const scale = 0.7 + Math.random() * 0.6; // 0.7 a 1.3
+  private createSingleVideo(): void {
+    const x = 5 + Math.random() * 55;
+    const y = 5 + Math.random() * 45;
+    const rotation = -20 + Math.random() * 40;
+    const scale = 0.7 + Math.random() * 0.6;
 
-    this.videoStyle.set({
+    const id = this.videoIdCounter++;
+
+    const newVideo: VideoInstance = {
+      id,
       left: `${x}%`,
       top: `${y}%`,
       transform: `rotate(${rotation}deg) scale(${scale})`,
-    });
-    this.showVideo.set(true);
+    };
 
-    // Ocultar después de 6 segundos
+    // Añadir nuevo video
+    this.activeVideos.update((videos) => [...videos, newVideo]);
+
+    // Eliminarlo después de 6s
     setTimeout(() => {
-      this.showVideo.set(false);
+      this.activeVideos.update((videos) => videos.filter((v) => v.id !== id));
     }, 6000);
   }
 }

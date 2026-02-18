@@ -1,11 +1,51 @@
+:host {
+  // Background
+  --tech-bg: var(--tgm-sys-color-background);
+  --tech-hero-gradient-from: var(--tgm-sys-color-background-secondary);
+  --tech-hero-gradient-to: var(--tgm-sys-color-background);
+  --tech-section-gray-bg: var(--tgm-sys-color-background-secondary);
+
+  // Text
+  --tech-hero-title-font-weight: var(--tgm-sys-font-weight-500);
+  --tech-hero-subtitle-color: var(--tgm-sys-color-text-secondary);
+  --tech-section-title-font-weight: var(--tgm-sys-font-weight-500);
+  --tech-section-subtitle-color: var(--tgm-sys-color-text-secondary);
+  --tech-text-color: var(--tgm-sys-color-text-secondary);
+
+  // Image container
+  --tech-image-container-gradient-from: var(--tgm-sys-color-secondary);
+  --tech-image-container-gradient-to: var(--tgm-sys-color-primary);
+
+  // Feature card
+  --tech-feature-card-bg: var(--tgm-sys-color-white);
+  --tech-feature-card-border-color: var(--tgm-sys-color-secondary);
+  --tech-feature-icon-bg: var(--tgm-sys-color-secondary);
+  --tech-feature-icon-color: var(--tgm-sys-color-secondary);
+  --tech-feature-title-font-weight: var(--tgm-sys-font-weight-500);
+  --tech-feature-text-color: var(--tgm-sys-color-text-secondary);
+
+  // Step
+  --tech-step-number-bg: var(--tgm-sys-color-primary);
+  --tech-step-number-color: var(--tgm-sys-color-secondary);
+  --tech-step-title-font-weight: var(--tgm-sys-font-weight-500);
+  --tech-step-image-gradient-from: var(--tgm-sys-color-primary);
+  --tech-step-image-gradient-to: var(--tgm-sys-color-secondary);
+
+  // FAQ
+  --tech-faq-item-bg: var(--tgm-sys-color-white);
+  --tech-faq-item-border-color: var(--tgm-sys-color-secondary);
+  --tech-faq-question-font-weight: var(--tgm-sys-font-weight-500);
+  --tech-faq-answer-color: var(--tgm-sys-color-text-secondary);
+}
+
 .tecnologia-page {
   min-height: 100vh;
-  background-color: #f9f8f8;
+  background-color: var(--tech-bg);
 
   &__hero {
     padding-top: calc(0.25rem * 24);
     padding-bottom: calc(0.25rem * 16);
-    background: linear-gradient(to bottom, #e8e7e730, #f9f8f8);
+    background: linear-gradient(to bottom, color-mix(in srgb, var(--tech-hero-gradient-from) 19%, transparent), var(--tech-hero-gradient-to));
   }
 
   &__hero-container {
@@ -27,7 +67,7 @@
     font-size: 3rem;
     margin-bottom: calc(0.25rem * 6);
     letter-spacing: -0.025em;
-    font-weight: 500;
+    font-weight: var(--tech-hero-title-font-weight);
 
     @media (min-width: 640px) {
       font-size: 3.75rem;
@@ -37,7 +77,7 @@
   &__hero-subtitle {
     font-size: 1.25rem;
     line-height: 1.75rem;
-    color: #5a5c6d;
+    color: var(--tech-hero-subtitle-color);
     max-width: 42rem;
     margin-inline: auto;
   }
@@ -46,7 +86,7 @@
     padding-block: calc(0.25rem * 24);
 
     &--gray {
-      background-color: #e8e7e730;
+      background-color: color-mix(in srgb, var(--tech-section-gray-bg) 19%, transparent);
     }
   }
 
@@ -77,7 +117,7 @@
     font-size: 2.25rem;
     margin-bottom: calc(0.25rem * 6);
     letter-spacing: -0.025em;
-    font-weight: 500;
+    font-weight: var(--tech-section-title-font-weight);
 
     @media (min-width: 640px) {
       font-size: 3rem;
@@ -91,7 +131,7 @@
   &__section-subtitle {
     font-size: 1.25rem;
     line-height: 1.75rem;
-    color: #5a5c6d;
+    color: var(--tech-section-subtitle-color);
     max-width: 42rem;
     margin-inline: auto;
   }
@@ -109,7 +149,7 @@
   &__text {
     font-size: 1.125rem;
     line-height: 1.75rem;
-    color: #5a5c6d;
+    color: var(--tech-text-color);
     margin-bottom: calc(0.25rem * 6);
 
     &--mb {
@@ -126,7 +166,7 @@
     height: 500px;
     border-radius: calc(0.625rem * 3);
     overflow: hidden;
-    background: linear-gradient(to bottom right, #27283810, #f3de8a10);
+    background: linear-gradient(to bottom right, color-mix(in srgb, var(--tech-image-container-gradient-from) 6%, transparent), color-mix(in srgb, var(--tech-image-container-gradient-to) 6%, transparent));
   }
 
   &__image {
@@ -149,10 +189,10 @@
   }
 
   &__feature-card {
-    background-color: #fff;
+    background-color: var(--tech-feature-card-bg);
     padding: calc(0.25rem * 8);
     border-radius: 1rem;
-    border: 1px solid #2728381a;
+    border: 1px solid color-mix(in srgb, var(--tech-feature-card-border-color) 10%, transparent);
   }
 
   &__feature-icon {
@@ -162,9 +202,9 @@
     width: calc(0.25rem * 14);
     height: calc(0.25rem * 14);
     border-radius: 3.40282e38px;
-    background-color: #27283810;
+    background-color: color-mix(in srgb, var(--tech-feature-icon-bg) 6%, transparent);
     margin-bottom: calc(0.25rem * 6);
-    color: #272838;
+    color: var(--tech-feature-icon-color);
 
     svg {
       width: calc(0.25rem * 7);
@@ -176,11 +216,11 @@
     font-size: 1.5rem;
     line-height: 2rem;
     margin-bottom: calc(0.25rem * 4);
-    font-weight: 500;
+    font-weight: var(--tech-feature-title-font-weight);
   }
 
   &__feature-text {
-    color: #5a5c6d;
+    color: var(--tech-feature-text-color);
     line-height: 1.625;
   }
 
@@ -219,8 +259,8 @@
     width: calc(0.25rem * 16);
     height: calc(0.25rem * 16);
     border-radius: 3.40282e38px;
-    background-color: #f3de8a;
-    color: #272838;
+    background-color: var(--tech-step-number-bg);
+    color: var(--tech-step-number-color);
     margin-bottom: calc(0.25rem * 6);
     font-size: 1.5rem;
     line-height: 2rem;
@@ -230,7 +270,7 @@
     font-size: 1.875rem;
     line-height: 2.25rem;
     margin-bottom: calc(0.25rem * 6);
-    font-weight: 500;
+    font-weight: var(--tech-step-title-font-weight);
   }
 
   &__step-image {
@@ -238,7 +278,7 @@
     height: 400px;
     border-radius: calc(0.625rem * 3);
     overflow: hidden;
-    background: linear-gradient(to bottom right, #f3de8a10, #27283810);
+    background: linear-gradient(to bottom right, color-mix(in srgb, var(--tech-step-image-gradient-from) 6%, transparent), color-mix(in srgb, var(--tech-step-image-gradient-to) 6%, transparent));
   }
 
   &__faq {
@@ -248,21 +288,21 @@
   }
 
   &__faq-item {
-    background-color: #fff;
+    background-color: var(--tech-faq-item-bg);
     padding: calc(0.25rem * 8);
     border-radius: 1rem;
-    border: 1px solid #2728381a;
+    border: 1px solid color-mix(in srgb, var(--tech-faq-item-border-color) 10%, transparent);
   }
 
   &__faq-question {
     font-size: 1.25rem;
     line-height: 1.75rem;
     margin-bottom: calc(0.25rem * 3);
-    font-weight: 500;
+    font-weight: var(--tech-faq-question-font-weight);
   }
 
   &__faq-answer {
-    color: #5a5c6d;
+    color: var(--tech-faq-answer-color);
     line-height: 1.625;
   }
 }

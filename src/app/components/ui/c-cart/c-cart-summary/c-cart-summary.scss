@@ -1,109 +1,171 @@
+:host {
+  // Cart Summary Variables
+  --cart-summary-padding: var(--tgm-sys-padding-24);
+  --cart-summary-bg: var(--tgm-sys-color-background);
+  --cart-summary-border-color: var(--tgm-sys-color-border);
+  --cart-summary-border-width: var(--tgm-sys-width-1);
+
+  // Row Variables
+  --cart-summary-row-margin-bottom: var(--tgm-sys-margin-12);
+  --cart-summary-row-total-margin-bottom: var(--tgm-sys-margin-16);
+
+  // Label Variables
+  --cart-summary-label-font-size: var(--tgm-sys-font-size-14);
+  --cart-summary-label-color: var(--tgm-sys-color-text-secondary);
+  --cart-summary-label-total-font-size: var(--tgm-sys-font-size-16);
+  --cart-summary-label-total-font-weight: var(--tgm-sys-font-weight-600);
+  --cart-summary-label-total-color: var(--tgm-sys-color-text-primary);
+
+  // Value Variables
+  --cart-summary-value-font-size: var(--tgm-sys-font-size-14);
+  --cart-summary-value-font-weight: var(--tgm-sys-font-weight-500);
+  --cart-summary-value-color: var(--tgm-sys-color-text-primary);
+  --cart-summary-value-free-color: var(--tgm-sys-color-success);
+  --cart-summary-value-total-font-size: var(--tgm-sys-font-size-18);
+  --cart-summary-value-total-font-weight: var(--tgm-sys-font-weight-700);
+
+  // Shipping Note Variables
+  --cart-summary-shipping-gap: var(--tgm-sys-gap-8);
+  --cart-summary-shipping-font-size: var(--tgm-sys-font-size-12);
+  --cart-summary-shipping-color: var(--tgm-sys-color-text-secondary);
+  --cart-summary-shipping-bg: var(--tgm-sys-color-white);
+  --cart-summary-shipping-radius: var(--tgm-sys-border-radius-6);
+  --cart-summary-shipping-padding: var(--tgm-sys-padding-8)
+    var(--tgm-sys-padding-12);
+  --cart-summary-shipping-margin-bottom: var(--tgm-sys-margin-12);
+  --cart-summary-shipping-icon-color: var(--tgm-sys-color-primary);
+
+  // Divider Variables
+  --cart-summary-divider-height: var(--tgm-sys-width-1);
+  --cart-summary-divider-bg: var(--tgm-sys-color-border);
+  --cart-summary-divider-margin-bottom: var(--tgm-sys-margin-12);
+
+  // Checkout Button Variables
+  --cart-summary-checkout-btn-width: var(--tgm-sys-percentage-100);
+  --cart-summary-checkout-btn-height: var(--tgm-sys-height-48);
+  --cart-summary-checkout-btn-gap: var(--tgm-sys-gap-8);
+  --cart-summary-checkout-btn-bg: var(--tgm-sys-color-secondary);
+  --cart-summary-checkout-btn-bg-hover: color-mix(
+    in oklab,
+    var(--tgm-sys-color-secondary) 85%,
+    transparent
+  );
+  --cart-summary-checkout-btn-color: var(--tgm-sys-color-background);
+  --cart-summary-checkout-btn-font-size: var(--tgm-sys-font-size-14);
+  --cart-summary-checkout-btn-font-weight: var(--tgm-sys-font-weight-600);
+  --cart-summary-checkout-btn-radius: var(--tgm-sys-border-radius-6);
+  --cart-summary-checkout-btn-transition: all var(--tgm-sys-transition-fast)
+    var(--tgm-sys-ease-in-out);
+  --cart-summary-checkout-btn-opacity-disabled: 0.6;
+}
+
 .cart-summary {
-    padding: calc(.25rem * 6);
-    background-color: #f9f8f8;
-    border-top: 1px solid #2728381a;
+  padding: var(--cart-summary-padding);
+  background-color: var(--cart-summary-bg);
+  border-top: var(--cart-summary-border-width) solid
+    var(--cart-summary-border-color);
 
-    &__row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: calc(.25rem * 3);
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--cart-summary-row-margin-bottom);
 
-        &--total {
-            margin-bottom: calc(.25rem * 4);
-        }
+    &--total {
+      margin-bottom: var(--cart-summary-row-total-margin-bottom);
+    }
+  }
+
+  &__label {
+    font-size: var(--cart-summary-label-font-size);
+    color: var(--cart-summary-label-color);
+
+    &--total {
+      font-size: var(--cart-summary-label-total-font-size);
+      font-weight: var(--cart-summary-label-total-font-weight);
+      color: var(--cart-summary-label-total-color);
+    }
+  }
+
+  &__value {
+    font-size: var(--cart-summary-value-font-size);
+    font-weight: var(--cart-summary-value-font-weight);
+    color: var(--cart-summary-value-color);
+
+    &--free {
+      color: var(--cart-summary-value-free-color);
     }
 
-    &__label {
-        font-size: .875rem;
-        color: #5a5c6d;
+    &--total {
+      font-size: var(--cart-summary-value-total-font-size);
+      font-weight: var(--cart-summary-value-total-font-weight);
+      color: var(--cart-summary-value-color);
+    }
+  }
 
-        &--total {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #272838;
-        }
+  &__shipping-note {
+    display: flex;
+    align-items: center;
+    gap: var(--cart-summary-shipping-gap);
+    font-size: var(--cart-summary-shipping-font-size);
+    color: var(--cart-summary-shipping-color);
+    background-color: var(--cart-summary-shipping-bg);
+    border-radius: var(--cart-summary-shipping-radius);
+    padding: var(--cart-summary-shipping-padding);
+    margin-bottom: var(--cart-summary-shipping-margin-bottom);
+
+    svg {
+      flex-shrink: 0;
+      color: var(--cart-summary-shipping-icon-color);
+    }
+  }
+
+  &__divider {
+    height: var(--cart-summary-divider-height);
+    background-color: var(--cart-summary-divider-bg);
+    margin-bottom: var(--cart-summary-divider-margin-bottom);
+  }
+
+  &__checkout-btn {
+    cursor: pointer;
+    width: var(--cart-summary-checkout-btn-width);
+    height: var(--cart-summary-checkout-btn-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--cart-summary-checkout-btn-gap);
+    background-color: var(--cart-summary-checkout-btn-bg);
+    color: var(--cart-summary-checkout-btn-color);
+    font-size: var(--cart-summary-checkout-btn-font-size);
+    font-weight: var(--cart-summary-checkout-btn-font-weight);
+    border: none;
+    border-radius: var(--cart-summary-checkout-btn-radius);
+    transition: var(--cart-summary-checkout-btn-transition);
+
+    &:hover:not(:disabled) {
+      background-color: var(--cart-summary-checkout-btn-bg-hover);
     }
 
-    &__value {
-        font-size: .875rem;
-        font-weight: 500;
-        color: #272838;
-
-        &--free {
-            color: #22c55e;
-        }
-
-        &--total {
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: #272838;
-        }
+    &:disabled {
+      opacity: var(--cart-summary-checkout-btn-opacity-disabled);
+      cursor: not-allowed;
     }
 
-    &__shipping-note {
-        display: flex;
-        align-items: center;
-        gap: calc(.25rem * 2);
-        font-size: .75rem;
-        color: #5a5c6d;
-        background-color: #fff;
-        border-radius: calc(.625rem - 2px);
-        padding: calc(.25rem * 2) calc(.25rem * 3);
-        margin-bottom: calc(.25rem * 3);
-
-        svg {
-            flex-shrink: 0;
-            color: #f3de8a;
-        }
+    svg {
+      flex-shrink: 0;
     }
+  }
 
-    &__divider {
-        height: 1px;
-        background-color: #2728381a;
-        margin-bottom: calc(.25rem * 3);
-    }
-
-    &__checkout-btn {
-        cursor: pointer;
-        width: 100%;
-        height: calc(.25rem * 12);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: calc(.25rem * 2);
-        background-color: #272838;
-        color: #f9f8f8;
-        font-size: .875rem;
-        font-weight: 600;
-        border: none;
-        border-radius: calc(.625rem - 2px);
-        transition: all .15s cubic-bezier(.4, 0, .2, 1);
-
-        &:hover:not(:disabled) {
-            background-color: color-mix(in oklab, #272838 85%, transparent);
-        }
-
-        &:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        svg {
-            flex-shrink: 0;
-        }
-    }
-
-    &__spinner {
-        animation: spin 1s linear infinite;
-    }
+  &__spinner {
+    animation: spin 1s linear infinite;
+  }
 }
 
 @keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

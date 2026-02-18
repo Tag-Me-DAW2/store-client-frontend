@@ -1,20 +1,134 @@
+:host {
+  // Background
+  --uc-bg-color: var(--tgm-sys-color-background);
+  --uc-bg-color-secondary: var(--tgm-sys-color-background-secondary);
+  --uc-bg-overlay: color-mix(
+    in oklab,
+    var(--tgm-sys-color-background) 80%,
+    transparent
+  );
+
+  // Text
+  --uc-color-secondary: var(--tgm-sys-color-secondary);
+  --uc-color-text-secondary: var(--tgm-sys-color-text-secondary);
+  --uc-color-primary: var(--tgm-sys-color-primary);
+  --uc-color-white: var(--tgm-sys-color-white);
+  --uc-color-danger: #d41a1a;
+
+  // Layout
+  --uc-container-max-width: var(--tgm-sys-rem-48);
+  --uc-padding-bottom: var(--tgm-sys-padding-64);
+  --uc-padding-top: var(--tgm-sys-padding-96);
+  --uc-padding-inline: var(--tgm-sys-padding-16);
+
+  // Header
+  --uc-header-margin-bottom: var(--tgm-sys-margin-32);
+  --uc-title-font-size: var(--tgm-sys-font-size-36);
+  --uc-title-margin-bottom: var(--tgm-sys-margin-12);
+  --uc-title-font-weight: 500;
+  --uc-title-line-height: calc(2.5 / 2.25);
+  --uc-title-letter-spacing: -0.025em;
+  --uc-subtitle-font-size: var(--tgm-sys-font-size-18);
+  --uc-subtitle-line-height: calc(1.75 / 1.125);
+
+  // Form
+  --uc-form-margin-top: var(--tgm-sys-margin-32);
+  --uc-form-gap: var(--tgm-sys-gap-20);
+  --uc-image-upload-gap: var(--tgm-sys-gap-24);
+  --uc-preview-size: var(--tgm-sys-height-96);
+  --uc-preview-border-width: var(--tgm-sys-spacing-2);
+  --uc-preview-border-radius: var(--tgm-sys-border-radius-14);
+  --uc-preview-bg: color-mix(
+    in oklab,
+    var(--tgm-sys-color-secondary) 10%,
+    transparent
+  );
+  --uc-preview-border-color: color-mix(
+    in oklab,
+    var(--tgm-sys-color-secondary) 20%,
+    transparent
+  );
+  --uc-preview-initials-font-size: var(--tgm-sys-font-size-24);
+  --uc-preview-initials-font-weight: 600;
+
+  // Delete button on preview
+  --uc-preview-delete-padding: var(--tgm-sys-padding-2);
+  --uc-preview-delete-border-radius: var(--tgm-sys-border-radius-8);
+  --uc-preview-delete-offset: var(--tgm-sys-spacing-4);
+  --uc-preview-delete-bg: color-mix(
+    in oklab,
+    var(--uc-color-danger) 90%,
+    transparent
+  );
+  --uc-preview-delete-bg-hover: color-mix(
+    in oklab,
+    var(--uc-color-danger) 80%,
+    transparent
+  );
+  --uc-preview-delete-icon-size: var(--tgm-sys-icon-size-16);
+
+  // Upload buttons
+  --uc-upload-buttons-gap: var(--tgm-sys-gap-12);
+  --uc-button-transition: all cubic-bezier(-4, 0, 0.2, 1);
+  --uc-button-transition-duration: 0.25s;
+  --uc-button-padding-inline: var(--tgm-sys-padding-12);
+  --uc-button-font-weight: 500;
+  --uc-button-font-size: var(--tgm-sys-font-size-14);
+  --uc-button-line-height: calc(1.25 / 0.875);
+  --uc-button-padding-block: var(--tgm-sys-padding-8);
+  --uc-button-border-radius: var(--tgm-sys-border-radius-14);
+  --uc-button-height: var(--tgm-sys-height-36);
+  --uc-button-border-color: color-mix(
+    in oklab,
+    var(--tgm-sys-color-secondary) 20%,
+    transparent
+  );
+  --uc-button-icon-size: var(--tgm-sys-icon-size-16);
+  --uc-button-upload-border-width: var(--tgm-sys-width-1);
+  --uc-button-upload-gap: var(--tgm-sys-gap-8);
+
+  // Upload description
+  --uc-upload-description-font-size: var(--tgm-sys-font-size-12);
+  --uc-upload-description-line-height: calc(1 / 0.75);
+  --uc-upload-description-margin-top: var(--tgm-sys-margin-8);
+
+  // Form actions
+  --uc-actions-padding-top: var(--tgm-sys-padding-16);
+  --uc-actions-gap: var(--tgm-sys-gap-12);
+  --uc-actions-button-padding-inline: var(--tgm-sys-padding-24);
+  --uc-save-gap: var(--tgm-sys-gap-8);
+  --uc-save-icon-size: var(--tgm-sys-icon-size-16);
+  --uc-save-icon-margin-right: var(--tgm-sys-margin-8);
+  --uc-save-transition-duration: 0.15s;
+  --uc-save-hover-bg: color-mix(
+    in oklab,
+    var(--tgm-sys-color-secondary) 90%,
+    var(--tgm-sys-color-primary)
+  );
+  --uc-disabled-opacity: 0.5;
+
+  // Focus ring
+  --uc-focus-ring: 0 0 0 3px
+    color-mix(in oklab, var(--tgm-sys-color-primary) 50%, transparent);
+}
+
 .user-conf {
   background-image: linear-gradient(
     to bottom,
-    #f9f8f8 0%,
-    #e8e7e7 50%,
+    var(--uc-bg-color) 0%,
+    var(--uc-bg-color-secondary) 50%,
     transparent 100%
   );
-  background-color: color-mix(in oklab, #f9f8f8cc 80%, transparent);
+  background-color: var(--uc-bg-overlay);
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding-bottom: calc(0.25rem * 16);
-  padding-top: calc(0.25rem * 24);
-  padding-inline: calc(0.25rem * 4);
+  padding-bottom: var(--uc-padding-bottom);
+  padding-top: var(--uc-padding-top);
+  padding-inline: var(--uc-padding-inline);
 
   &__container {
-    max-width: 48rem;
+    max-width: var(--uc-container-max-width);
     margin-inline: auto;
     z-index: 10;
     position: relative;
@@ -24,82 +138,74 @@
   }
 
   &__header {
-    margin-bottom: calc(0.25rem * 8);
+    margin-bottom: var(--uc-header-margin-bottom);
   }
 
   &__title {
-    letter-spacing: -0.025em;
-    font-size: 2.25rem;
-    margin-bottom: calc(0.25 * 3rem);
-    font-weight: 500;
-    line-height: calc(2.5 / 2.25);
+    letter-spacing: var(--uc-title-letter-spacing);
+    font-size: var(--uc-title-font-size);
+    margin-bottom: var(--uc-title-margin-bottom);
+    font-weight: var(--uc-title-font-weight);
+    line-height: var(--uc-title-line-height);
   }
 
   &__subtitle {
-    font-size: 1.125rem;
-    line-height: calc(1.75 / 1.125);
-    color: #5a5c6d;
+    font-size: var(--uc-subtitle-font-size);
+    line-height: var(--uc-subtitle-line-height);
+    color: var(--uc-color-text-secondary);
   }
 
   &__form {
-    margin-top: calc(0.25rem * 8);
+    margin-top: var(--uc-form-margin-top);
 
     &__image__upload {
       display: flex;
       align-items: center;
-      gap: calc(0.25rem * 6);
+      gap: var(--uc-image-upload-gap);
 
       div.preview {
         display: flex;
-        background-color: color-mix(
-          in oklab,
-          var(--tgm-sys-color-secondary) 10%,
-          transparent
-        );
-        border-color: color-mix(
-          in oklab,
-          var(--tgm-sys-color-secondary) 20%,
-          transparent
-        );
-        border-width: 2px;
+        background-color: var(--uc-preview-bg);
+        border-color: var(--uc-preview-border-color);
+        border-width: var(--uc-preview-border-width);
         border-style: solid;
-        border-radius: calc(0.625rem + 4px);
+        border-radius: var(--uc-preview-border-radius);
         justify-content: center;
         align-items: center;
-        width: calc(0.25rem * 24);
-        height: calc(0.25rem * 24);
+        width: var(--uc-preview-size);
+        height: var(--uc-preview-size);
         position: relative;
 
         span {
-          color: var(--tgm-sys-color-secondary);
-          font-weight: 600;
-          font-size: 1.5rem;
+          color: var(--uc-color-secondary);
+          font-weight: var(--uc-preview-initials-font-weight);
+          font-size: var(--uc-preview-initials-font-size);
         }
 
         img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          border-radius: calc(0.625rem + 4px);
+          border-radius: var(--uc-preview-border-radius);
         }
 
         button {
           position: absolute;
-          padding: calc(0.15rem * 1);
-          background-color: color-mix(in oklab, #d41a1a 90%, transparent);
-          border-radius: calc(0.625rem - 2px);
-          right: calc(0.25rem * 1);
-          top: calc(0.25rem * 1);
+          padding: var(--uc-preview-delete-padding);
+          background-color: var(--uc-preview-delete-bg);
+          border-radius: var(--uc-preview-delete-border-radius);
+          right: var(--uc-preview-delete-offset);
+          top: var(--uc-preview-delete-offset);
 
           svg {
-            width: calc(0.25rem * 4);
-            height: calc(0.25rem * 4);
-            fill: #fff;
-            color: #fff;
+            width: var(--uc-preview-delete-icon-size);
+            height: var(--uc-preview-delete-icon-size);
+            fill: var(--uc-color-white);
+            color: var(--uc-color-white);
           }
 
           &:hover {
-            background-color: color-mix(in oklab, #d41a1a 80%, transparent);
+            background-color: var(--uc-preview-delete-bg-hover);
           }
         }
       }
@@ -111,148 +217,134 @@
 
     .upload-buttons {
       display: flex;
-      gap: calc(0.25rem * 3);
+      gap: var(--uc-upload-buttons-gap);
 
       > button {
-        transition: all cubic-bezier(-4, 0, 0.2, 1);
-        transition-duration: 0.25s;
-        padding-inline: calc(0.25rem * 3);
-        color: #272838;
-        font-weight: 500;
-        font-size: 0.875rem;
-        line-height: calc(1.25 / 0.875);
-        padding-block: calc(0.25rem * 2);
-        border-radius: calc(0.625rem + 4px);
+        transition: var(--uc-button-transition);
+        transition-duration: var(--uc-button-transition-duration);
+        padding-inline: var(--uc-button-padding-inline);
+        color: var(--uc-color-secondary);
+        font-weight: var(--uc-button-font-weight);
+        font-size: var(--uc-button-font-size);
+        line-height: var(--uc-button-line-height);
+        padding-block: var(--uc-button-padding-block);
+        border-radius: var(--uc-button-border-radius);
         outline-style: none;
-        height: calc(0.25rem * 9);
-        border-color: color-mix(
-          in oklab,
-          var(--tgm-sys-color-secondary) 20%,
-          transparent
-        );
+        height: var(--uc-button-height);
+        border-color: var(--uc-button-border-color);
 
         &:hover {
-          background-color: #f3de8e;
+          background-color: var(--uc-color-primary);
         }
 
         &:active {
-          border-color: #f3de8e;
-          box-shadow: 0 0 0 3px
-            color-mix(in oklab, var(--tgm-sys-color-primary) 50%, transparent);
+          border-color: var(--uc-color-primary);
+          box-shadow: var(--uc-focus-ring);
         }
       }
 
       .button-upload {
         justify-content: center;
         align-items: center;
-        gap: calc(0.25rem * 2);
+        gap: var(--uc-button-upload-gap);
         flex-shrink: 0;
         display: inline-flex;
-        background-color: #f9f8f8;
-        border-width: 1px;
+        background-color: var(--uc-bg-color);
+        border-width: var(--uc-button-upload-border-width);
         border-style: solid;
 
         svg {
-          width: calc(0.25rem * 4);
-          height: calc(0.25rem * 4);
+          width: var(--uc-button-icon-size);
+          height: var(--uc-button-icon-size);
           vertical-align: middle;
-          color: #272838;
+          color: var(--uc-color-secondary);
         }
       }
 
       .button-delete {
-        color: #d41a1a;
+        color: var(--uc-color-danger);
       }
     }
 
     .upload-description {
-      font-size: 0.75rem;
-      line-height: calc(1 / 0.75);
-      color: #5a5c6d;
-      margin-top: calc(0.25rem * 2);
+      font-size: var(--uc-upload-description-font-size);
+      line-height: var(--uc-upload-description-line-height);
+      color: var(--uc-color-text-secondary);
+      margin-top: var(--uc-upload-description-margin-top);
     }
   }
 
   .section__personal-data {
     display: grid;
-    gap: calc(0.25rem * 5);
+    gap: var(--uc-form-gap);
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .form-actions {
-    padding-top: calc(0.25rem * 4);
-    gap: calc(0.25rem * 3);
+    padding-top: var(--uc-actions-padding-top);
+    gap: var(--uc-actions-gap);
     display: flex;
     justify-content: flex-end;
 
     > button {
-      transition: all cubic-bezier(-4, 0, 0.2, 1);
-      transition-duration: 0.25s;
-      padding-inline: calc(0.25rem * 3);
-      font-weight: 500;
-      font-size: 0.875rem;
-      line-height: calc(1.25 / 0.875);
-      padding-block: calc(0.25rem * 2);
-      padding-inline: calc(0.25rem * 6);
-      border-radius: calc(0.625rem + 4px);
+      transition: var(--uc-button-transition);
+      transition-duration: var(--uc-button-transition-duration);
+      padding-inline: var(--uc-button-padding-inline);
+      font-weight: var(--uc-button-font-weight);
+      font-size: var(--uc-button-font-size);
+      line-height: var(--uc-button-line-height);
+      padding-block: var(--uc-button-padding-block);
+      padding-inline: var(--uc-actions-button-padding-inline);
+      border-radius: var(--uc-button-border-radius);
       outline-style: none;
-      height: calc(0.25rem * 9);
-      border-color: color-mix(
-        in oklab,
-        var(--tgm-sys-color-secondary) 20%,
-        transparent
-      );
+      height: var(--uc-button-height);
+      border-color: var(--uc-button-border-color);
 
       &:hover {
-        background-color: #f3de8e;
+        background-color: var(--uc-color-primary);
       }
 
       &:active {
-        border-color: #f3de8e;
-        box-shadow: 0 0 0 3px
-          color-mix(in oklab, var(--tgm-sys-color-primary) 50%, transparent);
+        border-color: var(--uc-color-primary);
+        box-shadow: var(--uc-focus-ring);
       }
     }
 
     .action-cancel {
-      color: #272838;
-      background-color: #f9f8f8;
-      border: 1px solid
-        color-mix(in oklab, var(--tgm-sys-color-secondary) 20%, transparent);
+      color: var(--uc-color-secondary);
+      background-color: var(--uc-bg-color);
+      border: var(--uc-button-upload-border-width) solid
+        var(--uc-button-border-color);
     }
 
     .action-save {
       position: relative;
-      background-color: #272838;
-      color: #fff;
+      background-color: var(--uc-color-secondary);
+      color: var(--uc-color-white);
       border: none;
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      gap: calc(0.25rem * 2);
+      gap: var(--uc-save-gap);
       transition-property: all;
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 0.15s;
+      transition-duration: var(--uc-save-transition-duration);
 
       > svg {
-        color: #fff;
-        width: calc(0.25rem * 4);
-        height: calc(0.25rem * 4);
-        margin-right: calc(0.25rem * 2);
+        color: var(--uc-color-white);
+        width: var(--uc-save-icon-size);
+        height: var(--uc-save-icon-size);
+        margin-right: var(--uc-save-icon-margin-right);
         top: 50%;
         vertical-align: middle;
       }
 
       &:hover {
-        background-color: color-mix(
-          in oklab,
-          #272838 90%,
-          var(--tgm-sys-color-primary)
-        );
+        background-color: var(--uc-save-hover-bg);
       }
 
       &:disabled {
-        opacity: 0.5;
+        opacity: var(--uc-disabled-opacity);
         pointer-events: none;
       }
     }

@@ -3,109 +3,351 @@
 
 // Color Palette
 $colors: (
-  "tgm-sys-color-white": #FFFFFF,
+  "tgm-sys-color-white": #ffffff,
   "tgm-sys-color-black": #000000,
-  "tgm-sys-color-primary": #F3DE8A,
+  "tgm-sys-color-primary": #f3de8a,
   "tgm-sys-color-primary-light": #f3de8a32,
   "tgm-sys-color-secondary": #272838,
-  "tgm-sys-color-accent": #FF5733,
-  "tgm-sys-color-background": #F9F8F8,
+  "tgm-sys-color-secondary-weak": #3e415a,
+  "tgm-sys-color-secondary-dark": #1c1d26,
+  "tgm-sys-color-accent": #ff5733,
+  "tgm-sys-color-background": #f9f8f8,
+  "tgm-sys-color-background-secondary": #e8e7e7,
+  "tgm-sys-color-text-primary": #272838,
+  "tgm-sys-color-text-secondary": #5a5c6d,
+  "tgm-sys-color-border": #2728381a,
+  "tgm-sys-color-border-strong": #27283880,
   "tgm-sys-color-success": #22c55e,
+  "tgm-sys-color-success-light": #22c55e1a,
+  "tgm-sys-color-success-border": #22c55e33,
   "tgm-sys-color-warning": #fb923c,
-  "tgm-sys-color-danger": #ef4444
+  "tgm-sys-color-warning-light": #fb923c1a,
+  "tgm-sys-color-warning-border": #fb923c33,
+  "tgm-sys-color-danger": #ef4444,
+  "tgm-sys-color-danger-soft": #fee2e2,
 );
 // Font Families
 $font-families: (
   "tgm-sys-font-family-primary": "Poppins, sans-serif",
-  "tgm-sys-font-family-secondary": "Montserrat, sans-serif"
+  "tgm-sys-font-family-secondary": "Montserrat, sans-serif",
 );
 // Font Sizes
 $font-sizes: (
+  "tgm-sys-font-size-10": 10px,
   "tgm-sys-font-size-12": 12px,
   "tgm-sys-font-size-14": 14px,
   "tgm-sys-font-size-16": 16px,
+  "tgm-sys-font-size-18": 18px,
   "tgm-sys-font-size-20": 20px,
-  "tgm-sys-font-size-24": 24px
+  "tgm-sys-font-size-24": 24px,
+  "tgm-sys-font-size-28": 28px,
+  "tgm-sys-font-size-30": 30px,
+  "tgm-sys-font-size-32": 32px,
+  "tgm-sys-font-size-36": 36px,
+  "tgm-sys-font-size-40": 40px,
+  "tgm-sys-font-size-48": 48px,
+  "tgm-sys-font-size-60": 60px,
+  "tgm-sys-font-size-72": 72px,
 );
 // Font Weights
 $font-weights: (
   "tgm-sys-font-weight-300": 300,
   "tgm-sys-font-weight-400": 400,
   "tgm-sys-font-weight-500": 500,
+  "tgm-sys-font-weight-600": 600,
   "tgm-sys-font-weight-700": 700,
   "tgm-sys-font-weight-800": 800,
-  "tgm-sys-font-weight-900": 900
+  "tgm-sys-font-weight-900": 900,
 );
 // Spacing
 $spacing: (
+  "tgm-sys-spacing-2": 2px,
+  "tgm-sys-spacing-4": 4px,
+  "tgm-sys-spacing-6": 6px,
   "tgm-sys-spacing-8": 8px,
+  "tgm-sys-spacing-12": 12px,
   "tgm-sys-spacing-16": 16px,
+  "tgm-sys-spacing-20": 20px,
   "tgm-sys-spacing-24": 24px,
-  "tgm-sys-spacing-32": 32px
+  "tgm-sys-spacing-32": 32px,
+  "tgm-sys-spacing-40": 40px,
+  "tgm-sys-spacing-48": 48px,
+  "tgm-sys-spacing-64": 64px,
+  "tgm-sys-spacing-80": 80px,
+  "tgm-sys-spacing-96": 96px,
+  "tgm-sys-spacing-160": 160px,
+  "tgm-sys-spacing-256": 256px,
 );
 // Border Radius
 $border-radius: (
   "tgm-sys-border-radius-4": 4px,
+  "tgm-sys-border-radius-6": 6px,
   "tgm-sys-border-radius-8": 8px,
+  "tgm-sys-border-radius-10": 10px,
+  "tgm-sys-border-radius-12": 12px,
+  "tgm-sys-border-radius-14": 14px,
   "tgm-sys-border-radius-16": 16px,
+  "tgm-sys-border-radius-24": 24px,
   "tgm-sys-border-radius-32": 32px,
-  "tgm-sys-border-radius-full": 9999px
+  "tgm-sys-border-radius-full": 9999px,
+  "tgm-sys-border-radius-circle": 50%,
 );
 // Fixed Heights
 $fixed-heights: (
+  "tgm-sys-height-20": 20px,
+  "tgm-sys-height-30": 30px,
+  "tgm-sys-height-32": 32px,
+  "tgm-sys-height-36": 36px,
+  "tgm-sys-height-40": 40px,
+  "tgm-sys-height-44": 44px,
+  "tgm-sys-height-48": 48px,
+  "tgm-sys-height-56": 56px,
+  "tgm-sys-height-60": 60px,
+  "tgm-sys-height-64": 64px,
+  "tgm-sys-height-80": 80px,
+  "tgm-sys-height-96": 96px,
   "tgm-sys-height-100": 100px,
-  "tgm-sys-height-80": 80px
+  "tgm-sys-height-150": 150px,
+  "tgm-sys-height-200": 200px,
+  "tgm-sys-height-214": 214px,
+  "tgm-sys-height-250": 250px,
+  "tgm-sys-height-300": 300px,
+  "tgm-sys-height-400": 400px,
+  "tgm-sys-height-500": 500px,
+  "tgm-sys-height-viewport": 100vh,
+  "tgm-sys-height-viewport-90": 90vh,
 );
 // Fixed widths
 $fixed-widths: (
-  "tgm-sys-width-image-100": 100px,
-  "tgm-sys-width-image-200": 200px,
+  "tgm-sys-width-1": 1px,
+  "tgm-sys-width-2": 2px,
+  "tgm-sys-width-3": 3px,
+  "tgm-sys-width-4": 4px,
+  "tgm-sys-width-6": 6px,
+  "tgm-sys-width-10": 10px,
+  "tgm-sys-width-14": 14px,
+  "tgm-sys-width-16": 16px,
+  "tgm-sys-width-24": 24px,
+  "tgm-sys-width-30": 30px,
+  "tgm-sys-width-32": 32px,
+  "tgm-sys-width-36": 36px,
+  "tgm-sys-width-40": 40px,
+  "tgm-sys-width-44": 44px,
+  "tgm-sys-width-48": 48px,
+  "tgm-sys-width-56": 56px,
+  "tgm-sys-width-60": 60px,
+  "tgm-sys-width-64": 64px,
+  "tgm-sys-width-80": 80px,
+  "tgm-sys-width-96": 96px,
+  "tgm-sys-width-100": 100px,
+  "tgm-sys-width-160": 160px,
+  "tgm-sys-width-200": 200px,
   "tgm-sys-width-250": 250px,
-  "tgm-sys-width-image-400": 400px,
-  "tgm-sys-width-800": 800px
+  "tgm-sys-width-256": 256px,
+  "tgm-sys-width-320": 320px,
+  "tgm-sys-width-340": 340px,
+  "tgm-sys-width-400": 400px,
+  "tgm-sys-width-420": 420px,
+  "tgm-sys-width-448": 448px,
+  "tgm-sys-width-500": 500px,
+  "tgm-sys-width-672": 672px,
+  "tgm-sys-width-768": 768px,
+  "tgm-sys-width-800": 800px,
+  "tgm-sys-width-896": 896px,
+  "tgm-sys-width-1152": 1152px,
+  "tgm-sys-width-1280": 1280px,
 );
 // Percentages
 $percentages: (
+  "tgm-sys-percentage-5": 5%,
+  "tgm-sys-percentage-10": 10%,
+  "tgm-sys-percentage-20": 20%,
   "tgm-sys-percentage-25": 25%,
+  "tgm-sys-percentage-30": 30%,
   "tgm-sys-percentage-50": 50%,
+  "tgm-sys-percentage-60": 60%,
+  "tgm-sys-percentage-70": 70%,
   "tgm-sys-percentage-75": 75%,
-  "tgm-sys-percentage-100": 100%
+  "tgm-sys-percentage-80": 80%,
+  "tgm-sys-percentage-90": 90%,
+  "tgm-sys-percentage-100": 100%,
 );
 // Gaps
 $gaps: (
+  "tgm-sys-gap-2": 2px,
+  "tgm-sys-gap-3": 3px,
   "tgm-sys-gap-4": 4px,
+  "tgm-sys-gap-6": 6px,
+  "tgm-sys-gap-8": 8px,
   "tgm-sys-gap-10": 10px,
+  "tgm-sys-gap-12": 12px,
+  "tgm-sys-gap-16": 16px,
   "tgm-sys-gap-20": 20px,
+  "tgm-sys-gap-24": 24px,
   "tgm-sys-gap-30": 30px,
+  "tgm-sys-gap-32": 32px,
   "tgm-sys-gap-40": 40px,
-  "tgm-sys-gap-50": 50px
+  "tgm-sys-gap-48": 48px,
+  "tgm-sys-gap-50": 50px,
+  "tgm-sys-gap-64": 64px,
+  "tgm-sys-gap-80": 80px,
+  "tgm-sys-gap-96": 96px,
 );
 // paddings
 $paddings: (
+  "tgm-sys-padding-2": 2px,
+  "tgm-sys-padding-3": 3px,
   "tgm-sys-padding-4": 4px,
+  "tgm-sys-padding-5": 5px,
+  "tgm-sys-padding-6": 6px,
   "tgm-sys-padding-8": 8px,
   "tgm-sys-padding-10": 10px,
   "tgm-sys-padding-12": 12px,
+  "tgm-sys-padding-14": 14px,
+  "tgm-sys-padding-16": 16px,
   "tgm-sys-padding-20": 20px,
+  "tgm-sys-padding-24": 24px,
   "tgm-sys-padding-30": 30px,
+  "tgm-sys-padding-32": 32px,
+  "tgm-sys-padding-36": 36px,
   "tgm-sys-padding-40": 40px,
-  "tgm-sys-padding-50": 50px
+  "tgm-sys-padding-48": 48px,
+  "tgm-sys-padding-50": 50px,
+  "tgm-sys-padding-64": 64px,
+  "tgm-sys-padding-80": 80px,
+  "tgm-sys-padding-96": 96px,
+  "tgm-sys-padding-100": 100px,
 );
 // Margins
 $margins: (
+  "tgm-sys-margin-2": 2px,
+  "tgm-sys-margin-4": 4px,
+  "tgm-sys-margin-6": 6px,
+  "tgm-sys-margin-8": 8px,
   "tgm-sys-margin-10": 10px,
+  "tgm-sys-margin-12": 12px,
+  "tgm-sys-margin-16": 16px,
   "tgm-sys-margin-20": 20px,
+  "tgm-sys-margin-24": 24px,
   "tgm-sys-margin-30": 30px,
-  "tgm-sys-margin-40": 40px
+  "tgm-sys-margin-32": 32px,
+  "tgm-sys-margin-40": 40px,
+  "tgm-sys-margin-48": 48px,
+  "tgm-sys-margin-64": 64px,
+  "tgm-sys-margin-80": 80px,
+  "tgm-sys-margin-96": 96px,
+  "tgm-sys-margin-128": 128px,
 );
 // Icon Sizes
 $icon-sizes: (
   "tgm-sys-icon-size-14": 14px,
   "tgm-sys-icon-size-16": 16px,
-  "tgm-sys-icon-size-18": 18px
+  "tgm-sys-icon-size-18": 18px,
+  "tgm-sys-icon-size-20": 20px,
+  "tgm-sys-icon-size-24": 24px,
+  "tgm-sys-icon-size-28": 28px,
+  "tgm-sys-icon-size-32": 32px,
+  "tgm-sys-icon-size-48": 48px,
 );
 
 $opacities: (
   "tgm-sys-opacity-light": 0.1,
-  "tgm-sys-opacity-medium": 0.2
+  "tgm-sys-opacity-medium": 0.2,
+  "tgm-sys-opacity-semitransparent": 0.3,
+  "tgm-sys-opacity-medium-high": 0.4,
+  "tgm-sys-opacity-half": 0.5,
+  "tgm-sys-opacity-strong": 0.6,
+  "tgm-sys-opacity-very-strong": 0.8,
+);
+
+// Transitions
+$transitions: (
+  "tgm-sys-transition-fast": 0.15s,
+  "tgm-sys-transition-medium": 0.2s,
+  "tgm-sys-transition-normal": 0.3s,
+  "tgm-sys-transition-slow": 0.5s,
+  "tgm-sys-transition-very-slow": 1s,
+);
+
+// Timing functions
+$timing-functions: (
+  "tgm-sys-ease": ease,
+  "tgm-sys-ease-in-out": cubic-bezier(0.4, 0, 0.2, 1),
+  "tgm-sys-ease-out": ease-out,
+  "tgm-sys-ease-in": ease-in,
+  "tgm-sys-linear": linear,
+);
+
+// Shadows
+$shadows: (
+  "tgm-sys-shadow-sm": (
+    0 1px 2px 0 rgba(0, 0, 0, 0.05),
+  ),
+  "tgm-sys-shadow-md": (
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+  ),
+  "tgm-sys-shadow-lg": (
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05),
+  ),
+  "tgm-sys-shadow-xl": (
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04),
+  ),
+  "tgm-sys-shadow-2xl": (
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+  ),
+  "tgm-sys-shadow-sidebar": (
+    -4px 0 24px rgba(0, 0, 0, 0.15),
+  ),
+  "tgm-sys-shadow-xs": (
+    0 1px 3px rgba(0, 0, 0, 0.05),
+  ),
+  "tgm-sys-shadow-card": (
+    0 4px 6px rgba(0, 0, 0, 0.1),
+  ),
+  "tgm-sys-shadow-card-hover": (
+    0 4px 12px rgba(0, 0, 0, 0.08),
+  ),
+  "tgm-sys-shadow-focus-blue": (
+    0 0 0 3px rgba(59, 130, 246, 0.1),
+  ),
+  "tgm-sys-shadow-lg-alt": (
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1),
+  ),
+);
+
+// Blur values
+$blur-values: (
+  "tgm-sys-blur-sm": 4px,
+  "tgm-sys-blur-md": 8px,
+  "tgm-sys-blur-lg": 16px,
+  "tgm-sys-blur-xl": 24px,
+  "tgm-sys-blur-2xl": 40px,
+);
+
+// Z-index layers
+$z-index: (
+  "tgm-sys-z-base": 1,
+  "tgm-sys-z-dropdown": 10,
+  "tgm-sys-z-search": 40,
+  "tgm-sys-z-sticky": 50,
+  "tgm-sys-z-overlay": 100,
+  "tgm-sys-z-modal": 101,
+  "tgm-sys-z-popover": 200,
+  "tgm-sys-z-tooltip": 300,
+);
+// Rem Sizes
+$rem-sizes: (
+  "tgm-sys-rem-0-375": 0.375rem,
+  "tgm-sys-rem-1": 1rem,
+  "tgm-sys-rem-2": 2rem,
+  "tgm-sys-rem-28": 28rem,
+  "tgm-sys-rem-42": 42rem,
+  "tgm-sys-rem-48": 48rem,
+  "tgm-sys-rem-56": 56rem,
+  "tgm-sys-rem-72": 72rem,
+  "tgm-sys-rem-80": 80rem,
 );

@@ -1,134 +1,195 @@
+:host {
+  // Component Variables - Gaps
+  --c-badge-gap-small: var(--tgm-sys-gap-4);
+  --c-badge-gap-medium: var(--tgm-sys-gap-8);
+  --c-badge-gap-large: var(--tgm-sys-gap-10);
+
+  // Component Variables - Border & Radius
+  --c-badge-border-radius: var(--tgm-sys-border-radius-full);
+  --c-badge-border-width: var(--tgm-sys-width-1);
+
+  // Component Variables - Spacing
+  --c-badge-margin-bottom: var(--tgm-sys-spacing-32);
+
+  // Component Variables - Transitions
+  --c-badge-transition: var(--tgm-sys-transition-fast) ease;
+
+  // Component Variables - Padding (Small)
+  --c-badge-padding-small-y: var(--tgm-sys-padding-8);
+  --c-badge-padding-small-x: var(--tgm-sys-padding-20);
+
+  // Component Variables - Padding (Medium)
+  --c-badge-padding-medium-y: var(--tgm-sys-padding-12);
+  --c-badge-padding-medium-x: var(--tgm-sys-padding-24);
+
+  // Component Variables - Padding (Large)
+  --c-badge-padding-large-y: var(--tgm-sys-padding-16);
+  --c-badge-padding-large-x: var(--tgm-sys-padding-32);
+
+  // Component Variables - Font Sizes
+  --c-badge-font-size-small: var(--tgm-sys-font-size-14);
+  --c-badge-font-size-medium: var(--tgm-sys-font-size-16);
+  --c-badge-font-size-large: var(--tgm-sys-font-size-18);
+
+  // Component Variables - Icon Sizes
+  --c-badge-icon-size-small: var(--tgm-sys-icon-size-16);
+  --c-badge-icon-size-medium: var(--tgm-sys-icon-size-20);
+  --c-badge-icon-size-large: var(--tgm-sys-icon-size-24);
+
+  // Component Variables - Typography
+  --c-badge-font-family: var(--tgm-sys-font-family-primary);
+  --c-badge-font-weight: var(--tgm-sys-font-weight-500);
+  --c-badge-line-height: 1.5;
+
+  // Component Variables - Colors
+  --c-badge-color-primary: var(--tgm-sys-color-primary);
+  --c-badge-color-text: var(--tgm-sys-color-text-primary);
+  --c-badge-color-success-bg: color-mix(
+    in oklab,
+    var(--tgm-sys-color-success) 10%,
+    transparent
+  );
+  --c-badge-color-success-border: color-mix(
+    in oklab,
+    var(--tgm-sys-color-success) 20%,
+    transparent
+  );
+  --c-badge-color-warning-bg: color-mix(
+    in oklab,
+    var(--tgm-sys-color-warning) 10%,
+    transparent
+  );
+  --c-badge-color-warning-border: color-mix(
+    in oklab,
+    var(--tgm-sys-color-warning) 20%,
+    transparent
+  );
+  --c-badge-color-danger: var(--tgm-sys-color-danger);
+
+  // Component Variables - Effects
+  --c-badge-shadow-hover: var(--tgm-sys-shadow-card);
+  --c-badge-transform-hover: translateY(-1px);
+  --c-badge-opacity-light: var(--tgm-sys-opacity-light);
+}
+
 .c-badge {
-    --c-badge-gap-10: var(--tgm-sys-gap-10);
-    --c-badge-gap-4: var(--tgm-sys-gap-4);
-    --c-badge-border-radius: var(--tgm-sys-border-radius-full);
-    --c-badge-margin-bottom: var(--tgm-sys-spacing-32);
-    --c-badge-transition: 150ms ease;
-    --c-badge-padding-small: 8px 20px;
-    --c-badge-padding-medium: 12px 24px;
-    --c-badge-padding-large: 16px 32px;
-    --c-badge-font-size-small: 14px;
-    --c-badge-font-size-medium: 16px;
-    --c-badge-font-size-large: 18px;
-    --c-badge-icon-size-small: 20px;
-    --c-badge-icon-size-medium: 24px;
-    --c-badge-icon-size-large: 28px;
-    --c-badge-font-weight: var(--tgm-sys-font-weight-500);
-    --c-badge-line-height: 1.2;
-    --c-badge-opacity-light: var(--tgm-sys-opacity-light);
-    --c-badge-opacity-medium: var(--tgm-sys-opacity-medium);
-    --c-badge-font-family: var(--tgm-sys-font-family-primary);
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--c-badge-gap-medium);
+  border-radius: var(--c-badge-border-radius);
+  transition: all var(--c-badge-transition);
+  font-family: var(--c-badge-font-family);
 
-    width: fit-content;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--c-badge-gap-10);
-    border-radius: var(--c-badge-border-radius);
-    transition: all var(--c-badge-transition);
-    font-family: var(--c-badge-font-family);
-
-    // Tamaños
-    &--small {
-        padding: calc(.25rem * 2) calc(.25rem * 4);
-        font-size: var(--c-badge-font-size-small);
-        gap: var(--c-badge-gap-4);
-
-        mat-icon {
-            font-size: var(--c-badge-icon-size-small);
-            width: var(--c-badge-icon-size-small);
-            height: var(--c-badge-icon-size-small);
-        }
-    }
-
-    &--medium {
-        padding: var(--c-badge-padding-medium);
-        font-size: var(--c-badge-font-size-medium);
-        gap: var(--tgm-sys-spacing-8);
-
-        mat-icon {
-            font-size: var(--c-badge-icon-size-medium);
-            width: var(--c-badge-icon-size-medium);
-            height: var(--c-badge-icon-size-medium);
-        }
-    }
-
-    &--large {
-        padding: var(--c-badge-padding-large);
-        font-size: var(--c-badge-font-size-large);
-        gap: var(--c-badge-gap-10);
-
-        mat-icon {
-            font-size: var(--c-badge-icon-size-large);
-            width: var(--c-badge-icon-size-large);
-            height: var(--c-badge-icon-size-large);
-        }
-    }
-
-    // Variantes de color
-    &--primary {
-        display: inline-flex;
-        align-items: center;
-        background-color: color-mix(in oklab, #f3de8a 10%, transparent);
-        border: 1px solid color-mix(in oklab, #f3de8a 20%, transparent);;
-        border-radius: 3.40282e38px;
-        gap: calc(.25rem * 2);
-        margin-bottom: calc(.25rem * 8);
-
-        mat-icon,
-        .c-badge__text {
-            color: var(--c-badge-color);
-        }
-    }
-
-    &--success {
-        --c-badge-color: var(--tgm-sys-color-black);
-        background-color: #22c55e1A;
-        border: 1px solid #22c55e33;
-
-        mat-icon,
-        .c-badge__text {
-            color: var(--c-badge-color);
-        }
-    }
-
-    &--warning {
-        --c-badge-color: var(--tgm-sys-color-black);
-        background-color: #fb923c1A;
-        border: 1px solid #fb923c33;
-
-        mat-icon,
-        .c-badge__text {
-            color: var(--c-badge-color);
-        }
-    }
-
-    &--danger {
-        --c-badge-color: var(--tgm-sys-color-black);
-        background-color: #ef44441A;
-        border: 1px solid #ef444433;
-
-        mat-icon,
-        .c-badge__text {
-            color: var(--c-badge-color);
-        }
-    }
+  &--small {
+    padding: var(--c-badge-padding-small-y) var(--c-badge-padding-small-x);
+    font-size: var(--c-badge-font-size-small);
+    gap: var(--c-badge-gap-small);
 
     mat-icon {
-        transition: transform var(--c-badge-transition);
-        font-variation-settings:
-            'FILL' 0,
-            'wght' 300,
-            'GRAD' 0,
-            'opsz' 24;
+      font-size: var(--c-badge-icon-size-small);
+      width: var(--c-badge-icon-size-small);
+      height: var(--c-badge-icon-size-small);
     }
+  }
 
-    &__text {
-        font-weight: var(--c-badge-font-weight);
-        line-height: var(--c-badge-line-height);
-    }
+  &--medium {
+    padding: var(--c-badge-padding-medium-y) var(--c-badge-padding-medium-x);
+    font-size: var(--c-badge-font-size-medium);
+    gap: var(--c-badge-gap-medium);
 
-    &--hoverable:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, var(--c-badge-opacity-light));
+    mat-icon {
+      font-size: var(--c-badge-icon-size-medium);
+      width: var(--c-badge-icon-size-medium);
+      height: var(--c-badge-icon-size-medium);
     }
+  }
+
+  &--large {
+    padding: var(--c-badge-padding-large-y) var(--c-badge-padding-large-x);
+    font-size: var(--c-badge-font-size-large);
+    gap: var(--c-badge-gap-large);
+
+    mat-icon {
+      font-size: var(--c-badge-icon-size-large);
+      width: var(--c-badge-icon-size-large);
+      height: var(--c-badge-icon-size-large);
+    }
+  }
+
+  &--primary {
+    display: inline-flex;
+    align-items: center;
+    background-color: color-mix(
+      in oklab,
+      var(--c-badge-color-primary) 10%,
+      transparent
+    );
+    border: var(--c-badge-border-width) solid
+      color-mix(in oklab, var(--c-badge-color-primary) 20%, transparent);
+    border-radius: var(--c-badge-border-radius);
+    gap: var(--c-badge-gap-medium);
+    margin-bottom: var(--c-badge-margin-bottom);
+
+    mat-icon,
+    .c-badge__text {
+      color: var(--c-badge-color-text);
+    }
+  }
+
+  &--success {
+    background-color: var(--c-badge-color-success-bg);
+    border: var(--c-badge-border-width) solid
+      var(--c-badge-color-success-border);
+
+    mat-icon,
+    .c-badge__text {
+      color: var(--c-badge-color-text);
+    }
+  }
+
+  &--warning {
+    background-color: var(--c-badge-color-warning-bg);
+    border: var(--c-badge-border-width) solid
+      var(--c-badge-color-warning-border);
+
+    mat-icon,
+    .c-badge__text {
+      color: var(--c-badge-color-text);
+    }
+  }
+
+  &--danger {
+    background-color: color-mix(
+      in oklab,
+      var(--c-badge-color-danger) 10%,
+      transparent
+    );
+    border: var(--c-badge-border-width) solid
+      color-mix(in oklab, var(--c-badge-color-danger) 20%, transparent);
+
+    mat-icon,
+    .c-badge__text {
+      color: var(--c-badge-color-text);
+    }
+  }
+
+  mat-icon {
+    transition: transform var(--c-badge-transition);
+    font-variation-settings:
+      "FILL" 0,
+      "wght" 300,
+      "GRAD" 0,
+      "opsz" 24;
+  }
+
+  &__text {
+    font-weight: var(--c-badge-font-weight);
+    line-height: var(--c-badge-line-height);
+  }
+
+  &--hoverable:hover {
+    transform: var(--c-badge-transform-hover);
+    box-shadow: var(--c-badge-shadow-hover);
+  }
 }
